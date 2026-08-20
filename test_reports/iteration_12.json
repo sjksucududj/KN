@@ -1,0 +1,62 @@
+{
+  "summary": "Frontend-only verification of Sub-fase 1.13 polish (UI validation + catch-weight transparency) on Admin > Master Data > Product form. All 6 test scenarios passed; no products/orders were created during testing.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": {
+    "test_1_empty_kgm_hint": {
+      "status": "PASS",
+      "selector": "admin-product-kgm-info",
+      "exact_text": "Isi Gramasi (gsm) & Lebar (meter) untuk mengaktifkan penjualan per \"kg\" (catch-weight)."
+    },
+    "test_2_computed_kgm_200x1.5": {
+      "status": "PASS",
+      "selector": "admin-product-kgm-info",
+      "exact_text": "Catch-weight aktif: 1 meter ≈ 0.300 kg (kg/m = gramasi × lebar ÷ 1000) · unit \"kg\" tersedia di penjualan",
+      "note": "0.300 kg = 200 × 1.5 / 1000 ✓"
+    },
+    "test_2b_revert_to_zero": {
+      "status": "PASS",
+      "note": "Setting gramasi=0 & lebar=0 returns the hint text correctly."
+    },
+    "test_3_validation_empty_dari_blocks_save": {
+      "status": "PASS",
+      "selector": "admin-product-error",
+      "exact_text": "Konversi #1: unit \"Dari\" dan \"Ke\" wajib diisi.",
+      "save_blocked": true,
+      "products_before": 7,
+      "products_after": 7
+    },
+    "test_4_validation_factor_zero_blocks_save": {
+      "status": "PASS",
+      "selector": "admin-product-error",
+      "exact_text": "Konversi #1: faktor harus lebih besar dari 0."
+    },
+    "test_5_validation_from_equals_to_blocks_save": {
+      "status": "PASS",
+      "selector": "admin-product-error",
+      "exact_text": "Konversi #1: unit \"Dari\" dan \"Ke\" tidak boleh sama."
+    },
+    "test_6_cleanup_no_save": {
+      "status": "PASS",
+      "note": "Conversion row removed via admin-product-conv-remove-0. No products were created (final count still 7)."
+    }
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "validateConversions (AdminView.jsx L55-66) cleanly enforces: required from/to units, factor>0, from!=to. Messages are localized in Indonesian per requirement.",
+    "kgPerMeter computed correctly using gramasi×lebar/1000; UI gracefully toggles between hint (gray) and active (green) states via conditional rendering at L201-210.",
+    "Minor (non-blocking) UX nit: numeric inputs (gramasi, lebar, price, harga_pokok) use type=text (default) in the map at L199 — they rely on Number() coercion onChange. Works but could use type=number for better mobile UX. Not in scope of 1.13."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100% (6/6 scenarios)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (prefilled, login-submit-button)",
+  "seed_data_creation": "None. No products, customers, or orders were created during this test.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Sub-fase 1.13 admin product form polish is fully verified: kg/m transparency info and uom_conversions inline validation work as specified. The 'Tampilkan Form Create' (data-testid: toggle-admin-create-form-button) must be clicked first to reveal the product form — the form is hidden by default on Admin > Product tab. Pre-existing unrelated build warning re: @zxing/browser in WMS scanner files exists but does NOT affect Admin/POS — ignored as instructed."
+}

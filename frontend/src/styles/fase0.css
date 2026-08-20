@@ -1,0 +1,208 @@
+/**
+ * fase0.css — Multi-Entity (Entity Switcher) + Notification Center styles.
+ * Mengikuti token desain iOS-inspired (tokens.css). Background SELALU solid
+ * (hindari transparan + teks gelap pada tema apa pun).
+ */
+
+/* ── Entity Switcher ──────────────────────────────────────────────────────── */
+.topbar-entity { display: flex; align-items: center; flex-shrink: 0; }
+/* EntityBadge (F0-B+) — pill berwarna per entitas legal */
+.entity-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  border-radius: 999px; font-weight: 700; line-height: 1;
+  white-space: nowrap; vertical-align: middle;
+}
+.entity-badge-sm { padding: 2px 7px; font-size: 9.5px; letter-spacing: 0.2px; }
+.entity-badge-md { padding: 3px 9px; font-size: 11px; }
+.entity-badge-dot { width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0; }
+.entity-badge-group { background: #EEF0F3; color: #4B5563; }
+.entity-badge-group svg { opacity: 0.8; }
+
+.entity-switcher { position: relative; }
+.entity-switcher-trigger {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 10px;
+  border: 1px solid var(--solid-line); border-radius: var(--r-sm);
+  background: #FFFFFF; color: var(--ios-text);
+  font-size: 12.5px; font-weight: 600; cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+  max-width: 220px;
+}
+.entity-switcher-trigger:hover { border-color: var(--ios-blue); background: #F7F8FA; }
+.entity-switcher-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.entity-switcher-role { white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--ios-blue, #0058CC); opacity: 0.85; }
+/* Pemisah visual antara nama badan usaha dan peran. Sengaja DI LUAR
+   `entity-switcher-role` supaya label peran terbaca bersih ("Finance",
+   bukan "· Finance") oleh pembaca layar maupun agen uji. */
+.entity-switcher-sep { white-space: nowrap; font-size: 11px; font-weight: 600; color: #9A9BA3; }
+.entity-switcher-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 60;
+  min-width: 240px; max-width: 320px; padding: 6px;
+  background: #FFFFFF; border: 1px solid var(--solid-line);
+  border-radius: var(--r-md); box-shadow: var(--shadow-3);
+}
+.entity-switcher-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; padding: 8px 10px; border: 0; border-radius: var(--r-sm);
+  background: #FFFFFF; color: var(--ios-text); font-size: 12.5px; font-weight: 600;
+  text-align: left; cursor: pointer;
+}
+.entity-switcher-item:hover { background: var(--ios-blue-soft); }
+.entity-switcher-item.active { background: var(--ios-blue-soft); color: var(--ios-blue-strong); }
+.entity-tag {
+  margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  background: #EEF1F5; color: var(--ios-muted-2);
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+}
+/* FASE E-3 — penanda badan usaha utama (home) & label "hanya lihat". */
+.entity-tag-home {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #FFF6DC; color: #8A5A00; text-transform: none;
+}
+.entity-tag-ro { background: #FDF0DE; color: #8C4A00; text-transform: none; }
+.entity-switcher-readonly { border-color: #E7C99A; background: #FFFBF3; max-width: 300px; }
+.entity-switcher-readonly:hover { border-color: #C98B27; background: #FFF6E8; }
+.entity-switcher-ro-tag {
+  padding: 1px 6px; border-radius: 999px; background: #FDF0DE; color: #8C4A00;
+  font-size: 9.5px; font-weight: 700; white-space: nowrap;
+}
+.entity-switcher-search {
+  display: flex; align-items: center; gap: 6px;
+  margin: 2px 2px 6px; padding: 6px 8px;
+  border: 1px solid var(--solid-line); border-radius: var(--r-sm); background: #FAFBFC;
+}
+.entity-switcher-search input {
+  flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
+  font-size: 12px; font-weight: 600; color: var(--ios-text);
+}
+.entity-switcher-empty {
+  padding: 10px; text-align: center; font-size: 11.5px; color: var(--ios-muted-2);
+}
+
+/* ── Pita mode gabungan "hanya lihat" (FASE E-3 · user story 7) ───────────── */
+.scope-readonly-banner {
+  display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 12px; padding: 9px 12px;
+  border: 1px solid #EBCFA1; border-left: 3px solid #C98B27;
+  border-radius: var(--r-sm); background: #FFFBF2;
+}
+.scope-readonly-title { font-size: 12px; font-weight: 700; color: #6B3E00; }
+.scope-readonly-text { margin-top: 2px; font-size: 11px; color: #7A5A2A; line-height: 1.35; }
+.scope-readonly-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.scope-readonly-label { font-size: 10.5px; font-weight: 700; color: #8C6A2A; }
+.scope-readonly-pick {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 999px; cursor: pointer;
+  border: 1px solid #C98B27; background: #FFFFFF; color: #8C4A00;
+  font-size: 11px; font-weight: 700;
+}
+.scope-readonly-pick:hover { background: #C98B27; color: #FFFFFF; }
+@keyframes scopeFlash {
+  0% { box-shadow: 0 0 0 0 rgba(201, 139, 39, .55); }
+  70% { box-shadow: 0 0 0 8px rgba(201, 139, 39, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 139, 39, 0); }
+}
+.scope-readonly-flash { animation: scopeFlash 1.1s ease-out 2; }
+
+/* ── Notification Center ──────────────────────────────────────────────────── */
+.notif-center { position: relative; display: inline-flex; }
+.notif-bell { position: relative; }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px;
+  min-width: 16px; height: 16px; padding: 0 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--ios-red); color: #FFFFFF;
+  font-size: 9.5px; font-weight: 800; line-height: 1; border-radius: 999px;
+  border: 2px solid #FFFFFF;
+}
+.notif-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 60;
+  width: 360px; max-width: 90vw;
+  background: #FFFFFF; border: 1px solid var(--solid-line);
+  border-radius: var(--r-md); box-shadow: var(--shadow-3); overflow: hidden;
+}
+.notif-panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; border-bottom: 1px solid var(--solid-line); background: #FAFBFC;
+}
+.notif-panel-title { font-size: 13px; font-weight: 700; color: var(--ios-text); }
+.notif-mini-button {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 8px; border: 1px solid var(--solid-line); border-radius: var(--r-sm);
+  background: #FFFFFF; color: var(--ios-muted); font-size: 10.5px; font-weight: 700; cursor: pointer;
+}
+.notif-mini-button:hover { border-color: var(--ios-blue); color: var(--ios-blue-strong); }
+.notif-list { max-height: 420px; overflow-y: auto; }
+.notif-empty { padding: 28px 16px; text-align: center; color: var(--ios-muted-2); font-size: 12px; }
+.notif-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 11px 12px; border-bottom: 1px solid #F1F2F4;
+  background: #FFFFFF; cursor: pointer; text-align: left; width: 100%;
+  transition: background .12s ease;
+}
+.notif-item:hover { background: #F7F8FA; }
+.notif-item.unread { background: #F5F9FF; }
+.notif-item.unread:hover { background: #ECF4FF; }
+.notif-item-icon {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: var(--r-sm);
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #EEF1F5; color: var(--ios-muted);
+}
+.notif-item.sev-warning .notif-item-icon { background: #FFF3E0; color: #B25E00; }
+.notif-item.sev-critical .notif-item-icon { background: #FDE7E6; color: #C0241B; }
+.notif-item.sev-info .notif-item-icon { background: var(--ios-blue-soft); color: var(--ios-blue-strong); }
+.notif-item-body { min-width: 0; flex: 1; }
+.notif-item-title { font-size: 12.5px; font-weight: 700; color: var(--ios-text); }
+/* `pre-line` — badan notifikasi kini bisa berisi DAFTAR dokumen (pengingat antrean
+   persetujuan 2026-08-15 menulis satu dokumen per baris: "• PO-00010 … 12 hari").
+   Tanpa ini seluruh daftar menempel jadi satu paragraf dan tak terbaca. Notifikasi
+   satu baris tidak terpengaruh. */
+.notif-item-text { margin-top: 2px; font-size: 11.5px; color: var(--ios-muted); line-height: 1.35; white-space: pre-line; }
+.notif-item-time { font-size: 10px; font-weight: 600; color: var(--ios-muted-2); }
+.notif-item-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 5px; }
+.notif-approve-button {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px;
+  font-size: 10.5px; font-weight: 700; cursor: pointer;
+  background: #1A7A3A; color: #FFFFFF; border: 1px solid #1A7A3A;
+}
+.notif-approve-button:hover { background: #14672F; }
+.notif-approve-button:disabled { opacity: 0.6; cursor: default; }
+.notif-read-dot {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #FFFFFF; border: 1px solid var(--solid-line); color: var(--ios-blue-strong); cursor: pointer;
+}
+.notif-read-dot:hover { background: var(--ios-blue-soft); }
+
+@media (max-width: 640px) {
+  .topbar-entity { display: none; }
+  .notif-panel { width: 320px; }
+}
+
+/* ── R6.6 — Filter bell + penanda eskalasi ────────────────────────────────── */
+.notif-filters {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  padding: 8px 12px; border-bottom: 1px solid var(--solid-line); background: #FFFFFF;
+}
+.notif-chip {
+  padding: 3px 9px; border-radius: 999px; border: 1px solid var(--solid-line);
+  background: #FFFFFF; color: var(--ios-muted);
+  font-size: 10.5px; font-weight: 700; cursor: pointer;
+}
+.notif-chip:hover { border-color: var(--ios-blue); color: var(--ios-blue-strong); }
+.notif-chip.active { background: #1C1C1E; border-color: #1C1C1E; color: #FFFFFF; }
+.notif-chip.active.sev-critical { background: #C0241B; border-color: #C0241B; }
+.notif-chip.active.sev-warning { background: #B25E00; border-color: #B25E00; }
+.notif-chip.active.sev-info { background: var(--ios-blue-strong); border-color: var(--ios-blue-strong); }
+.notif-type-select {
+  flex: 1 1 130px; min-width: 118px; padding: 4px 6px;
+  border: 1px solid var(--solid-line); border-radius: var(--r-sm);
+  background: #FFFFFF; color: var(--ios-text); font-size: 10.5px; font-weight: 600;
+}
+.notif-filter-count { width: 100%; font-size: 10px; font-weight: 600; color: var(--ios-muted-2); }
+.notif-escal-tag {
+  display: inline-flex; align-items: center; gap: 3px; margin-left: 6px;
+  padding: 1px 6px; border-radius: 999px;
+  background: #FDE7E6; color: #C0241B;
+  font-size: 9.5px; font-weight: 800; text-transform: uppercase; vertical-align: 1px;
+}

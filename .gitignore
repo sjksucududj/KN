@@ -1,0 +1,16 @@
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.env
+backend/.env
+frontend/.env
+.token.txt
+frontend/build/
+*.log
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials

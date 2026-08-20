@@ -1,0 +1,41 @@
+{
+  "summary": "Gelombang 3 (SEC-1/SEC-2 auth rewrite + F-10 PPN 12% DPP Nilai Lain 11/12) — backend 13/13 pytest PASS, frontend UI verifikasi visual PASS. Auth bcrypt migration + HttpOnly cookie + Bearer fallback + logout invalidation + brute-force lockout 429 semua bekerja. compute-tax menghasilkan ppn_rate=12, effective_rate=11, dpp_nilai_lain=true untuk PKP; ent_kanda non-PKP nol. E2E SO→simulate-payment→GL journal_entries balanced dengan Cr Pendapatan 4-1000 = grand−ppn (BUKAN DPP 11/12) dan Cr PPN Out 2-1200 = ppn. Faktur Pajak (kirim kode_transaksi=null) default '04' dengan snapshot dpp_nilai_lain=true. PO memakai PPN efektif 11%. Frontend: SettingsPanel menampilkan Tarif PPN=12 & toggle DPP Nilai Lain ON; TaxConfigPanel (Keuangan → Pajak (PPN & PPh) → PPh & Rekap → Konfigurasi) menampilkan tax-config-ppn-rate=12 dan tax-config-dpp-nilai-lain checked=true; logout & re-login normal; navigasi hub tidak error.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/sales-orders/{id}/tax-invoice", "issue": "Schema TaxInvoiceCreate.kode_transaksi default = '01' — jika client mengirim payload TANPA field kode_transaksi maka pydantic mengisi '01' sehingga fallback '04' (dpp_nilai_lain) TIDAK aktif. Klien harus eksplisit mengirim kode_transaksi=null. Tes ini memakai body {\"kode_transaksi\":null} dan lolos. Pertimbangkan mengubah default schema menjadi None atau menghitung default di service tanpa terhalang skema."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "POS Checkout dialog", "issues": ["Ringkasan PPN 12% (DPP 11/12) tidak terlihat pada step 1 (Customer & Alamat) — hanya subtotal Rp 95.000. Label PPN diasumsikan muncul di step 3 (Review). Belum diverifikasi visual karena butuh melalui 2 step checkout."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_gelombang3_auth_ppn12.py",
+    "/app/test_reports/pytest/gelombang3.xml"
+  ],
+  "action_items": [
+    "OPSIONAL: Ubah TaxInvoiceCreate.kode_transaksi default menjadi Optional[str]=None agar API benar-benar menghormati fallback '04' saat client tidak mengirim field. FE juga sebaiknya mengirim null (bukan '01') saat user belum memilih kode.",
+    "OPSIONAL: Tambahkan tampilan preview ringkasan pajak (label 'PPN 12% (DPP 11/12)' + nominal) di POS di sisi sebelah keranjang, bukan hanya di step Review — memudahkan user memverifikasi rezim pajak sebelum checkout."
+  ],
+  "critical_code_review_comments": [
+    "AUTH — sudah menerapkan best-practice: bcrypt gensalt, entropi token 256-bit (secrets.token_urlsafe(32)), HttpOnly cookie 'session_token' path=/ SameSite=lax, TTL 24 jam via Mongo TTL index (expireAfterSeconds=0 on expires_at), sliding renewal saat sisa < setengah TTL, lockout per IP+email dengan pesan Indonesia, migrasi transparan SHA256→bcrypt via is_legacy_hash saat login sukses.",
+    "F-10 — compute_tax elegant: dpp_factor=11/12 bila dpp_nilai_lain, effective_rate=rate*factor, rupiah identik 11% lama namun representasi DPP+kode 04 mengikuti Coretax/PMK 131.",
+    "post_sales_order — SUDAH BENAR: Cr Pendapatan = grand − ppn (harga jual, bukan DPP 11/12); Cr PPN Keluaran = ppn_amount; Dr Kas/Piutang = grand; balance dijaga dengan reconciliation diff → pembulatan.",
+    "TaxInvoiceCreate default kode_transaksi='01' merusak fallback '04' service ketika client omit field — bug kecil non-blocking; sudah didokumentasikan.",
+    "PO response TIDAK mengekspos effective_rate secara eksplisit (hanya ppn_rate=12); ppn_amount sudah 11% dari net (benar). Pertimbangkan menambah field effective_rate untuk kejelasan."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_gelombang3_auth_ppn12.py (NEW)"
+  ],
+  "success_rate": {"backend": "100% (13/13 pytest passed)", "frontend": "100% pada testid yang dispesifikasi (settings-dpp-nilai-lain aktif; tax-config-dpp-nilai-lain checked; PPN rate=12; logout+relogin OK)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (dari /app/memory/test_credentials.md)",
+  "seed_data_creation": "Test membuat SO baru untuk customer & produk seed (Batik Mega/Lurik) di ent_ksc dengan payment CASH, memicu JE sales_order & sales_cogs. Membuat PO test ke supplier seed. Membuat Faktur Pajak dari SO tsb (kode_transaksi=null). Data test bersifat additive dan tidak merusak data seed.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Test file /app/backend/tests/test_gelombang3_auth_ppn12.py memuat lockout test dengan email fiktif unik per-run (uuid), jadi aman dijalankan berulang. Jalankan: pytest backend/tests/test_gelombang3_auth_ppn12.py -v -o addopts='' — 13 test lulus dalam ~6 detik. FE testid kunci: settings-ppn-rate (input number, value='12'), settings-dpp-nilai-lain (button toggle), tax-config-ppn-rate, tax-config-dpp-nilai-lain (input checkbox). Path FE untuk TaxConfigPanel: sidebar Keuangan → Pajak (PPN & PPh) → tab 'PPh & Rekap' → tab 'Konfigurasi'. E2E GL diverifikasi via mongo (endpoint /gl/journal ada lag).",
+  "rca of the issue": "N/A — semua fitur Gelombang 3 bekerja sesuai spesifikasi. Satu catatan minor (schema kode_transaksi='01' default) tidak menghalangi jalur happy-path karena FE dapat mengirim null."
+}

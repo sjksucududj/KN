@@ -1,0 +1,4943 @@
+{
+  "summary": {
+    "total": 508,
+    "hit": 417,
+    "miss": 91
+  },
+  "per_router": {
+    "__init__.py": {
+      "total": 0,
+      "hit": 0,
+      "miss": 0
+    },
+    "admin.py": {
+      "total": 9,
+      "hit": 4,
+      "miss": 5
+    },
+    "approval_requests.py": {
+      "total": 5,
+      "hit": 3,
+      "miss": 2
+    },
+    "approval_rules.py": {
+      "total": 5,
+      "hit": 2,
+      "miss": 3
+    },
+    "ar_aging.py": {
+      "total": 2,
+      "hit": 2,
+      "miss": 0
+    },
+    "ar_receipts.py": {
+      "total": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "audit.py": {
+      "total": 1,
+      "hit": 1,
+      "miss": 0
+    },
+    "auth.py": {
+      "total": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "bank.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "cash.py": {
+      "total": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "categories.py": {
+      "total": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "closing.py": {
+      "total": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "consolidation.py": {
+      "total": 6,
+      "hit": 5,
+      "miss": 1
+    },
+    "costing.py": {
+      "total": 2,
+      "hit": 2,
+      "miss": 0
+    },
+    "crm.py": {
+      "total": 21,
+      "hit": 21,
+      "miss": 0
+    },
+    "crm_omnichannel.py": {
+      "total": 10,
+      "hit": 10,
+      "miss": 0
+    },
+    "customers.py": {
+      "total": 4,
+      "hit": 3,
+      "miss": 1
+    },
+    "cycle_count.py": {
+      "total": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "dashboard.py": {
+      "total": 1,
+      "hit": 1,
+      "miss": 0
+    },
+    "design_gallery.py": {
+      "total": 9,
+      "hit": 7,
+      "miss": 2
+    },
+    "documents.py": {
+      "total": 8,
+      "hit": 3,
+      "miss": 5
+    },
+    "entities.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "finance_bi.py": {
+      "total": 1,
+      "hit": 1,
+      "miss": 0
+    },
+    "financial_statements.py": {
+      "total": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "gl.py": {
+      "total": 17,
+      "hit": 16,
+      "miss": 1
+    },
+    "home.py": {
+      "total": 3,
+      "hit": 3,
+      "miss": 0
+    },
+    "hr.py": {
+      "total": 14,
+      "hit": 7,
+      "miss": 7
+    },
+    "hr_analytics.py": {
+      "total": 1,
+      "hit": 1,
+      "miss": 0
+    },
+    "hr_attendance.py": {
+      "total": 21,
+      "hit": 19,
+      "miss": 2
+    },
+    "hr_kpi.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "hr_leave.py": {
+      "total": 17,
+      "hit": 7,
+      "miss": 10
+    },
+    "hr_payroll.py": {
+      "total": 13,
+      "hit": 7,
+      "miss": 6
+    },
+    "hr_tracking.py": {
+      "total": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "inbound_receiving.py": {
+      "total": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "incentive_rates.py": {
+      "total": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "input_tax.py": {
+      "total": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "integrations.py": {
+      "total": 2,
+      "hit": 2,
+      "miss": 0
+    },
+    "inventory.py": {
+      "total": 10,
+      "hit": 10,
+      "miss": 0
+    },
+    "invoices.py": {
+      "total": 3,
+      "hit": 3,
+      "miss": 0
+    },
+    "label_printer.py": {
+      "total": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "landed_cost.py": {
+      "total": 10,
+      "hit": 8,
+      "miss": 2
+    },
+    "notifications.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "onboarding.py": {
+      "total": 3,
+      "hit": 1,
+      "miss": 2
+    },
+    "outbound_picking.py": {
+      "total": 9,
+      "hit": 6,
+      "miss": 3
+    },
+    "pegging.py": {
+      "total": 3,
+      "hit": 3,
+      "miss": 0
+    },
+    "pos.py": {
+      "total": 3,
+      "hit": 1,
+      "miss": 2
+    },
+    "price_approvals.py": {
+      "total": 13,
+      "hit": 10,
+      "miss": 3
+    },
+    "pricelist.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "product_templates.py": {
+      "total": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "products.py": {
+      "total": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "purchase_orders.py": {
+      "total": 14,
+      "hit": 13,
+      "miss": 1
+    },
+    "purchase_requisitions.py": {
+      "total": 9,
+      "hit": 9,
+      "miss": 0
+    },
+    "purchase_returns.py": {
+      "total": 6,
+      "hit": 4,
+      "miss": 2
+    },
+    "qc_inspection.py": {
+      "total": 3,
+      "hit": 3,
+      "miss": 0
+    },
+    "reporting.py": {
+      "total": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "rfid.py": {
+      "total": 15,
+      "hit": 13,
+      "miss": 2
+    },
+    "rfq.py": {
+      "total": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "sales_orders.py": {
+      "total": 15,
+      "hit": 15,
+      "miss": 0
+    },
+    "sales_returns.py": {
+      "total": 11,
+      "hit": 8,
+      "miss": 3
+    },
+    "settings.py": {
+      "total": 9,
+      "hit": 5,
+      "miss": 4
+    },
+    "so_approvals.py": {
+      "total": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "special_orders.py": {
+      "total": 11,
+      "hit": 11,
+      "miss": 0
+    },
+    "stock_buckets.py": {
+      "total": 9,
+      "hit": 9,
+      "miss": 0
+    },
+    "suppliers.py": {
+      "total": 11,
+      "hit": 8,
+      "miss": 3
+    },
+    "tax_center.py": {
+      "total": 4,
+      "hit": 2,
+      "miss": 2
+    },
+    "tax_invoices.py": {
+      "total": 7,
+      "hit": 7,
+      "miss": 0
+    },
+    "transfers.py": {
+      "total": 8,
+      "hit": 8,
+      "miss": 0
+    },
+    "uoms.py": {
+      "total": 4,
+      "hit": 1,
+      "miss": 3
+    },
+    "users.py": {
+      "total": 3,
+      "hit": 3,
+      "miss": 0
+    },
+    "vendor_bills.py": {
+      "total": 10,
+      "hit": 7,
+      "miss": 3
+    },
+    "warehouses.py": {
+      "total": 6,
+      "hit": 3,
+      "miss": 3
+    },
+    "wms.py": {
+      "total": 5,
+      "hit": 4,
+      "miss": 1
+    }
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/api/master-data/import-products",
+      "func": "import_products",
+      "line_start": 83,
+      "line_end": 115,
+      "hit": false,
+      "router": "admin.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/master-data/import-customers",
+      "func": "import_customers",
+      "line_start": 124,
+      "line_end": 175,
+      "hit": false,
+      "router": "admin.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/master-data/import-warehouses",
+      "func": "import_warehouses",
+      "line_start": 184,
+      "line_end": 224,
+      "hit": false,
+      "router": "admin.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/master-data/export-products",
+      "func": "export_products",
+      "line_start": 229,
+      "line_end": 238,
+      "hit": true,
+      "router": "admin.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/master-data/export-customers",
+      "func": "export_customers",
+      "line_start": 243,
+      "line_end": 251,
+      "hit": true,
+      "router": "admin.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/master-data/export-warehouses",
+      "func": "export_warehouses",
+      "line_start": 256,
+      "line_end": 264,
+      "hit": true,
+      "router": "admin.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/permissions",
+      "func": "get_permissions",
+      "line_start": 269,
+      "line_end": 271,
+      "hit": true,
+      "router": "admin.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/permissions",
+      "func": "update_permissions",
+      "line_start": 276,
+      "line_end": 281,
+      "hit": false,
+      "router": "admin.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/seed-demo",
+      "func": "seed_demo",
+      "line_start": 301,
+      "line_end": 352,
+      "hit": false,
+      "router": "admin.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approval-requests",
+      "func": "list_approval_requests",
+      "line_start": 37,
+      "line_end": 60,
+      "hit": true,
+      "router": "approval_requests.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approval-requests/pending-count",
+      "func": "get_pending_approvals_count",
+      "line_start": 67,
+      "line_end": 73,
+      "hit": true,
+      "router": "approval_requests.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approval-requests/{request_id}",
+      "func": "get_approval_request",
+      "line_start": 81,
+      "line_end": 100,
+      "hit": true,
+      "router": "approval_requests.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/approval-requests/{request_id}/approve",
+      "func": "approve_request",
+      "line_start": 109,
+      "line_end": 168,
+      "hit": false,
+      "router": "approval_requests.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/approval-requests/{request_id}/reject",
+      "func": "reject_request",
+      "line_start": 177,
+      "line_end": 237,
+      "hit": false,
+      "router": "approval_requests.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approval-rules",
+      "func": "list_approval_rules",
+      "line_start": 50,
+      "line_end": 63,
+      "hit": true,
+      "router": "approval_rules.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/approval-rules",
+      "func": "create_approval_rule",
+      "line_start": 71,
+      "line_end": 107,
+      "hit": false,
+      "router": "approval_rules.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approval-rules/{rule_id}",
+      "func": "get_approval_rule",
+      "line_start": 115,
+      "line_end": 122,
+      "hit": true,
+      "router": "approval_rules.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/approval-rules/{rule_id}",
+      "func": "update_approval_rule",
+      "line_start": 131,
+      "line_end": 172,
+      "hit": false,
+      "router": "approval_rules.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/approval-rules/{rule_id}",
+      "func": "delete_approval_rule",
+      "line_start": 180,
+      "line_end": 187,
+      "hit": false,
+      "router": "approval_rules.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar/aging",
+      "func": "ar_aging",
+      "line_start": 23,
+      "line_end": 25,
+      "hit": true,
+      "router": "ar_aging.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar/aging/{customer_id}",
+      "func": "ar_aging_detail",
+      "line_start": 31,
+      "line_end": 36,
+      "hit": true,
+      "router": "ar_aging.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar-receipts/open-orders",
+      "func": "open_orders",
+      "line_start": 36,
+      "line_end": 38,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar-receipts/deposit",
+      "func": "deposit_balance",
+      "line_start": 43,
+      "line_end": 46,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar-receipts",
+      "func": "list_receipts",
+      "line_start": 52,
+      "line_end": 55,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/ar-receipts",
+      "func": "create_receipt",
+      "line_start": 60,
+      "line_end": 65,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/ar-receipts/{receipt_id}/void",
+      "func": "void_receipt",
+      "line_start": 70,
+      "line_end": 72,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/ar-receipts/{receipt_id}",
+      "func": "get_receipt",
+      "line_start": 77,
+      "line_end": 83,
+      "hit": true,
+      "router": "ar_receipts.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/audit-logs",
+      "func": "list_audit_logs",
+      "line_start": 13,
+      "line_end": 15,
+      "hit": true,
+      "router": "audit.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "func": "login",
+      "line_start": 60,
+      "line_end": 82,
+      "hit": true,
+      "router": "auth.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "func": "me",
+      "line_start": 87,
+      "line_end": 91,
+      "hit": true,
+      "router": "auth.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/context",
+      "func": "auth_context",
+      "line_start": 96,
+      "line_end": 99,
+      "hit": true,
+      "router": "auth.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "func": "logout",
+      "line_start": 104,
+      "line_end": 108,
+      "hit": true,
+      "router": "auth.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bank-accounts",
+      "func": "list_bank_accounts",
+      "line_start": 19,
+      "line_end": 25,
+      "hit": true,
+      "router": "bank.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/bank-accounts",
+      "func": "create_bank_account",
+      "line_start": 30,
+      "line_end": 38,
+      "hit": true,
+      "router": "bank.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/bank-accounts/{account_id}",
+      "func": "patch_bank_account",
+      "line_start": 43,
+      "line_end": 49,
+      "hit": true,
+      "router": "bank.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bank-accounts/{account_id}/ledger",
+      "func": "bank_account_ledger",
+      "line_start": 54,
+      "line_end": 59,
+      "hit": true,
+      "router": "bank.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cash-transactions/{txn_id}/reconcile",
+      "func": "reconcile_cash_transaction",
+      "line_start": 64,
+      "line_end": 71,
+      "hit": true,
+      "router": "bank.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/cash-transactions",
+      "func": "list_cash_transactions",
+      "line_start": 41,
+      "line_end": 55,
+      "hit": true,
+      "router": "cash.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/cash-transactions/summary",
+      "func": "cash_summary",
+      "line_start": 60,
+      "line_end": 95,
+      "hit": true,
+      "router": "cash.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cash-transactions",
+      "func": "create_cash_transaction",
+      "line_start": 100,
+      "line_end": 141,
+      "hit": true,
+      "router": "cash.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cash-transactions/{txn_id}/void",
+      "func": "void_cash_transaction",
+      "line_start": 146,
+      "line_end": 158,
+      "hit": true,
+      "router": "cash.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/product-categories",
+      "func": "list_categories",
+      "line_start": 57,
+      "line_end": 60,
+      "hit": true,
+      "router": "categories.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/product-categories",
+      "func": "create_category",
+      "line_start": 65,
+      "line_end": 86,
+      "hit": true,
+      "router": "categories.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/product-categories/{category_id}",
+      "func": "update_category",
+      "line_start": 91,
+      "line_end": 119,
+      "hit": true,
+      "router": "categories.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/product-categories/{category_id}",
+      "func": "delete_category",
+      "line_start": 124,
+      "line_end": 140,
+      "hit": true,
+      "router": "categories.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/closing",
+      "func": "list_closings",
+      "line_start": 39,
+      "line_end": 42,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/closing/preview",
+      "func": "preview_closing",
+      "line_start": 52,
+      "line_end": 55,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/closing/status",
+      "func": "closing_status",
+      "line_start": 64,
+      "line_end": 67,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/closing/close",
+      "func": "close_period",
+      "line_start": 72,
+      "line_end": 81,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/closing/{closing_id}/reopen",
+      "func": "reopen_period",
+      "line_start": 86,
+      "line_end": 98,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/closing/{closing_id}/reclose",
+      "func": "reclose_period",
+      "line_start": 103,
+      "line_end": 114,
+      "hit": true,
+      "router": "closing.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/consolidation/summary",
+      "func": "consolidation_summary",
+      "line_start": 47,
+      "line_end": 52,
+      "hit": true,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/consolidation/eliminations",
+      "func": "list_eliminations",
+      "line_start": 57,
+      "line_end": 58,
+      "hit": true,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/consolidation/eliminations",
+      "func": "create_elimination",
+      "line_start": 63,
+      "line_end": 70,
+      "hit": true,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/finance/consolidation/eliminations/{elim_id}",
+      "func": "delete_elimination",
+      "line_start": 75,
+      "line_end": 80,
+      "hit": true,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/consolidation/ic-candidates",
+      "func": "ic_candidates",
+      "line_start": 85,
+      "line_end": 89,
+      "hit": true,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/finance/consolidation/eliminations/sync-from-pairs",
+      "func": "sync_ic_eliminations_from_pairs",
+      "line_start": 96,
+      "line_end": 108,
+      "hit": false,
+      "router": "consolidation.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/costing/wac",
+      "func": "list_wac",
+      "line_start": 18,
+      "line_end": 20,
+      "hit": true,
+      "router": "costing.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/costing/wac/{product_id}",
+      "func": "get_wac",
+      "line_start": 25,
+      "line_end": 27,
+      "hit": true,
+      "router": "costing.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-users",
+      "func": "list_sales_users",
+      "line_start": 31,
+      "line_end": 34,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers/{customer_id}/360",
+      "func": "get_customer_360",
+      "line_start": 40,
+      "line_end": 46,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers/{customer_id}/reassign",
+      "func": "reassign_customer",
+      "line_start": 52,
+      "line_end": 67,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers/{customer_id}/credit-override",
+      "func": "request_credit_override",
+      "line_start": 73,
+      "line_end": 97,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/credit-overrides",
+      "func": "list_credit_overrides",
+      "line_start": 102,
+      "line_end": 108,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/credit-overrides/{override_id}/decision",
+      "func": "decide_credit_override",
+      "line_start": 113,
+      "line_end": 127,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/collection-worklist",
+      "func": "get_collection_worklist",
+      "line_start": 133,
+      "line_end": 134,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers/{customer_id}/credit-status",
+      "func": "get_credit_status",
+      "line_start": 139,
+      "line_end": 150,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/collection-reminders",
+      "func": "get_collection_reminders",
+      "line_start": 156,
+      "line_end": 157,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/collection-reminders/mark",
+      "func": "mark_reminder",
+      "line_start": 162,
+      "line_end": 178,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers/{customer_id}/followups",
+      "func": "add_followup",
+      "line_start": 183,
+      "line_end": 204,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales/kpi",
+      "func": "get_sales_kpi",
+      "line_start": 210,
+      "line_end": 215,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales/leaderboard",
+      "func": "get_leaderboard",
+      "line_start": 220,
+      "line_end": 221,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales/commission",
+      "func": "get_commission",
+      "line_start": 226,
+      "line_end": 231,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales/commission-history",
+      "func": "get_commission_history",
+      "line_start": 237,
+      "line_end": 243,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales/incentive/gl-status",
+      "func": "get_incentive_gl_status",
+      "line_start": 250,
+      "line_end": 256,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales/incentive/post-gl",
+      "func": "post_incentive_gl",
+      "line_start": 262,
+      "line_end": 284,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-targets",
+      "func": "list_targets",
+      "line_start": 290,
+      "line_end": 298,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-targets",
+      "func": "create_target",
+      "line_start": 303,
+      "line_end": 331,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-incentives",
+      "func": "list_incentives",
+      "line_start": 337,
+      "line_end": 345,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-incentives",
+      "func": "create_incentive",
+      "line_start": 350,
+      "line_end": 377,
+      "hit": true,
+      "router": "crm.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/crm/leads",
+      "func": "list_leads",
+      "line_start": 96,
+      "line_end": 98,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/crm/leads/board",
+      "func": "leads_board",
+      "line_start": 103,
+      "line_end": 105,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/crm/pipeline-stats",
+      "func": "pipeline_stats",
+      "line_start": 110,
+      "line_end": 112,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/crm/leads",
+      "func": "create_lead",
+      "line_start": 117,
+      "line_end": 123,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/crm/leads/{lead_id}",
+      "func": "update_lead",
+      "line_start": 137,
+      "line_end": 146,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/crm/leads/{lead_id}/convert",
+      "func": "convert_lead",
+      "line_start": 151,
+      "line_end": 157,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/crm/leads/{lead_id}",
+      "func": "delete_lead",
+      "line_start": 162,
+      "line_end": 166,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/crm/interactions",
+      "func": "list_interactions",
+      "line_start": 177,
+      "line_end": 179,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/crm/interactions",
+      "func": "create_interaction",
+      "line_start": 184,
+      "line_end": 191,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/crm/interactions/{intx_id}",
+      "func": "delete_interaction",
+      "line_start": 196,
+      "line_end": 204,
+      "hit": true,
+      "router": "crm_omnichannel.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers",
+      "func": "list_customers",
+      "line_start": 22,
+      "line_end": 40,
+      "hit": true,
+      "router": "customers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers",
+      "func": "create_customer",
+      "line_start": 45,
+      "line_end": 106,
+      "hit": true,
+      "router": "customers.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/customers/{customer_id}",
+      "func": "update_customer",
+      "line_start": 111,
+      "line_end": 145,
+      "hit": true,
+      "router": "customers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers/{customer_id}/addresses",
+      "func": "add_customer_address",
+      "line_start": 150,
+      "line_end": 160,
+      "hit": false,
+      "router": "customers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cycle-count/sessions",
+      "func": "create_session",
+      "line_start": 42,
+      "line_end": 62,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/cycle-count/sessions",
+      "func": "list_sessions",
+      "line_start": 67,
+      "line_end": 69,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/cycle-count/sessions/{session_id}",
+      "func": "get_session",
+      "line_start": 74,
+      "line_end": 78,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cycle-count/sessions/{session_id}/items",
+      "func": "add_item",
+      "line_start": 83,
+      "line_end": 115,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/cycle-count/sessions/{session_id}/items/{item_id}",
+      "func": "update_item",
+      "line_start": 122,
+      "line_end": 138,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cycle-count/sessions/{session_id}/submit",
+      "func": "submit_session",
+      "line_start": 143,
+      "line_end": 179,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cycle-count/sessions/{session_id}/approve",
+      "func": "approve_session",
+      "line_start": 184,
+      "line_end": 213,
+      "hit": true,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/cycle-count/sessions/{session_id}/reject",
+      "func": "reject_session",
+      "line_start": 218,
+      "line_end": 236,
+      "hit": false,
+      "router": "cycle_count.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dashboard",
+      "func": "dashboard",
+      "line_start": 14,
+      "line_end": 59,
+      "hit": true,
+      "router": "dashboard.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/design-gallery",
+      "func": "list_gallery",
+      "line_start": 33,
+      "line_end": 36,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/design-gallery",
+      "func": "create_gallery",
+      "line_start": 41,
+      "line_end": 49,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/design-gallery/{gallery_id}",
+      "func": "get_gallery",
+      "line_start": 54,
+      "line_end": 56,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/design-gallery/{gallery_id}",
+      "func": "update_gallery",
+      "line_start": 61,
+      "line_end": 70,
+      "hit": false,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/design-gallery/{gallery_id}",
+      "func": "delete_gallery",
+      "line_start": 75,
+      "line_end": 83,
+      "hit": false,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/design-gallery/{gallery_id}/files",
+      "func": "upload_gallery_file",
+      "line_start": 90,
+      "line_end": 101,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/design-gallery/{gallery_id}/files/{file_id}",
+      "func": "get_gallery_file",
+      "line_start": 106,
+      "line_end": 116,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/design-gallery/{gallery_id}/files/{file_id}",
+      "func": "delete_gallery_file",
+      "line_start": 121,
+      "line_end": 130,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/design-gallery/{gallery_id}/autotag",
+      "func": "autotag_gallery",
+      "line_start": 136,
+      "line_end": 146,
+      "hit": true,
+      "router": "design_gallery.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/relations/{doc_type}/{doc_id}",
+      "func": "document_relations",
+      "line_start": 21,
+      "line_end": 33,
+      "hit": true,
+      "router": "documents.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/document-templates",
+      "func": "list_templates",
+      "line_start": 38,
+      "line_end": 39,
+      "hit": true,
+      "router": "documents.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/document-templates",
+      "func": "create_template",
+      "line_start": 44,
+      "line_end": 49,
+      "hit": false,
+      "router": "documents.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/document-templates/{template_id}",
+      "func": "update_template",
+      "line_start": 54,
+      "line_end": 67,
+      "hit": false,
+      "router": "documents.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/document-templates/{template_id}",
+      "func": "delete_template",
+      "line_start": 72,
+      "line_end": 81,
+      "hit": false,
+      "router": "documents.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents/generate",
+      "func": "generate_document",
+      "line_start": 86,
+      "line_end": 99,
+      "hit": false,
+      "router": "documents.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/preview/{order_id}",
+      "func": "preview_document",
+      "line_start": 104,
+      "line_end": 105,
+      "hit": true,
+      "router": "documents.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents/barcode",
+      "func": "generate_barcode",
+      "line_start": 110,
+      "line_end": 142,
+      "hit": false,
+      "router": "documents.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/entities",
+      "func": "list_entities",
+      "line_start": 28,
+      "line_end": 30,
+      "hit": true,
+      "router": "entities.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/entities/{entity_id}",
+      "func": "get_entity",
+      "line_start": 35,
+      "line_end": 39,
+      "hit": true,
+      "router": "entities.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/entities",
+      "func": "create_entity",
+      "line_start": 44,
+      "line_end": 53,
+      "hit": true,
+      "router": "entities.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/entities/{entity_id}",
+      "func": "update_entity",
+      "line_start": 58,
+      "line_end": 68,
+      "hit": true,
+      "router": "entities.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/entities/{entity_id}",
+      "func": "deactivate_entity",
+      "line_start": 73,
+      "line_end": 81,
+      "hit": true,
+      "router": "entities.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/bi",
+      "func": "finance_bi_dashboard",
+      "line_start": 24,
+      "line_end": 36,
+      "hit": true,
+      "router": "finance_bi.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/income-statement",
+      "func": "get_income_statement",
+      "line_start": 43,
+      "line_end": 46,
+      "hit": true,
+      "router": "financial_statements.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/balance-sheet",
+      "func": "get_balance_sheet",
+      "line_start": 56,
+      "line_end": 62,
+      "hit": true,
+      "router": "financial_statements.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/income-statement/export.csv",
+      "func": "export_income_statement",
+      "line_start": 87,
+      "line_end": 106,
+      "hit": true,
+      "router": "financial_statements.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/finance/balance-sheet/export.csv",
+      "func": "export_balance_sheet",
+      "line_start": 116,
+      "line_end": 175,
+      "hit": true,
+      "router": "financial_statements.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/accounts",
+      "func": "list_gl_accounts",
+      "line_start": 32,
+      "line_end": 39,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/accounts",
+      "func": "create_gl_account",
+      "line_start": 45,
+      "line_end": 54,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/gl/accounts/{code}",
+      "func": "update_gl_account",
+      "line_start": 60,
+      "line_end": 68,
+      "hit": false,
+      "router": "gl.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/gl/accounts/{code}",
+      "func": "delete_gl_account",
+      "line_start": 74,
+      "line_end": 83,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/accounts/{code}/ledger",
+      "func": "gl_account_ledger",
+      "line_start": 89,
+      "line_end": 95,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/journal",
+      "func": "list_journal",
+      "line_start": 108,
+      "line_end": 112,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/journal",
+      "func": "create_journal",
+      "line_start": 117,
+      "line_end": 126,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/journal/{entry_id}",
+      "func": "get_journal",
+      "line_start": 131,
+      "line_end": 138,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/journal/{entry_id}/void",
+      "func": "void_journal",
+      "line_start": 143,
+      "line_end": 152,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/sync",
+      "func": "sync_journals",
+      "line_start": 159,
+      "line_end": 163,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/trial-balance",
+      "func": "trial_balance",
+      "line_start": 169,
+      "line_end": 172,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/summary",
+      "func": "gl_summary",
+      "line_start": 177,
+      "line_end": 180,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/consolidation",
+      "func": "gl_consolidation",
+      "line_start": 185,
+      "line_end": 191,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/inventory-reconciliation",
+      "func": "gl_inventory_reconciliation",
+      "line_start": 196,
+      "line_end": 198,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/inventory-opening-balance",
+      "func": "gl_inventory_opening_balance",
+      "line_start": 203,
+      "line_end": 207,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/gl/suspense",
+      "func": "gl_suspense",
+      "line_start": 214,
+      "line_end": 217,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/gl/suspense/reclass",
+      "func": "gl_suspense_reclass",
+      "line_start": 222,
+      "line_end": 238,
+      "hit": true,
+      "router": "gl.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/home/sales",
+      "func": "home_sales",
+      "line_start": 15,
+      "line_end": 18,
+      "hit": true,
+      "router": "home.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/home/admin",
+      "func": "home_admin",
+      "line_start": 23,
+      "line_end": 25,
+      "hit": true,
+      "router": "home.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/home/manager",
+      "func": "home_manager",
+      "line_start": 30,
+      "line_end": 32,
+      "hit": true,
+      "router": "home.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/org-units",
+      "func": "list_org_units",
+      "line_start": 55,
+      "line_end": 70,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/org-units/tree",
+      "func": "org_units_tree",
+      "line_start": 75,
+      "line_end": 90,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/org-units",
+      "func": "create_org_unit",
+      "line_start": 95,
+      "line_end": 122,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/org-units/{unit_id}",
+      "func": "update_org_unit",
+      "line_start": 127,
+      "line_end": 142,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/org-units/{unit_id}",
+      "func": "deactivate_org_unit",
+      "line_start": 147,
+      "line_end": 166,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/employees",
+      "func": "list_employees",
+      "line_start": 174,
+      "line_end": 198,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/summary",
+      "func": "hr_summary",
+      "line_start": 203,
+      "line_end": 228,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/employees/me",
+      "func": "my_employee",
+      "line_start": 233,
+      "line_end": 240,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/employees",
+      "func": "create_employee",
+      "line_start": 245,
+      "line_end": 295,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/employees/{employee_id}",
+      "func": "get_employee",
+      "line_start": 300,
+      "line_end": 312,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/employees/{employee_id}",
+      "func": "update_employee",
+      "line_start": 317,
+      "line_end": 343,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/employees/{employee_id}",
+      "func": "deactivate_employee",
+      "line_start": 348,
+      "line_end": 359,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/settings",
+      "func": "read_hr_settings",
+      "line_start": 366,
+      "line_end": 368,
+      "hit": true,
+      "router": "hr.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/hr/settings",
+      "func": "update_hr_settings",
+      "line_start": 373,
+      "line_end": 390,
+      "hit": false,
+      "router": "hr.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/analytics/summary",
+      "func": "hr_analytics_summary",
+      "line_start": 19,
+      "line_end": 23,
+      "hit": true,
+      "router": "hr_analytics.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/shifts",
+      "func": "list_shifts",
+      "line_start": 62,
+      "line_end": 65,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/shifts",
+      "func": "create_shift",
+      "line_start": 70,
+      "line_end": 85,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/shifts/{shift_id}",
+      "func": "update_shift",
+      "line_start": 90,
+      "line_end": 103,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/shifts/{shift_id}",
+      "func": "deactivate_shift",
+      "line_start": 108,
+      "line_end": 118,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/geofences",
+      "func": "list_geofences",
+      "line_start": 124,
+      "line_end": 127,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/geofences",
+      "func": "create_geofence",
+      "line_start": 132,
+      "line_end": 145,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/geofences/{geo_id}",
+      "func": "update_geofence",
+      "line_start": 150,
+      "line_end": 168,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/geofences/{geo_id}",
+      "func": "deactivate_geofence",
+      "line_start": 173,
+      "line_end": 183,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/devices",
+      "func": "list_devices",
+      "line_start": 189,
+      "line_end": 193,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/devices",
+      "func": "create_device",
+      "line_start": 198,
+      "line_end": 211,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/devices/{dev_id}",
+      "func": "update_device",
+      "line_start": 216,
+      "line_end": 229,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/devices/{dev_id}",
+      "func": "deactivate_device",
+      "line_start": 234,
+      "line_end": 244,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/attendance",
+      "func": "list_attendance",
+      "line_start": 252,
+      "line_end": 271,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/attendance/recap",
+      "func": "attendance_recap",
+      "line_start": 276,
+      "line_end": 301,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/attendance/me",
+      "func": "my_attendance",
+      "line_start": 306,
+      "line_end": 318,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/attendance/clock-in",
+      "func": "clock_in",
+      "line_start": 324,
+      "line_end": 361,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/attendance/clock-out",
+      "func": "clock_out",
+      "line_start": 366,
+      "line_end": 400,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/attendance/manual",
+      "func": "manual_attendance",
+      "line_start": 406,
+      "line_end": 421,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/hr/attendance/{att_id}",
+      "func": "patch_attendance",
+      "line_start": 426,
+      "line_end": 444,
+      "hit": false,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/attendance/import",
+      "func": "import_attendance",
+      "line_start": 480,
+      "line_end": 494,
+      "hit": true,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/attendance/ingest",
+      "func": "ingest_attendance",
+      "line_start": 499,
+      "line_end": 508,
+      "hit": false,
+      "router": "hr_attendance.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/kpi/me",
+      "func": "my_kpi_endpoint",
+      "line_start": 53,
+      "line_end": 53,
+      "hit": true,
+      "router": "hr_kpi.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/kpi",
+      "func": "list_kpi",
+      "line_start": 61,
+      "line_end": 64,
+      "hit": true,
+      "router": "hr_kpi.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/kpi",
+      "func": "create_kpi",
+      "line_start": 69,
+      "line_end": 80,
+      "hit": true,
+      "router": "hr_kpi.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/hr/kpi/{kpi_id}",
+      "func": "update_kpi",
+      "line_start": 85,
+      "line_end": 94,
+      "hit": true,
+      "router": "hr_kpi.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/hr/kpi/{kpi_id}",
+      "func": "delete_kpi",
+      "line_start": 99,
+      "line_end": 107,
+      "hit": true,
+      "router": "hr_kpi.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/leave-requests/me",
+      "func": "my_leave_requests",
+      "line_start": 45,
+      "line_end": 46,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-requests/me",
+      "func": "submit_my_leave",
+      "line_start": 51,
+      "line_end": 58,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/leave-balance/me",
+      "func": "my_leave_balance",
+      "line_start": 63,
+      "line_end": 64,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/leave-requests",
+      "func": "list_leave_requests",
+      "line_start": 73,
+      "line_end": 76,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-requests",
+      "func": "create_leave_request",
+      "line_start": 81,
+      "line_end": 92,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/leave-balances",
+      "func": "list_leave_balances",
+      "line_start": 98,
+      "line_end": 101,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-balances/set",
+      "func": "set_leave_entitlement",
+      "line_start": 106,
+      "line_end": 113,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/leave-calendar",
+      "func": "leave_calendar",
+      "line_start": 119,
+      "line_end": 124,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-requests/{leave_id}/approve",
+      "func": "approve_leave_request",
+      "line_start": 137,
+      "line_end": 145,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-requests/{leave_id}/reject",
+      "func": "reject_leave_request",
+      "line_start": 150,
+      "line_end": 158,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/leave-requests/{leave_id}/cancel",
+      "func": "cancel_leave_request",
+      "line_start": 163,
+      "line_end": 176,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/overtime/me",
+      "func": "my_overtime_requests",
+      "line_start": 182,
+      "line_end": 183,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/overtime/me",
+      "func": "submit_my_overtime",
+      "line_start": 188,
+      "line_end": 195,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/overtime",
+      "func": "list_overtime_requests",
+      "line_start": 204,
+      "line_end": 207,
+      "hit": true,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/overtime",
+      "func": "create_overtime",
+      "line_start": 212,
+      "line_end": 223,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/overtime/{ot_id}/approve",
+      "func": "approve_overtime_request",
+      "line_start": 236,
+      "line_end": 244,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/overtime/{ot_id}/reject",
+      "func": "reject_overtime_request",
+      "line_start": 249,
+      "line_end": 257,
+      "hit": false,
+      "router": "hr_leave.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payroll/settings",
+      "func": "get_payroll_settings",
+      "line_start": 31,
+      "line_end": 33,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/hr/payroll/settings",
+      "func": "update_payroll_settings",
+      "line_start": 38,
+      "line_end": 56,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payroll/runs",
+      "func": "list_payroll_runs",
+      "line_start": 63,
+      "line_end": 66,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/payroll/runs/preview",
+      "func": "preview_payroll_run",
+      "line_start": 71,
+      "line_end": 75,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/payroll/runs",
+      "func": "create_payroll_run",
+      "line_start": 80,
+      "line_end": 87,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payroll/runs/{run_id}",
+      "func": "get_payroll_run",
+      "line_start": 92,
+      "line_end": 98,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/payroll/runs/{run_id}/approve",
+      "func": "approve_payroll_run",
+      "line_start": 103,
+      "line_end": 109,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/payroll/runs/{run_id}/post-gl",
+      "func": "post_payroll_run_gl",
+      "line_start": 114,
+      "line_end": 121,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/payroll/runs/{run_id}/pay",
+      "func": "pay_payroll_run",
+      "line_start": 126,
+      "line_end": 133,
+      "hit": false,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payslips",
+      "func": "list_payslips",
+      "line_start": 141,
+      "line_end": 144,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payslips/me",
+      "func": "my_payslips",
+      "line_start": 149,
+      "line_end": 150,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payslips/{slip_id}",
+      "func": "get_payslip",
+      "line_start": 155,
+      "line_end": 161,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/payslips/{slip_id}/pdf",
+      "func": "payslip_pdf",
+      "line_start": 166,
+      "line_end": 176,
+      "hit": true,
+      "router": "hr_payroll.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/field-tracks/latest",
+      "func": "latest_tracks",
+      "line_start": 55,
+      "line_end": 59,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/field-tracks",
+      "func": "track_history",
+      "line_start": 65,
+      "line_end": 72,
+      "hit": false,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/field-tracks",
+      "func": "push_track",
+      "line_start": 77,
+      "line_end": 81,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/visits",
+      "func": "list_visits",
+      "line_start": 89,
+      "line_end": 107,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/visits/summary",
+      "func": "visits_summary",
+      "line_start": 112,
+      "line_end": 132,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/hr/visits/me",
+      "func": "my_visits",
+      "line_start": 137,
+      "line_end": 145,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/visits/check-in",
+      "func": "visit_check_in",
+      "line_start": 150,
+      "line_end": 174,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/hr/visits/{visit_id}/check-out",
+      "func": "visit_check_out",
+      "line_start": 179,
+      "line_end": 206,
+      "hit": true,
+      "router": "hr_tracking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inbound/tasks",
+      "func": "list_inbound_tasks",
+      "line_start": 16,
+      "line_end": 36,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/tasks/{task_id}/scan-receive",
+      "func": "scan_receive_item",
+      "line_start": 45,
+      "line_end": 141,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/tasks/{task_id}/escalate",
+      "func": "escalate_inbound_task",
+      "line_start": 150,
+      "line_end": 190,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/tasks/{task_id}/resolve-escalation",
+      "func": "resolve_escalation",
+      "line_start": 200,
+      "line_end": 243,
+      "hit": false,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/tasks/{task_id}/complete",
+      "func": "complete_inbound_receiving",
+      "line_start": 252,
+      "line_end": 492,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inbound/qc/queue",
+      "func": "qc_inspection_queue",
+      "line_start": 497,
+      "line_end": 523,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/tasks/{task_id}/qc-decision",
+      "func": "qc_decision",
+      "line_start": 528,
+      "line_end": 547,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inbound/po/{po_id}/receiving-goods-document",
+      "func": "generate_receiving_goods_document",
+      "line_start": 553,
+      "line_end": 672,
+      "hit": true,
+      "router": "inbound_receiving.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/incentive-rates",
+      "func": "list_rates",
+      "line_start": 44,
+      "line_end": 50,
+      "hit": true,
+      "router": "incentive_rates.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/incentive-rates",
+      "func": "create_rate",
+      "line_start": 55,
+      "line_end": 66,
+      "hit": true,
+      "router": "incentive_rates.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/incentive-rates/{rate_id}",
+      "func": "update_rate",
+      "line_start": 71,
+      "line_end": 81,
+      "hit": true,
+      "router": "incentive_rates.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/incentive-rates/{rate_id}",
+      "func": "delete_rate",
+      "line_start": 86,
+      "line_end": 92,
+      "hit": true,
+      "router": "incentive_rates.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/input-tax-invoices/eligible-bills",
+      "func": "list_eligible_bills",
+      "line_start": 34,
+      "line_end": 38,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax/vat-summary",
+      "func": "get_vat_summary",
+      "line_start": 43,
+      "line_end": 47,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/input-tax-invoices",
+      "func": "list_input_tax",
+      "line_start": 57,
+      "line_end": 69,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/input-tax-invoices/{fpm_id}",
+      "func": "get_input_tax",
+      "line_start": 74,
+      "line_end": 81,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/input-tax-invoices",
+      "func": "create_input_tax",
+      "line_start": 88,
+      "line_end": 149,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/input-tax-invoices/{fpm_id}/cancel",
+      "func": "cancel_input_tax",
+      "line_start": 156,
+      "line_end": 180,
+      "hit": true,
+      "router": "input_tax.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/integrations",
+      "func": "get_integrations",
+      "line_start": 19,
+      "line_end": 21,
+      "hit": true,
+      "router": "integrations.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/integrations",
+      "func": "update_integrations",
+      "line_start": 26,
+      "line_end": 36,
+      "hit": true,
+      "router": "integrations.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/putaway/queue",
+      "func": "get_putaway_queue",
+      "line_start": 26,
+      "line_end": 30,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inventory/putaway",
+      "func": "do_putaway",
+      "line_start": 35,
+      "line_end": 37,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/stock-analytics",
+      "func": "stock_analytics",
+      "line_start": 51,
+      "line_end": 55,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/status-board",
+      "func": "inventory_status_board",
+      "line_start": 64,
+      "line_end": 70,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/balances",
+      "func": "list_balances",
+      "line_start": 75,
+      "line_end": 94,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/rolls",
+      "func": "list_rolls",
+      "line_start": 106,
+      "line_end": 132,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/rolls/available",
+      "func": "list_rolls_available",
+      "line_start": 145,
+      "line_end": 159,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inventory/movements",
+      "func": "list_movements",
+      "line_start": 164,
+      "line_end": 168,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inventory/initial-stock",
+      "func": "add_initial_stock",
+      "line_start": 173,
+      "line_end": 210,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/history/{product_id}",
+      "func": "product_history",
+      "line_start": 215,
+      "line_end": 222,
+      "hit": true,
+      "router": "inventory.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "func": "list_invoices",
+      "line_start": 19,
+      "line_end": 20,
+      "hit": true,
+      "router": "invoices.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders/{order_id}/invoices",
+      "func": "order_invoices",
+      "line_start": 25,
+      "line_end": 26,
+      "hit": true,
+      "router": "invoices.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/simulate-payment",
+      "func": "simulate_payment",
+      "line_start": 31,
+      "line_end": 104,
+      "hit": true,
+      "router": "invoices.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/labels/generate",
+      "func": "generate_product_label",
+      "line_start": 23,
+      "line_end": 79,
+      "hit": false,
+      "router": "label_printer.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/labels/preview",
+      "func": "preview_label",
+      "line_start": 87,
+      "line_end": 144,
+      "hit": false,
+      "router": "label_printer.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders/{po_id}/landed-cost-context",
+      "func": "po_landed_cost_context",
+      "line_start": 33,
+      "line_end": 38,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/landed-costs/payables/summary",
+      "func": "landed_cost_payables",
+      "line_start": 45,
+      "line_end": 79,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/landed-costs",
+      "func": "list_landed_costs",
+      "line_start": 88,
+      "line_end": 98,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/landed-costs/{voucher_id}",
+      "func": "get_landed_cost",
+      "line_start": 103,
+      "line_end": 108,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs",
+      "func": "create_landed_cost",
+      "line_start": 115,
+      "line_end": 194,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs/{voucher_id}/submit",
+      "func": "submit_landed_cost",
+      "line_start": 219,
+      "line_end": 221,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs/{voucher_id}/approve",
+      "func": "approve_landed_cost",
+      "line_start": 226,
+      "line_end": 260,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs/{voucher_id}/reject",
+      "func": "reject_landed_cost",
+      "line_start": 265,
+      "line_end": 284,
+      "hit": false,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs/{voucher_id}/pay",
+      "func": "pay_landed_cost",
+      "line_start": 291,
+      "line_end": 335,
+      "hit": true,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/landed-costs/{voucher_id}/cancel",
+      "func": "cancel_landed_cost",
+      "line_start": 340,
+      "line_end": 356,
+      "hit": false,
+      "router": "landed_cost.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "func": "list_notifications",
+      "line_start": 34,
+      "line_end": 38,
+      "hit": true,
+      "router": "notifications.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications/unread-count",
+      "func": "unread_count",
+      "line_start": 43,
+      "line_end": 45,
+      "hit": true,
+      "router": "notifications.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/read-all",
+      "func": "mark_all_read",
+      "line_start": 50,
+      "line_end": 53,
+      "hit": true,
+      "router": "notifications.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/{notification_id}/read",
+      "func": "mark_read",
+      "line_start": 58,
+      "line_end": 65,
+      "hit": true,
+      "router": "notifications.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/notifications/generate",
+      "func": "generate",
+      "line_start": 70,
+      "line_end": 73,
+      "hit": true,
+      "router": "notifications.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/onboarding",
+      "func": "get_onboarding",
+      "line_start": 45,
+      "line_end": 62,
+      "hit": true,
+      "router": "onboarding.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/onboarding/{task_id}/complete",
+      "func": "complete_task",
+      "line_start": 67,
+      "line_end": 74,
+      "hit": false,
+      "router": "onboarding.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/onboarding/reset",
+      "func": "reset_onboarding",
+      "line_start": 79,
+      "line_end": 81,
+      "hit": false,
+      "router": "onboarding.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/outbound/tasks",
+      "func": "list_outbound_tasks",
+      "line_start": 29,
+      "line_end": 58,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/outbound/tasks/{task_id}/release",
+      "func": "release_scheduled_task",
+      "line_start": 63,
+      "line_end": 78,
+      "hit": false,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/outbound/tasks/{task_id}/scan-pick",
+      "func": "scan_pick_item",
+      "line_start": 91,
+      "line_end": 172,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/outbound/tasks/{task_id}/escalate",
+      "func": "escalate_outbound_task",
+      "line_start": 181,
+      "line_end": 222,
+      "hit": false,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/outbound/tasks/{task_id}/resolve-escalation",
+      "func": "resolve_outbound_escalation",
+      "line_start": 232,
+      "line_end": 350,
+      "hit": false,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/outbound/tasks/{task_id}/dispatch",
+      "func": "dispatch_outbound",
+      "line_start": 355,
+      "line_end": 375,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/shipments",
+      "func": "list_shipments",
+      "line_start": 380,
+      "line_end": 388,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/shipments/{shipment_id}/surat-jalan",
+      "func": "shipment_surat_jalan",
+      "line_start": 393,
+      "line_end": 450,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/outbound/so/{order_id}/surat-jalan",
+      "func": "generate_surat_jalan",
+      "line_start": 455,
+      "line_end": 673,
+      "hit": true,
+      "router": "outbound_picking.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pegging/rolls",
+      "func": "list_earmarked",
+      "line_start": 46,
+      "line_end": 51,
+      "hit": true,
+      "router": "pegging.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inventory/rolls/{roll_id}/earmark",
+      "func": "earmark_roll",
+      "line_start": 56,
+      "line_end": 88,
+      "hit": true,
+      "router": "pegging.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/inventory/rolls/{roll_id}/earmark",
+      "func": "unearmark_roll",
+      "line_start": 93,
+      "line_end": 102,
+      "hit": true,
+      "router": "pegging.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pos/best-sellers",
+      "func": "get_best_sellers",
+      "line_start": 16,
+      "line_end": 16,
+      "hit": true,
+      "router": "pos.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pos/frequently-bought-together",
+      "func": "get_frequently_bought_together",
+      "line_start": 25,
+      "line_end": 25,
+      "hit": false,
+      "router": "pos.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pos/substitutes",
+      "func": "get_substitutes",
+      "line_start": 34,
+      "line_end": 34,
+      "hit": false,
+      "router": "pos.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/price-approvals",
+      "func": "list_price_approvals",
+      "line_start": 127,
+      "line_end": 141,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/price-approvals/effective",
+      "func": "effective_price",
+      "line_start": 149,
+      "line_end": 166,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/price-approvals/stats/summary",
+      "func": "price_approval_stats",
+      "line_start": 171,
+      "line_end": 183,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/price-approvals",
+      "func": "create_price_approval",
+      "line_start": 190,
+      "line_end": 231,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/price-approvals/{approval_id}",
+      "func": "get_price_approval",
+      "line_start": 238,
+      "line_end": 243,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/price-approvals/{approval_id}",
+      "func": "patch_price_approval",
+      "line_start": 248,
+      "line_end": 277,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/price-approvals/{approval_id}",
+      "func": "delete_price_approval",
+      "line_start": 282,
+      "line_end": 289,
+      "hit": false,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/price-approvals/{approval_id}/submit",
+      "func": "submit_price_approval",
+      "line_start": 296,
+      "line_end": 306,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/price-approvals/{approval_id}/approve",
+      "func": "approve_price_approval",
+      "line_start": 311,
+      "line_end": 384,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/price-approvals/{approval_id}/reject",
+      "func": "reject_price_approval",
+      "line_start": 389,
+      "line_end": 406,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/price-approvals/{approval_id}/attachments",
+      "func": "upload_attachment",
+      "line_start": 413,
+      "line_end": 441,
+      "hit": false,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/price-approvals/{approval_id}/attachments/{att_id}/download",
+      "func": "download_attachment",
+      "line_start": 450,
+      "line_end": 468,
+      "hit": true,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/price-approvals/{approval_id}/attachments/{att_id}",
+      "func": "delete_attachment",
+      "line_start": 473,
+      "line_end": 484,
+      "hit": false,
+      "router": "price_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pricelist",
+      "func": "pricelist_grid",
+      "line_start": 22,
+      "line_end": 29,
+      "hit": true,
+      "router": "pricelist.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/pricelist/records",
+      "func": "pricelist_records",
+      "line_start": 35,
+      "line_end": 39,
+      "hit": true,
+      "router": "pricelist.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/pricelist",
+      "func": "create_price",
+      "line_start": 44,
+      "line_end": 57,
+      "hit": true,
+      "router": "pricelist.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/pricelist/{price_id}",
+      "func": "patch_price",
+      "line_start": 62,
+      "line_end": 74,
+      "hit": true,
+      "router": "pricelist.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/pricelist/{price_id}",
+      "func": "delete_price",
+      "line_start": 79,
+      "line_end": 91,
+      "hit": true,
+      "router": "pricelist.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/product-templates",
+      "func": "list_templates",
+      "line_start": 19,
+      "line_end": 20,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/product-templates/{template_id}",
+      "func": "get_template",
+      "line_start": 25,
+      "line_end": 29,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/product-templates",
+      "func": "create_template",
+      "line_start": 34,
+      "line_end": 41,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/product-templates/{template_id}",
+      "func": "patch_template",
+      "line_start": 46,
+      "line_end": 51,
+      "hit": false,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/product-templates/{template_id}",
+      "func": "delete_template",
+      "line_start": 56,
+      "line_end": 62,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/product-templates/{template_id}/generate-variants",
+      "func": "generate_variants",
+      "line_start": 67,
+      "line_end": 74,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/product-templates/{template_id}/assign",
+      "func": "assign_products",
+      "line_start": 79,
+      "line_end": 85,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/product-templates/detach",
+      "func": "detach_products",
+      "line_start": 90,
+      "line_end": 93,
+      "hit": true,
+      "router": "product_templates.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products",
+      "func": "list_products",
+      "line_start": 18,
+      "line_end": 38,
+      "hit": true,
+      "router": "products.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "func": "create_product",
+      "line_start": 43,
+      "line_end": 50,
+      "hit": true,
+      "router": "products.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/products/{product_id}",
+      "func": "update_product",
+      "line_start": 55,
+      "line_end": 68,
+      "hit": true,
+      "router": "products.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{product_id}",
+      "func": "delete_product",
+      "line_start": 73,
+      "line_end": 82,
+      "hit": true,
+      "router": "products.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/products/{product_id}/stock-breakdown",
+      "func": "stock_breakdown",
+      "line_start": 88,
+      "line_end": 159,
+      "hit": true,
+      "router": "products.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders",
+      "func": "list_purchase_orders",
+      "line_start": 167,
+      "line_end": 173,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders",
+      "func": "create_purchase_order",
+      "line_start": 178,
+      "line_end": 181,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/blanket",
+      "func": "create_blanket_po",
+      "line_start": 411,
+      "line_end": 417,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders/blanket",
+      "func": "list_blanket_pos",
+      "line_start": 422,
+      "line_end": 426,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{blanket_id}/call-off",
+      "func": "create_call_off",
+      "line_start": 431,
+      "line_end": 452,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{blanket_id}/close-contract",
+      "func": "close_blanket_contract",
+      "line_start": 457,
+      "line_end": 462,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/amend",
+      "func": "amend_purchase_order",
+      "line_start": 467,
+      "line_end": 484,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/approve",
+      "func": "approve_purchase_order",
+      "line_start": 489,
+      "line_end": 558,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/reject",
+      "func": "reject_purchase_order",
+      "line_start": 563,
+      "line_end": 592,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders/{po_id}",
+      "func": "get_purchase_order",
+      "line_start": 597,
+      "line_end": 621,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/pay",
+      "func": "pay_purchase_order",
+      "line_start": 626,
+      "line_end": 637,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/close",
+      "func": "close_purchase_order_short",
+      "line_start": 642,
+      "line_end": 663,
+      "hit": false,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders/payables/summary",
+      "func": "payables_summary",
+      "line_start": 668,
+      "line_end": 718,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-orders/{po_id}/cancel",
+      "func": "cancel_purchase_order",
+      "line_start": 723,
+      "line_end": 752,
+      "hit": true,
+      "router": "purchase_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-requisitions",
+      "func": "list_requisitions",
+      "line_start": 27,
+      "line_end": 40,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-requisitions/reorder-suggestions",
+      "func": "reorder_suggestions",
+      "line_start": 45,
+      "line_end": 48,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions",
+      "func": "create_requisition",
+      "line_start": 53,
+      "line_end": 63,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-requisitions/{pr_id}",
+      "func": "get_requisition",
+      "line_start": 68,
+      "line_end": 74,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions/{pr_id}/submit",
+      "func": "submit_requisition",
+      "line_start": 79,
+      "line_end": 85,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions/{pr_id}/approve",
+      "func": "approve_requisition",
+      "line_start": 91,
+      "line_end": 98,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions/{pr_id}/reject",
+      "func": "reject_requisition",
+      "line_start": 104,
+      "line_end": 111,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions/{pr_id}/cancel",
+      "func": "cancel_requisition",
+      "line_start": 116,
+      "line_end": 122,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-requisitions/{pr_id}/convert-to-po",
+      "func": "convert_to_po",
+      "line_start": 127,
+      "line_end": 138,
+      "hit": true,
+      "router": "purchase_requisitions.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-returns",
+      "func": "list_purchase_returns",
+      "line_start": 21,
+      "line_end": 28,
+      "hit": true,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-returns",
+      "func": "create_purchase_return",
+      "line_start": 33,
+      "line_end": 42,
+      "hit": false,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-returns/{return_id}",
+      "func": "get_purchase_return",
+      "line_start": 47,
+      "line_end": 51,
+      "hit": true,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-returns/{return_id}/submit",
+      "func": "submit_purchase_return",
+      "line_start": 56,
+      "line_end": 62,
+      "hit": true,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-returns/{return_id}/approve",
+      "func": "approve_purchase_return",
+      "line_start": 68,
+      "line_end": 75,
+      "hit": true,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/purchase-returns/{return_id}/reject",
+      "func": "reject_purchase_return",
+      "line_start": 81,
+      "line_end": 87,
+      "hit": false,
+      "router": "purchase_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/qc/grade-thresholds",
+      "func": "get_grade_thresholds",
+      "line_start": 21,
+      "line_end": 23,
+      "hit": true,
+      "router": "qc_inspection.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/inbound/qc/tasks/{task_id}/rolls",
+      "func": "list_task_rolls",
+      "line_start": 28,
+      "line_end": 33,
+      "hit": true,
+      "router": "qc_inspection.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/inbound/rolls/{roll_id}/inspect",
+      "func": "inspect",
+      "line_start": 38,
+      "line_end": 55,
+      "hit": true,
+      "router": "qc_inspection.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/stock-aging",
+      "func": "stock_aging",
+      "line_start": 27,
+      "line_end": 71,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/reservation-funnel",
+      "func": "reservation_funnel",
+      "line_start": 77,
+      "line_end": 111,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/order-velocity",
+      "func": "order_velocity",
+      "line_start": 117,
+      "line_end": 144,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/top-customers",
+      "func": "top_customers",
+      "line_start": 150,
+      "line_end": 177,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/warehouse-utilization",
+      "func": "warehouse_utilization",
+      "line_start": 183,
+      "line_end": 220,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports/summary",
+      "func": "dashboard_summary",
+      "line_start": 226,
+      "line_end": 254,
+      "hit": true,
+      "router": "reporting.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/summary",
+      "func": "get_summary",
+      "line_start": 61,
+      "line_end": 64,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/tags",
+      "func": "get_tags",
+      "line_start": 71,
+      "line_end": 75,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/untagged-rolls",
+      "func": "get_untagged",
+      "line_start": 81,
+      "line_end": 85,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/tags/encode",
+      "func": "post_encode",
+      "line_start": 90,
+      "line_end": 96,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/tags/auto-encode",
+      "func": "post_auto_encode",
+      "line_start": 101,
+      "line_end": 106,
+      "hit": false,
+      "router": "rfid.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/rfid/tags/{tag_id}",
+      "func": "delete_tag",
+      "line_start": 111,
+      "line_end": 116,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/devices",
+      "func": "get_devices",
+      "line_start": 122,
+      "line_end": 124,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/devices",
+      "func": "post_device",
+      "line_start": 129,
+      "line_end": 132,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/rfid/devices/{device_id}",
+      "func": "patch_device",
+      "line_start": 137,
+      "line_end": 140,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/rfid/devices/{device_id}",
+      "func": "del_device",
+      "line_start": 145,
+      "line_end": 148,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/devices/seed-defaults",
+      "func": "post_seed_devices",
+      "line_start": 153,
+      "line_end": 156,
+      "hit": false,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/reads",
+      "func": "get_reads",
+      "line_start": 164,
+      "line_end": 166,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/gate/simulate",
+      "func": "post_gate_simulate",
+      "line_start": 171,
+      "line_end": 178,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfid/reader/scan",
+      "func": "post_reader_scan",
+      "line_start": 183,
+      "line_end": 186,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfid/locations",
+      "func": "get_locations",
+      "line_start": 193,
+      "line_end": 197,
+      "hit": true,
+      "router": "rfid.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfqs",
+      "func": "list_rfqs",
+      "line_start": 31,
+      "line_end": 38,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfqs/{rfq_id}",
+      "func": "get_rfq",
+      "line_start": 43,
+      "line_end": 47,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/rfqs/{rfq_id}/compare",
+      "func": "compare_rfq",
+      "line_start": 52,
+      "line_end": 53,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfqs",
+      "func": "create_rfq",
+      "line_start": 58,
+      "line_end": 113,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfqs/{rfq_id}/send",
+      "func": "send_rfq",
+      "line_start": 118,
+      "line_end": 127,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfqs/{rfq_id}/quote",
+      "func": "submit_quote",
+      "line_start": 132,
+      "line_end": 162,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfqs/{rfq_id}/award",
+      "func": "award",
+      "line_start": 167,
+      "line_end": 183,
+      "hit": true,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/rfqs/{rfq_id}/cancel",
+      "func": "cancel_rfq",
+      "line_start": 188,
+      "line_end": 198,
+      "hit": false,
+      "router": "rfq.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/preview-allocation",
+      "func": "preview_allocation",
+      "line_start": 41,
+      "line_end": 69,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/preview-lots",
+      "func": "preview_lots",
+      "line_start": 74,
+      "line_end": 118,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders",
+      "func": "list_orders",
+      "line_start": 123,
+      "line_end": 134,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders/stats/summary",
+      "func": "get_orders_stats",
+      "line_start": 139,
+      "line_end": 183,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders/frequent-products",
+      "func": "frequent_products",
+      "line_start": 188,
+      "line_end": 190,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/preview-roll-reconcile",
+      "func": "preview_roll_reconcile",
+      "line_start": 195,
+      "line_end": 204,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders",
+      "func": "create_order",
+      "line_start": 209,
+      "line_end": 581,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders/{order_id}",
+      "func": "get_order",
+      "line_start": 586,
+      "line_end": 590,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/sales-orders/{order_id}",
+      "func": "update_order",
+      "line_start": 595,
+      "line_end": 606,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/submit-for-approval",
+      "func": "submit_for_approval",
+      "line_start": 611,
+      "line_end": 650,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/approve",
+      "func": "approve_order",
+      "line_start": 669,
+      "line_end": 698,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/confirm",
+      "func": "confirm_order",
+      "line_start": 703,
+      "line_end": 712,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/mark-delivered",
+      "func": "mark_delivered",
+      "line_start": 717,
+      "line_end": 730,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/release-reservation",
+      "func": "release_reservation",
+      "line_start": 735,
+      "line_end": 760,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/cancel",
+      "func": "cancel_order",
+      "line_start": 765,
+      "line_end": 793,
+      "hit": true,
+      "router": "sales_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-returns",
+      "func": "list_returns",
+      "line_start": 27,
+      "line_end": 39,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/credit-notes",
+      "func": "list_credit_notes",
+      "line_start": 51,
+      "line_end": 61,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/credit-notes/{cn_id}",
+      "func": "get_credit_note",
+      "line_start": 66,
+      "line_end": 73,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-returns",
+      "func": "create_return",
+      "line_start": 83,
+      "line_end": 111,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-returns/{return_id}",
+      "func": "get_return",
+      "line_start": 118,
+      "line_end": 126,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-returns/{return_id}/submit",
+      "func": "submit_return",
+      "line_start": 133,
+      "line_end": 149,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-returns/{return_id}/approve",
+      "func": "approve_return",
+      "line_start": 160,
+      "line_end": 168,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-returns/{return_id}/reject",
+      "func": "reject_return",
+      "line_start": 179,
+      "line_end": 187,
+      "hit": false,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-returns/{return_id}/attachments",
+      "func": "upload_attachment",
+      "line_start": 198,
+      "line_end": 227,
+      "hit": false,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-returns/{return_id}/attachments/{att_id}/download",
+      "func": "download_attachment",
+      "line_start": 232,
+      "line_end": 245,
+      "hit": true,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/sales-returns/{return_id}/attachments/{att_id}",
+      "func": "delete_attachment",
+      "line_start": 250,
+      "line_end": 257,
+      "hit": false,
+      "router": "sales_returns.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings",
+      "func": "read_settings",
+      "line_start": 25,
+      "line_end": 26,
+      "hit": true,
+      "router": "settings.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings/effective",
+      "func": "read_effective_settings",
+      "line_start": 31,
+      "line_end": 32,
+      "hit": true,
+      "router": "settings.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/settings",
+      "func": "update_settings",
+      "line_start": 37,
+      "line_end": 55,
+      "hit": true,
+      "router": "settings.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings/compute-tax",
+      "func": "compute_tax_endpoint",
+      "line_start": 62,
+      "line_end": 63,
+      "hit": true,
+      "router": "settings.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/settings/evaluate-approval",
+      "func": "evaluate_approval_endpoint",
+      "line_start": 69,
+      "line_end": 70,
+      "hit": false,
+      "router": "settings.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/payment-terms",
+      "func": "list_payment_terms",
+      "line_start": 77,
+      "line_end": 78,
+      "hit": true,
+      "router": "settings.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/payment-terms",
+      "func": "create_payment_term",
+      "line_start": 83,
+      "line_end": 90,
+      "hit": false,
+      "router": "settings.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/payment-terms/{term_id}",
+      "func": "update_payment_term",
+      "line_start": 95,
+      "line_end": 102,
+      "hit": false,
+      "router": "settings.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/payment-terms/{term_id}",
+      "func": "delete_payment_term",
+      "line_start": 107,
+      "line_end": 114,
+      "hit": false,
+      "router": "settings.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/request-special-price",
+      "func": "request_special_price",
+      "line_start": 90,
+      "line_end": 131,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/request-credit-approval",
+      "func": "request_credit_approval",
+      "line_start": 138,
+      "line_end": 164,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/approvals/{approval_id}/decide",
+      "func": "decide_approval",
+      "line_start": 172,
+      "line_end": 227,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/approvals/{approval_id}/evidence",
+      "func": "upload_evidence",
+      "line_start": 234,
+      "line_end": 267,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sales-orders/{order_id}/approvals/{approval_id}/evidence/{att_id}/download",
+      "func": "download_evidence",
+      "line_start": 278,
+      "line_end": 298,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/approvals/queue",
+      "func": "approvals_queue",
+      "line_start": 305,
+      "line_end": 327,
+      "hit": true,
+      "router": "so_approvals.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/special-orders",
+      "func": "list_special_orders",
+      "line_start": 81,
+      "line_end": 126,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders",
+      "func": "create_special_order",
+      "line_start": 131,
+      "line_end": 237,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/special-orders/{order_id}",
+      "func": "get_special_order",
+      "line_start": 242,
+      "line_end": 251,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/approve",
+      "func": "approve_special_order_endpoint",
+      "line_start": 261,
+      "line_end": 283,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/reject",
+      "func": "reject_special_order_endpoint",
+      "line_start": 293,
+      "line_end": 315,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/status",
+      "func": "update_special_order_status",
+      "line_start": 325,
+      "line_end": 344,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/create-pr",
+      "func": "create_pr_from_special_order",
+      "line_start": 353,
+      "line_end": 409,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/create-sku",
+      "func": "create_sku_endpoint",
+      "line_start": 414,
+      "line_end": 437,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/special-orders/{order_id}/convert-to-so",
+      "func": "convert_special_order_to_so",
+      "line_start": 442,
+      "line_end": 510,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/special-orders/{order_id}",
+      "func": "patch_special_order",
+      "line_start": 520,
+      "line_end": 554,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/special-orders/{order_id}",
+      "func": "delete_special_order",
+      "line_start": 563,
+      "line_end": 591,
+      "hit": true,
+      "router": "special_orders.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/stock/buckets",
+      "func": "stock_buckets",
+      "line_start": 21,
+      "line_end": 24,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/stock/holds",
+      "func": "list_holds",
+      "line_start": 29,
+      "line_end": 32,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/stock/wip",
+      "func": "list_wip",
+      "line_start": 37,
+      "line_end": 40,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/stock/pending-so",
+      "func": "pending_so",
+      "line_start": 45,
+      "line_end": 49,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/stock/atp",
+      "func": "stock_atp",
+      "line_start": 56,
+      "line_end": 61,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/stock/hold",
+      "func": "create_hold",
+      "line_start": 71,
+      "line_end": 78,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/stock/hold/{hold_id}/release",
+      "func": "release_hold",
+      "line_start": 83,
+      "line_end": 86,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/stock/wip/start",
+      "func": "start_wip",
+      "line_start": 91,
+      "line_end": 97,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/stock/wip/{wip_id}/complete",
+      "func": "complete_wip",
+      "line_start": 102,
+      "line_end": 105,
+      "hit": true,
+      "router": "stock_buckets.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/suppliers",
+      "func": "list_suppliers",
+      "line_start": 35,
+      "line_end": 43,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/suppliers",
+      "func": "create_supplier",
+      "line_start": 48,
+      "line_end": 78,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/suppliers/{supplier_id}",
+      "func": "get_supplier",
+      "line_start": 83,
+      "line_end": 96,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/suppliers/{supplier_id}",
+      "func": "update_supplier",
+      "line_start": 101,
+      "line_end": 122,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/suppliers/{supplier_id}",
+      "func": "deactivate_supplier",
+      "line_start": 127,
+      "line_end": 137,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/suppliers/{supplier_id}/price-list",
+      "func": "list_supplier_price_list",
+      "line_start": 145,
+      "line_end": 153,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/suppliers/{supplier_id}/price-list",
+      "func": "create_supplier_price",
+      "line_start": 159,
+      "line_end": 195,
+      "hit": false,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/supplier-price-list/{entry_id}",
+      "func": "update_supplier_price",
+      "line_start": 201,
+      "line_end": 226,
+      "hit": false,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/supplier-price-list/{entry_id}",
+      "func": "deactivate_supplier_price",
+      "line_start": 231,
+      "line_end": 241,
+      "hit": false,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/supplier-price-list/resolve",
+      "func": "resolve_supplier_price",
+      "line_start": 247,
+      "line_end": 251,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/suppliers/{supplier_id}/scorecard",
+      "func": "get_supplier_scorecard",
+      "line_start": 256,
+      "line_end": 261,
+      "hit": true,
+      "router": "suppliers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax/summary",
+      "func": "get_tax_summary",
+      "line_start": 39,
+      "line_end": 45,
+      "hit": true,
+      "router": "tax_center.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax/pph-records",
+      "func": "list_pph_records",
+      "line_start": 51,
+      "line_end": 56,
+      "hit": true,
+      "router": "tax_center.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tax/pph-records",
+      "func": "create_pph_record",
+      "line_start": 61,
+      "line_end": 73,
+      "hit": false,
+      "router": "tax_center.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/tax/pph-records/{record_id}",
+      "func": "delete_pph_record",
+      "line_start": 78,
+      "line_end": 83,
+      "hit": false,
+      "router": "tax_center.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax-invoices",
+      "func": "list_tax_invoices",
+      "line_start": 27,
+      "line_end": 36,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax-invoices/{fkt_id}",
+      "func": "get_tax_invoice",
+      "line_start": 41,
+      "line_end": 47,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/sales-orders/{order_id}/tax-invoice",
+      "func": "issue_for_order",
+      "line_start": 52,
+      "line_end": 58,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/tax-invoices/{fkt_id}/nsfp",
+      "func": "update_nsfp",
+      "line_start": 63,
+      "line_end": 68,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tax-invoices/{fkt_id}/replace",
+      "func": "replace_faktur",
+      "line_start": 73,
+      "line_end": 79,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/tax-invoices/{fkt_id}/cancel",
+      "func": "cancel_faktur",
+      "line_start": 84,
+      "line_end": 89,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/tax-invoices/{fkt_id}/document",
+      "func": "faktur_document",
+      "line_start": 94,
+      "line_end": 97,
+      "hit": true,
+      "router": "tax_invoices.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/transfers",
+      "func": "list_transfers",
+      "line_start": 46,
+      "line_end": 86,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/transfers",
+      "func": "create_transfer",
+      "line_start": 91,
+      "line_end": 175,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/transfers/inter-company",
+      "func": "create_inter_company_transfer",
+      "line_start": 180,
+      "line_end": 258,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/transfers/{transfer_id}",
+      "func": "get_transfer_detail",
+      "line_start": 263,
+      "line_end": 282,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/transfers/{transfer_id}/approve",
+      "func": "approve_transfer",
+      "line_start": 287,
+      "line_end": 339,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/transfers/{transfer_id}/reject",
+      "func": "reject_transfer",
+      "line_start": 344,
+      "line_end": 383,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/transfers/{transfer_id}/status",
+      "func": "update_transfer_status",
+      "line_start": 388,
+      "line_end": 452,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/transfers/{transfer_id}",
+      "func": "cancel_transfer",
+      "line_start": 457,
+      "line_end": 492,
+      "hit": true,
+      "router": "transfers.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/uoms",
+      "func": "list_uoms",
+      "line_start": 15,
+      "line_end": 15,
+      "hit": true,
+      "router": "uoms.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/uoms",
+      "func": "create_uom",
+      "line_start": 20,
+      "line_end": 26,
+      "hit": false,
+      "router": "uoms.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/uoms/{uom_id}",
+      "func": "update_uom",
+      "line_start": 31,
+      "line_end": 41,
+      "hit": false,
+      "router": "uoms.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/uoms/{uom_id}",
+      "func": "delete_uom",
+      "line_start": 46,
+      "line_end": 55,
+      "hit": false,
+      "router": "uoms.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users",
+      "func": "list_users",
+      "line_start": 18,
+      "line_end": 19,
+      "hit": true,
+      "router": "users.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/users",
+      "func": "create_user",
+      "line_start": 24,
+      "line_end": 52,
+      "hit": true,
+      "router": "users.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{user_id}",
+      "func": "update_user",
+      "line_start": 57,
+      "line_end": 77,
+      "hit": true,
+      "router": "users.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/purchase-orders/{po_id}/billing-context",
+      "func": "po_billing_context",
+      "line_start": 44,
+      "line_end": 49,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vendor-bills/payables/summary",
+      "func": "vendor_bill_payables",
+      "line_start": 56,
+      "line_end": 107,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vendor-bills",
+      "func": "list_vendor_bills",
+      "line_start": 116,
+      "line_end": 126,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/vendor-bills/{bill_id}",
+      "func": "get_vendor_bill",
+      "line_start": 131,
+      "line_end": 138,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills",
+      "func": "create_vendor_bill",
+      "line_start": 145,
+      "line_end": 269,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills/{bill_id}/submit",
+      "func": "submit_vendor_bill",
+      "line_start": 335,
+      "line_end": 337,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills/{bill_id}/approve",
+      "func": "approve_vendor_bill",
+      "line_start": 342,
+      "line_end": 359,
+      "hit": false,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills/{bill_id}/reject",
+      "func": "reject_vendor_bill",
+      "line_start": 364,
+      "line_end": 383,
+      "hit": false,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills/{bill_id}/pay",
+      "func": "pay_vendor_bill",
+      "line_start": 390,
+      "line_end": 435,
+      "hit": true,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/vendor-bills/{bill_id}/cancel",
+      "func": "cancel_vendor_bill",
+      "line_start": 440,
+      "line_end": 458,
+      "hit": false,
+      "router": "vendor_bills.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/warehouses/{warehouse_id}/locations",
+      "func": "get_warehouse_locations",
+      "line_start": 22,
+      "line_end": 25,
+      "hit": true,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/warehouses/{warehouse_id}/structure",
+      "func": "put_warehouse_structure",
+      "line_start": 30,
+      "line_end": 35,
+      "hit": true,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/warehouses",
+      "func": "list_warehouses",
+      "line_start": 40,
+      "line_end": 40,
+      "hit": true,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/warehouses",
+      "func": "create_warehouse",
+      "line_start": 45,
+      "line_end": 66,
+      "hit": false,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/warehouses/{warehouse_id}",
+      "func": "update_warehouse",
+      "line_start": 71,
+      "line_end": 88,
+      "hit": false,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/warehouses/{warehouse_id}",
+      "func": "delete_warehouse",
+      "line_start": 93,
+      "line_end": 102,
+      "hit": false,
+      "router": "warehouses.py"
+    },
+    {
+      "method": "GET",
+      "path": "/api/wms/tasks",
+      "func": "list_tasks",
+      "line_start": 25,
+      "line_end": 38,
+      "hit": true,
+      "router": "wms.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/wms/tasks",
+      "func": "create_task",
+      "line_start": 43,
+      "line_end": 93,
+      "hit": true,
+      "router": "wms.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/wms/tasks/outbound-from-order/{order_id}",
+      "func": "create_outbound_from_order",
+      "line_start": 98,
+      "line_end": 110,
+      "hit": true,
+      "router": "wms.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/wms/tasks/{task_id}/scan",
+      "func": "scan_task",
+      "line_start": 115,
+      "line_end": 139,
+      "hit": false,
+      "router": "wms.py"
+    },
+    {
+      "method": "POST",
+      "path": "/api/wms/tasks/{task_id}/advance",
+      "func": "advance_task",
+      "line_start": 144,
+      "line_end": 166,
+      "hit": true,
+      "router": "wms.py"
+    }
+  ]
+}

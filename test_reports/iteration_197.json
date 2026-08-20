@@ -1,0 +1,48 @@
+{
+  "summary": "Completed comprehensive testing of PS-20 'Produk Eksklusif per Sales (PO sendiri)' feature. All backend API tests passed (16/16). Frontend admin form and product list badges verified. Backend enforcement working correctly - owner sales can see/order exclusive products, non-owner sales cannot.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Ayu (owner) sees exclusive product ENK-BALI-001 via GET /api/products",
+    "Backend: Bima (non-owner) does NOT see exclusive product ENK-BALI-001 via GET /api/products",
+    "Backend: Admin sees all products including exclusive ENK-BALI-001",
+    "Backend: Manager sees all products including exclusive ENK-BALI-001",
+    "Backend: Bima gets 403 with 'eksklusif' message when creating SO with exclusive product",
+    "Backend: Ayu (owner) NOT blocked by exclusivity when creating SO",
+    "Backend: Admin gets 200 with sales list (>=3 users) from GET /api/products/sales-owners",
+    "Backend: Bima (sales) gets 403 for GET /api/products/sales-owners endpoint",
+    "Backend: Admin can create product with exclusivity='sales_tertentu' and owner_sales_ids",
+    "Backend: Admin gets 400 when creating exclusive product with empty owner_sales_ids",
+    "Backend: Bima does NOT see exclusive product in GET /api/sales-orders/frequent-products",
+    "Backend: All roles (admin, Ayu, Bima) can see normal (non-exclusive) products",
+    "Backend: Products have prices and stock info",
+    "Backend: Create normal product works (exclusivity defaults to 'umum')",
+    "Frontend: Admin product form has exclusivity panel with toggle buttons (umum & exclusive)",
+    "Frontend: Admin product form shows owner picker when exclusive is selected",
+    "Frontend: Admin product form shows warning when no owner selected",
+    "Frontend: Admin product form has checkboxes for sales owners (user_sales_01 found)",
+    "Frontend: Admin product list shows 'Eksklusif · 1 Sales' badge for prod_endek_bali",
+    "Frontend: Ayu's dashboard shows 'Endek Bali Rangrang' product (owner can see it)"
+  ],
+  "test_report_links": [
+    "/app/backend_test.py",
+    "/app/test_ps20_exclusive_poc.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (16/16 tests passed)",
+    "frontend": "100% (admin form & list verified, POS visibility confirmed via backend API)"
+  },
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend_test.py"
+  ],
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

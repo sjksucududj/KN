@@ -1,0 +1,207 @@
+{
+  "summary": "Completed frontend testing for iteration 222 - testing items left behind from iteration 221 due to navigation issues. Successfully verified REGRESI-1 (role badge fix), US19 (manager approval), and US29 (return chain panel - CORE E-9). Found data scoping issue in US11 and missing journey panel in US12.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": [],
+    "notes": "Backend testing skipped per request - already verified with POC E-8 (92/92) + POC E-9 (44/44) + gate.sh (56 gates GREEN)"
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "component": "Sales Orders List",
+        "issue": "US11 - Sales@ can see SO-0008 which belongs to sales2@. Data scoping issue: sales@ should only see their own 8 orders (SO-0001, SO-0003, SO-0004, SO-0005, SO-0006, SO-0007, SO-0009, KSC/SO-00010) but SO-0008 is also visible.",
+        "severity": "MEDIUM",
+        "affected_view": "sales-orders",
+        "fix_priority": "MEDIUM",
+        "evidence": "Screenshot shows 9 orders instead of 8, with SO-0008 visible"
+      },
+      {
+        "component": "Order Detail - Journey Panel",
+        "issue": "US12 - Order journey/lifecycle panel not clearly visible in order detail for sales@ user. Expected to show fulfillment stages and source information.",
+        "severity": "MEDIUM",
+        "affected_view": "order detail",
+        "fix_priority": "MEDIUM"
+      },
+      {
+        "component": "Sales Orders List - KSC/SO-00010",
+        "issue": "US23/US24 - Could not locate KSC/SO-00010 in admin@ sales orders list to verify cross-PT fulfillment visibility. Order may be filtered out or navigation issue.",
+        "severity": "LOW",
+        "fix_priority": "LOW",
+        "note": "Backend POC confirms cross-PT logic works"
+      }
+    ],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "REGRESI-1A: Admin role badge shows 'Admin' WITHOUT dots (·) - PASS",
+    "REGRESI-1B: Sales Admin role badge shows 'Admin Sales' WITHOUT dots (·) - PASS",
+    "REGRESI-1C: Finance role badge shows 'Finance' WITHOUT dots (·) - PASS",
+    "US14: Sales@ user does NOT have finance buttons (Terbitkan Faktur Pajak, Catat Kwitansi, Putuskan Selisih) in order detail - PASS",
+    "US19: Manager approval inbox shows ONLY decision items (harga khusus, kredit, retur, persetujuan) and does NOT show 'konfirmasi SO rutin' - PASS",
+    "US29: Return chain panel displays correctly for SRET-00003 with 4 steps, 'RANTAI LENGKAP' badge, complete chain summary (SRET-00003 → KSC/ICR-00002 → PRET-00003 → disimpan CV Kanda Suka), IC transaction numbers visible, purchase return visible - PASS (CORE E-9 FUNCTIONALITY VERIFIED)",
+    "REGRESI-2: No critical console errors detected during testing"
+  ],
+  
+  "test_report_links": [
+    ".screenshots/iter222_admin_badge.png",
+    ".screenshots/iter222_salesadmin_badge.png",
+    ".screenshots/iter222_finance_badge.png",
+    ".screenshots/iter222_us11_final.png",
+    ".screenshots/iter222_us12_us14_final.png",
+    ".screenshots/iter222_us19_final.png",
+    ".screenshots/iter222_us29_final.png",
+    ".screenshots/iter222_us23_us24_final.png"
+  ],
+  
+  "success_percentage": {
+    "frontend": "70%",
+    "overall": "70%",
+    "details": "REGRESI-1 (3/3 roles): 100% PASS. US11: FAIL (data scoping). US12: FAIL (journey panel). US14: PASS. US19: PASS. US23/US24: FAIL (navigation). US29: PASS (CORE E-9). 6 of 9 tested items passed."
+  },
+  
+  "updated_files": [],
+  
+  "action_item_for_main_agent": {
+    "priority": "MEDIUM",
+    "items": [
+      {
+        "issue": "US11 - Sales data ownership scoping issue",
+        "description": "Sales@ (sales@kainnusantara.id) can see SO-0008 which belongs to sales2@kainnusantara.id. The sales orders list should be filtered to show ONLY the 8 orders owned by the logged-in sales user. Expected: SO-0001, SO-0003, SO-0004, SO-0005, SO-0006, SO-0007, SO-0009, KSC/SO-00010. Found: All expected orders PLUS SO-0008 (forbidden).",
+        "affected_file": "Backend API /api/sales-orders or frontend filtering logic",
+        "severity": "MEDIUM",
+        "fix_suggestion": "Check backend scoping logic for sales role - should filter by sales_person_id or owner_id to show only orders belonging to the logged-in user"
+      },
+      {
+        "issue": "US12 - Order journey/lifecycle panel not visible",
+        "description": "Order detail view for sales@ user does not clearly show the journey/lifecycle panel with fulfillment stages and source information. This panel should show stages like 'dipesan → divalidasi → disiapkan → dikirim → diterima → ditagih → dibayar' and fulfillment source details.",
+        "severity": "MEDIUM",
+        "note": "May be a UI visibility issue or the panel is not rendered for sales role"
+      },
+      {
+        "issue": "US23/US24 - KSC/SO-00010 not accessible for cross-PT verification",
+        "description": "Could not locate KSC/SO-00010 in admin@ sales orders list to verify cross-PT fulfillment visibility. The order should show that shortage was fulfilled from other PT via IC-00006 transaction with clickable links.",
+        "severity": "LOW",
+        "note": "Backend POC confirms cross-PT logic works. May be a filtering or navigation issue in frontend."
+      }
+    ]
+  },
+  
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_test_itself": false,
+  
+  "detailed_findings": {
+    "regresi1_role_badges": {
+      "status": "PASS",
+      "title": "✅ Role badge fix verified for all 3 roles",
+      "admin": "Shows 'Admin' without dots",
+      "sales_admin": "Shows 'Admin Sales' without dots",
+      "finance": "Shows 'Finance' without dots",
+      "note": "The bug from iteration_221 has been successfully fixed. Role badges no longer contain leading bullets (·) in the entity-role-tag element. The separator is now in a separate entity-switcher-sep element as intended."
+    },
+    "us11_sales_data_ownership": {
+      "status": "FAIL",
+      "issue": "Sales@ can see SO-0008 which belongs to sales2@",
+      "expected_orders": ["SO-0001", "SO-0003", "SO-0004", "SO-0005", "SO-0006", "SO-0007", "SO-0009", "KSC/SO-00010"],
+      "forbidden_orders": ["SO-0002", "SO-0008"],
+      "found": "All 8 expected orders found, but also found 1 forbidden order (SO-0008)",
+      "note": "Data scoping issue - backend should filter orders by sales_person_id"
+    },
+    "us12_order_journey": {
+      "status": "FAIL",
+      "issue": "Journey/lifecycle panel not clearly visible in order detail",
+      "note": "Could not find journey panel with fulfillment stages and source information"
+    },
+    "us14_sales_restrictions": {
+      "status": "PASS",
+      "title": "✅ Sales@ correctly does NOT have finance buttons",
+      "verified": "No 'Terbitkan Faktur Pajak', 'Catat Kwitansi', or 'Putuskan Selisih' buttons in order detail",
+      "note": "Role separation working correctly"
+    },
+    "us19_manager_approval": {
+      "status": "PASS",
+      "title": "✅ Manager approval inbox shows ONLY decision items",
+      "verified": "No 'konfirmasi SO rutin' found in approval inbox",
+      "found": "Decision items present (harga khusus, kredit, retur, persetujuan)",
+      "note": "Manager is not burdened with routine SO confirmations as intended"
+    },
+    "us23_us24_cross_pt": {
+      "status": "NOT_TESTED",
+      "reason": "Could not locate KSC/SO-00010 in admin@ sales orders list",
+      "note": "Backend POC confirms cross-PT fulfillment logic works. May be filtering or navigation issue."
+    },
+    "us25_at_cost_blocking": {
+      "status": "NOT_TESTED",
+      "reason": "Not attempted in this iteration - requires specific return scenario SRET-00003 karantina section"
+    },
+    "us29_return_chain": {
+      "status": "PASS",
+      "title": "✅ Return chain panel fully functional (CORE E-9)",
+      "verified": [
+        "Panel loads via AJAX and displays correctly",
+        "Badge shows 'RANTAI LENGKAP' (complete chain)",
+        "Summary shows full chain: SRET-00003 → KSC/ICR-00002 → PRET-00003 → disimpan CV Kanda Suka",
+        "4 steps displayed with correct data-testid attributes",
+        "IC transaction number (KSC/ICR-00002) visible",
+        "Purchase return (PRET-00003) visible",
+        "Panel answers the key question: 'where is the returned item now?'"
+      ],
+      "note": "This is the CORE FASE E-9 functionality and it is working correctly. The panel successfully traces the complete return chain from customer return through inter-company return to supplier return."
+    },
+    "us29b_return_chain_scoped": {
+      "status": "NOT_TESTED",
+      "reason": "Not attempted in this iteration - requires testing as sales@ user"
+    }
+  },
+  
+  "test_environment": {
+    "frontend_url": "https://nusantara-build.preview.emergentagent.com",
+    "test_date": "2025-08-15",
+    "test_iteration": 222,
+    "roles_tested": ["admin", "sales_admin (salesadmin@)", "finance", "sales (sales@)", "manager"],
+    "credentials_used": [
+      "admin@kainnusantara.id / demo12345",
+      "salesadmin@kainnusantara.id / demo12345",
+      "finance@kainnusantara.id / demo12345",
+      "sales@kainnusantara.id / demo12345",
+      "manager@kainnusantara.id / demo12345"
+    ],
+    "entities_tested": ["ent_ksc (KSC)"],
+    "navigation_method": "Deep-links with ?view=<id> as recommended by agent context"
+  },
+  
+  "recommendations": {
+    "immediate": [
+      "Fix US11 data scoping issue - sales@ should not see SO-0008 (belongs to sales2@)",
+      "Verify US12 journey panel visibility for sales@ role in order detail",
+      "Test US23/US24 cross-PT fulfillment with correct navigation to KSC/SO-00010"
+    ],
+    "follow_up": [
+      "Test US25 at-cost blocking with SRET-00003 karantina section",
+      "Test US29b return chain scoped view for sales@ user",
+      "Verify all role badges remain clean after entity switching",
+      "Test remaining cross-PT scenarios"
+    ],
+    "documentation": [
+      "Document that REGRESI-1 role badge fix is complete and verified",
+      "Document that US29 return chain panel (CORE E-9) is fully functional",
+      "Document US19 manager approval inbox correctly filters out routine SO confirmations"
+    ]
+  },
+  
+  "notes": [
+    "REGRESI-1 COMPLETE: Role badge fix verified for all 3 roles (admin, sales_admin, finance) - no dots in role badges",
+    "US29 CORE E-9 VERIFIED: Return chain panel is fully functional with 4-step chain, complete badge, IC transaction visibility, and purchase return tracking",
+    "US19 VERIFIED: Manager approval inbox correctly shows only decision items, not routine SO confirmations",
+    "US14 VERIFIED: Sales@ correctly does not have finance buttons in order detail",
+    "US11 DATA SCOPING ISSUE: Sales@ can see SO-0008 which belongs to sales2@ - needs backend fix",
+    "US12 JOURNEY PANEL: Not clearly visible in order detail for sales@ - needs investigation",
+    "Backend already verified: 92/92 POC E-8 + 44/44 POC E-9 + 56/56 gate.sh tests",
+    "Navigation using deep-links (?view=<id>) worked reliably as recommended",
+    "All UI is in Bahasa Indonesia as required",
+    "No critical console errors detected during testing"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "summary": "EPIC6 Document Relations / Process Timeline - Complete end-to-end testing. Backend API returns correct relation graphs for SO and PO with all stages, deep-link metadata, and RBAC. Frontend ProcessTimeline component renders correctly in both OrderDetailPanel and PODetailPanel with loading states, empty hints, and anchor badges.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: GET /api/documents/relations/sales_order/so_001 returns 200 with correct structure",
+    "Backend: SO relations has all 5 stages (order, shipment, tax, payment, commission)",
+    "Backend: SO order stage has exactly 1 anchor doc",
+    "Backend: SO shipment stage has doc_url with /surat-jalan",
+    "Backend: SO payment stage has AR receipt with numeric amount",
+    "Backend: SO empty stages (tax) have empty_hint (no dead-end)",
+    "Backend: GET /api/documents/relations/purchase_order/po_009 returns 200 with correct structure",
+    "Backend: PO relations has all 5 stages (requisition, po, grn, landed_cost, bill)",
+    "Backend: PO requisition stage has 1 converted PR with link.view=purchase-requisitions",
+    "Backend: PO grn stage has link.view=operations",
+    "Backend: PO anchor has link.view=purchasing",
+    "Backend: PO empty stages (landed_cost, bill) have empty_hint",
+    "Backend: RBAC - sales role gets 403 for PO relations",
+    "Backend: RBAC - sales role gets 200 for SO relations",
+    "Backend: Error handling - invalid doc_type returns 400",
+    "Backend: Error handling - unknown id returns 404",
+    "Frontend: Login successful as admin",
+    "Frontend: Navigation to PENJUALAN -> Orders works",
+    "Frontend: SO-0001 detail panel opens",
+    "Frontend: ProcessTimeline component renders in SO detail",
+    "Frontend: SO timeline title 'Alur Dokumen Terkait' present",
+    "Frontend: SO timeline has all 5 stages visible",
+    "Frontend: SO anchor node has 'Aktif' badge",
+    "Frontend: SO shipment node present",
+    "Frontend: SO AR receipt node present",
+    "Frontend: SO empty stage (tax) has empty hint",
+    "Frontend: Navigation to PEMBELIAN -> Purchase Orders works",
+    "Frontend: PO-00009 detail panel opens",
+    "Frontend: ProcessTimeline component renders in PO detail",
+    "Frontend: PO timeline has all 5 stages visible",
+    "Frontend: PO Purchase Requisition node found (converted PR)",
+    "Frontend: PO anchor node has 'Aktif' badge",
+    "Frontend: PO GRN node present",
+    "Frontend: PO empty stages (landed_cost, bill) have empty hints"
+  ],
+  "test_report_links": [
+    "/app/backend_test.py",
+    "/app/.screenshots/epic6_so_timeline.png",
+    "/app/.screenshots/epic6_po_timeline_final.png"
+  ],
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend_test.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (16/16 EPIC6 tests passed)",
+    "frontend": "100% (18/18 UI verification checks passed)"
+  },
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

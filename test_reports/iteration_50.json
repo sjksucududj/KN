@@ -1,0 +1,52 @@
+{
+  "summary": "Completed comprehensive backend testing of F0-A: Entity Identity & Context (Multi-Entity Foundation). All 42 backend tests passed successfully. Entity context, role-based entity distribution (Model 1), header-based entity switching, and backend isolation are fully functional.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: POST /api/auth/login returns entity_context with all required keys (home_entity_id, allowed_entity_ids, active_entity_id, can_switch_entity, entities)",
+    "Backend: user object includes home_entity_id and allowed_entity_ids, NO password_hash (security check)",
+    "Backend: admin home=ent_ksc, allowed=[ent_ksc, ent_kanda], can_switch=True (cross-entity access)",
+    "Backend: manager allowed=[ent_ksc, ent_kanda], can_switch=True (cross-entity access)",
+    "Backend: sales home=ent_ksc, allowed=[ent_ksc] only, can_switch=False (locked to single entity)",
+    "Backend: sales3 home=ent_kanda, allowed=[ent_kanda] only (locked to ent_kanda)",
+    "Backend: warehouse allowed=[ent_ksc] only (locked to single entity)",
+    "Backend: GET /api/auth/me without header returns active_entity_id=home (ent_ksc for admin)",
+    "Backend: GET /api/auth/me with X-Entity-Id=ent_kanda switches admin to ent_kanda",
+    "Backend: ISOLATION - sales with X-Entity-Id=ent_kanda is IGNORED, stays at ent_ksc (cannot operate disallowed entity)",
+    "Backend: GET /api/auth/context returns 200 with entity context",
+    "Backend: GET /api/auth/context honors X-Entity-Id header",
+    "Backend: GET /api/entities returns 2 entities (ent_ksc, ent_kanda)",
+    "Backend: Entities have enriched fields: currency, coa_template, incentive_payer, numbering_scheme",
+    "Backend: ent_ksc incentive_payer=sales_entity (Model 1 silo selling)",
+    "Backend: entity_context.entities[ent_ksc].is_pkp=True (PKP/ppn)",
+    "Backend: entity_context.entities[ent_kanda].is_pkp=False (non-PKP/non_ppn)",
+    "Backend: REGRESSION - Valid login returns token with sess_ prefix",
+    "Backend: REGRESSION - Invalid password returns 401",
+    "Backend: REGRESSION - POST /api/auth/logout works (200)",
+    "Backend: REGRESSION - Protected endpoint /api/home/admin returns 200 for admin",
+    "Backend: REGRESSION - Protected endpoint /api/sales-orders returns 200 for admin"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test_f0a_entity_context.py",
+    "/app/test_f0a_entity_identity_poc.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (42/42 tests passed)",
+    "frontend": "N/A (backend-only sub-phase, Entity Switcher UI is F0-B)",
+    "integration": "100% (auth endpoints + entity context service working correctly)",
+    "isolation": "100% (Model 1 silo selling enforced - sales cannot access disallowed entities)"
+  },
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend/backend_test_f0a_entity_context.py"
+  ],
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

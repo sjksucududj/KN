@@ -1,0 +1,40 @@
+{
+  "summary": "Completed frontend testing for F-3 Special Order MTO lifecycle UI and Aftersales/RMA UI features. All UI elements, conditional rendering, permissions, and Credit Note display are working correctly.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Special Order detail page loads correctly with status pills and chips",
+    "Already-converted special orders display both SKU chip (data-testid='special-order-linked-sku') and SO chip (data-testid='special-order-linked-so')",
+    "Create SKU button (data-testid='special-order-create-sku-btn') and Convert button (data-testid='special-order-convert-btn') are hidden for already-converted orders (idempotent)",
+    "Sales user (sales@kainnusantara.id) cannot see create-sku or convert-to-so buttons (correct permission check - only manager/admin can see these buttons)",
+    "Returns list table includes 'Nota Kredit' column",
+    "Return SRET-00003 displays Credit Note badge (data-testid='return-cn-{id}') with CN-00001 in the table",
+    "Return detail page shows Credit Note chip in header (data-testid='return-credit-note-chip') with text 'Nota Kredit: CN-00001'",
+    "Return detail page shows Credit Note section (data-testid='return-credit-note-section') with all required fields",
+    "Credit Note number displayed correctly (data-testid='credit-note-number'): CN-00001",
+    "Credit Note gross amount displayed correctly (data-testid='credit-note-gross'): Rp 925.000",
+    "Create Return form includes 'Komplain (keluhan kualitas)' option in Tipe Return select",
+    "Create Return form includes 'Garansi (klaim jaminan)' option in Tipe Return select",
+    "ReturnTypeBadge renders 'Komplain' with red color (badge-red class) - verified in returns list",
+    "ReturnTypeBadge component code correctly maps 'garansi' to badge-teal color",
+    "Navigation to Special Orders and Returns works correctly",
+    "Demo login buttons work for Manager and Sales users",
+    "All data-testid attributes are present and correctly named"
+  ],
+  "test_report_links": [],
+  "success_percentage": {
+    "frontend": "100%",
+    "backend": "100% (already validated in iteration_58)"
+  },
+  "updated_files": [],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "false"
+}

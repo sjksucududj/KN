@@ -1,0 +1,35 @@
+{
+  "summary": "F0-C/D/E/F multi-entity backend testing: 64/64 PASSED (100%). F0-C gate verify_entity_scoping exit 0 (DB+STATIC LULUS), migrate_entity_scoping --dry-run = 0 doc (idempotent). F0-C operational isolation tervalidasi pada 5 endpoint (wms/tasks, shipments, inventory/rolls|balances|movements): default=home(ksc), X-Entity-Id=ent_kanda, view-all = home+kanda. Counts riil: wms/tasks 18+6=24; shipments 2+2=4. F0-D penomoran per-entitas END-TO-END VERIFIED: SO ksc→KSC/SO-NNNNN, SO kanda→KANDA/SO-NNNNN, sequence per entitas mandiri (selang-seling tetap continuous). PO ksc→KSC/PO-NNNNN, PO kanda→KANDA/PO-NNNNN. F0-E buku GL terpisah: TB ksc=111.67jt vs kanda=15.24jt (balanced & berbeda), TB all=126.91jt = sum (balanced); journal kanda 100% ter-scope; gl/summary OK. F0-E PKP per-entitas: SO ksc ppn_rate=11% & is_pkp=true, SO kanda ppn=0 & is_pkp=false. F0-F provisioning: doc_prefix auto-slug 6-char dari short_name, provisioning {numbering_scheme:per_entity_prefix, is_pkp:false, coa_shared:true}, duplicate short_name → 409, entitas baru muncul di list. Regresi 10 endpoint komersial: semua 200 (default/kanda/all).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_f0cdef_multientity.py",
+    "/app/test_reports/pytest/f0cdef_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "DITEMUKAN & DIPERBAIKI (test agent): routers/purchase_orders.py:113 — _create_inbound_tasks_for_po(po) memakai variabel `entity_id` yang tidak didefinisikan dalam scope fungsi → POST /api/purchase-orders melempar NameError → 500 Internal Server Error. Fix: tambah `entity_id = po.get('entity_id') or ''` di awal fungsi (entity_id task warehouse mengikuti entitas PO induk). Setelah fix, F0-D PO numbering & inbound task stamping (F0-C) bekerja konsisten.",
+    "entity_provisioning_service._slug_prefix membatasi doc_prefix maksimum 6 karakter (s[:6]). Risiko collision tinggi untuk nama pendek mirip; sudah ditangani dengan unique-check pada doc_prefix yang melempar 409. Pertimbangkan menaikkan batas (mis. 8) atau menambahkan suffix angka otomatis saat collision di iterasi mendatang.",
+    "next_doc_number pada SO/PO dipanggil setelah validasi customer/produk → bagus (tidak boros sequence). Mode per_entity_prefix idempotent via koleksi number_sequences.",
+    "GL TB scoping (entity_id=all) → total_debit = jumlah per-entitas (terverifikasi numerik): ksc 111.67jt + kanda 15.24jt = 126.91jt all (balanced). Pemisahan buku Model-1 SHARED CoA terkonfirmasi.",
+    "compute_tax → SO non-PKP entitas ent_kanda menghasilkan ppn_amount=0/ppn_rate=0/is_pkp=False; SO PKP entitas ent_ksc → ppn_rate=11% terstempel ke header SO. Bekerja konsisten."
+  ],
+  "updated_files": [
+    "/app/backend/routers/purchase_orders.py (fix NameError di _create_inbound_tasks_for_po)",
+    "/app/backend/tests/test_f0cdef_multientity.py (test baru F0-C/D/E/F)"
+  ],
+  "success_rate": {"backend": "100% (64/64)", "frontend": "N/A (backend-only request)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (cross-entity admin). sesuai /app/memory/test_credentials.md",
+  "seed_data_creation": "Test membuat beberapa SO/PO transaksional minimal (1-2 SO ksc, 1-2 SO kanda, 1 PO ksc, 1 PO kanda) + 1 entitas uji F0-F (short_name acak per-run, doc_prefix 6-char). Sesuai instruksi: data uji dibiarkan (tidak dihapus). Tidak menjalankan seed_reset.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "F0-C/D/E/F fully validated. Test file /app/backend/tests/test_f0cdef_multientity.py bisa dijadikan regresi. Catatan untuk iterasi berikut: (1) doc_prefix slug 6-char (s[:6]) — jika unit test perlu short_name unik, pastikan slice 6-char menghasilkan prefix UNIK (gunakan pola seperti 'F<5digits>'). (2) Bug PO NameError sudah di-fix; pastikan future change tidak meregresi (test_po_*_prefix mencakup). (3) Stock-check di SO create — saat membuat SO untuk uji nomor, sertakan allow_backorder=True (sudah dilakukan).",
+  "rca of the issue": "BUG #1: POST /api/purchase-orders → 500. RCA: di routers/purchase_orders.py fungsi _create_inbound_tasks_for_po(po) baris 140 menulis 'entity_id': entity_id, namun variabel entity_id tidak pernah dideklarasikan di scope fungsi tersebut (PO body memiliki po['entity_id'], bukan local var). Reproduksi: POST /api/purchase-orders dengan header X-Entity-Id apa pun → NameError → 500. Mitigasi (sudah diterapkan): `entity_id = po.get('entity_id') or ''` di awal fungsi sehingga wms_tasks inbound ter-stamp entitas yang sama dengan PO induk (selaras F0-C scoping)."
+}

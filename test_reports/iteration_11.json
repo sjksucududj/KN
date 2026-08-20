@@ -1,0 +1,55 @@
+{
+  "summary": "Frontend-only verification for KN8 ERP Sub-fase 1.13 follow-up: Product master form (Lebar + UOM editor + EDIT mode) and POS cart kg/catch-weight. ALL 5 scenarios PASS — no data was created or submitted (no Save, no Submit Order).",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verifications_performed": {
+    "1_login": "admin@kainnusantara.id / demo12345 prefilled — login-submit-button worked, landed on admin dashboard",
+    "2_admin_product_tab_new_fields": {
+      "admin-product-lebar-input": "PRESENT",
+      "admin-product-uom-editor": "PRESENT",
+      "admin-product-add-conv-button": "PRESENT"
+    },
+    "3_uom_editor_add_remove": {
+      "click_+_konversi_1x": "row 0 appeared with from/to/factor/remove inputs (testids admin-product-conv-from-0, -to-0, -factor-0, -remove-0)",
+      "click_+_konversi_2x": "row 1 appeared (admin-product-conv-from-1 present)",
+      "click_remove-0": "after removal: row 1 gone, row 0 still exists (collection length=1) — index re-keyed correctly"
+    },
+    "4_edit_batik_mega": {
+      "edit_button": "admin-edit-products-prod_batik_mega-button found and clicked",
+      "form_populated": "gramasi=200, lebar=1.5, uom_conversion row 0 = roll -> meter x 50 — EXACT MATCH to seed",
+      "save_button_label": "'Update Product' (was 'Simpan Product')",
+      "cancel_button": "admin-cancel-edit-product-button visible",
+      "batal_edit_reset": "after click: cancel button removed, gramasi reset to 0 — form cleared correctly"
+    },
+    "5_pos_cart_kg": {
+      "navigation": "Penjualan group → nav-sales worked",
+      "add_batik": "add-to-cart-button-prod_batik_mega worked, cart-item-prod_batik_mega rendered",
+      "unit_select_options": "['Meter','Yard','Cm','Inch','Roll','Kg'] — 6 options, rendered via KNCombobox (>=6 threshold) ✓",
+      "kg_present": true,
+      "select_kg_qty_3": "selected via cart-item-unit-select-prod_batik_mega-option-kg, qty=3",
+      "base_eq_text": "≈ 10 meter (base) · Rp 616.667/kg",
+      "expected_calc": "3 kg / (200*1.5/1000=0.3 kg/m) = 10 m ✓",
+      "price_kg": "Rp 616.667 = 185.000 / 0.3 (price/meter ÷ kg per meter) ✓",
+      "grand_total_shown": "Rp 2.053.500 (1.850.000 + 11% PPN = 2.053.500) — consistent"
+    }
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "AdminView.jsx is 336 lines — within limits but approaching the soft cap; future split per-tab is advisable.",
+    "uom.js convFactor catch-weight branch only handles u==='kg' && base==='meter'; other bases (yard/cm) will not derive kg. OK per spec (products are meter-based) but worth noting.",
+    "CartPanel.jsx unit price scaling rounds to 2 decimals (Rp 616.667/kg shown with thousand separator dot from id-ID locale — actual computed 616666.67 → rounded). Functional but ensure tax/total uses unrounded computation server-side. Backend already verified per request brief."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "skipped", "frontend": "100%" },
+  "test_credentials": "admin@kainnusantara.id / demo12345 (prefilled, from /app/memory/test_credentials.md)",
+  "seed_data_creation": "NONE — explicitly avoided per request (no product create, no SO submit)",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Sub-fase 1.13 frontend fully verified. Product EDIT mode loads existing record into form (including uom_conversions array). POS catch-weight kg unit works: unitOptions() adds 'kg' when product.gramasi>0 && product.lebar>0; convFactor() returns 1/(gramasi*lebar/1000) for kg→meter. Combobox is used since 6 options >= SEARCH_THRESHOLD. To click options use testid 'cart-item-unit-select-<pid>-option-<value>' (e.g. -option-kg). Sidebar nav uses groups: expand nav-group-toggle-penjualan then click nav-sales.",
+  "rca of the issue": "No issues found. Implementation is consistent with spec and backend contract."
+}

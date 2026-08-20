@@ -1,0 +1,35 @@
+{
+  "summary": "F1a Pricelist per-entitas + Dashboard Konsolidasi Grup vs Per-PT — 16/16 backend tests PASSED. Konsolidasi shape & sum-faithful (entities + consolidated, termasuk baris Grup/Kas Bersama). RBAC 'accounting' 403 untuk sales & warehouse. Pricelist grid menampilkan global_price, effective_price, price_source; isolasi multi-entity terbukti (ent_ksc set harga 199000 → ent_kanda tetap global). Histori: harga valid_from masa depan → effective_status='scheduled' dan TIDAK dipakai resolver. SO integration: SO ent_ksc memakai harga entitas (199000), SO ent_kanda memakai harga global (185000). PATCH sell_price ke 210000 berhasil; DELETE menonaktifkan dan effective_price kembali ke global. RBAC pricelist: sales view-only (POST/DELETE → 403). Regresi: /api/products punya field global_price + price_source; /api/sales-orders, /api/gl/trial-balance, /api/gl/summary tetap 200. Gate verify_entity_scoping LULUS (entity_prices ada di SCOPED_COLLECTIONS).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_f1a_pricelist.py",
+    "/app/test_reports/pytest/f1a_results.xml"
+  ],
+  "action_items": [
+    "Tidak ada — semua test PASS. Pertimbangkan menambahkan teardown untuk produk uji & data SO yang dibatalkan agar dashboard konsolidasi tidak terpolusi (cleanup fixture sudah cancel SO + deactivate prices yang dibuat selama test)."
+  ],
+  "critical_code_review_comments": [
+    "pricelist_service._norm_dt: format Z (UTC suffix +00:00) tidak komparabel dengan now_iso() bila now_iso menghasilkan format berbeda — verifikasi bahwa now_iso() menghasilkan ISO dengan offset/Z; saat ini test scheduled berfungsi, jadi konvensi konsisten.",
+    "create_price auto-close hanya menutup record dengan valid_from < vfrom; jika dua record dibuat dengan valid_from sama persis, keduanya tetap aktif (resolver akan ambil salah satu via max). Pertimbangkan unique guard atau menutup keduanya.",
+    "Konsolidasi: cons['journal_count'] di-cast ke int setelah sum (OK), tapi field 'expense' & 'gross_profit' & 'retained_earnings' & 'inventory' & 'ppn_out' juga ikut di-sum walaupun tidak diuji — aman untuk faithful sum.",
+    "pricelist_grid menggunakan filter products status != inactive; bila produk inactive tetapi punya entity_price aktif, harga tidak akan tampak di grid (acceptable by design).",
+    "assert_entity_access pada PATCH/DELETE memakai field default 'entity_id' untuk koleksi entity_prices — sesuai SCOPE_FIELD default; admin cross-entity lolos karena entity_id ∈ allowed_entity_ids (sesuai harapan)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_f1a_pricelist.py (BARU)"
+  ],
+  "success_rate": {"backend": "100% (16/16)", "frontend": "N/A (skipped)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345, sales@kainnusantara.id / demo12345, warehouse@kainnusantara.id / demo12345",
+  "seed_data_creation": "Test fixture membuat entity_prices untuk prod_batik_mega di ent_ksc (199000, kemudian patch 210000) dan ent_kanda (222000 lalu deleted). 2 SO test (1 ent_ksc, 1 ent_kanda, qty 1 meter) dibuat lalu di-cancel di teardown. Verifikasi: dashboard konsolidasi tetap balanced setelah cleanup.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "F1a + Konsolidasi selesai 16/16. File regresi: /app/backend/tests/test_f1a_pricelist.py. Untuk fase berikutnya (F1b purchase pricelist?), tambahkan test serupa. Catatan: prod_batik_mega (SKU BTK-MEGA-001) global price 185000. Header X-Entity-Id wajib untuk endpoint scoped. Gate verify_entity_scoping LULUS termasuk entity_prices."
+}

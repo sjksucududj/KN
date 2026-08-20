@@ -1,0 +1,46 @@
+[
+  {
+    "content": "Pemulihan lingkungan + temuan P0: impor `QtyDual` rusak → build FE GAGAL (preview mati). Diperbaiki, build hijau",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-1: PDF dua kolom `Roll | Jumlah` di 13 resolver — 24 tambalan, terverifikasi lewat render HTML",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-2: CSV ekspor dua kolom Roll | Jumlah (sel KOSONG untuk dokumen lama) + helper `utils/qtyDualCsv.js` + ukuran kedua roll terlihat",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-2b (temuan baru): 10 pemilih satuan masih pakai daftar KETIKAN → dijadikan master-driven (`utils/uomCatalog.js`), termasuk `products.base_unit`",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-3: penjaga `verify_qty_dual.py` (INV-QTY-01) self-test 32/32 + aturan D di `verify_uom_vocab.py` self-test 23/23",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-4: daftarkan INV-UOM-02 + INV-QTY-01 + POC FASE U di `scripts/gate.sh`",
+    "status": "completed"
+  },
+  {
+    "content": "FASE U-5: POC `backend/test_core_dua_satuan_poc.py` U1–U6 dengan `poc_stock_guard` (bebas residu, pola T9)",
+    "status": "in_progress"
+  },
+  {
+    "content": "FASE U-6: jalankan POC + kedua gate sampai HIJAU; verifikasi integritas data 0 FAIL",
+    "status": "pending"
+  },
+  {
+    "content": "FASE U-7: verifikasi sendiri di peramban (user story U.G 1–4) sebelum memanggil agen uji",
+    "status": "pending"
+  },
+  {
+    "content": "FASE U-8: agen uji (backend + UI) untuk user story FASE U, lalu perbaiki semua temuan",
+    "status": "pending"
+  },
+  {
+    "content": "FASE U-9: perbarui `plan.md` §STATUS U + `SESSION_HANDOFF.md` + `RENCANA_EKSEKUSI_MD_ERP.md`",
+    "status": "pending"
+  }
+]

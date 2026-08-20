@@ -1,0 +1,66 @@
+{
+  "summary": "SMOKE TEST UI selesai - Lingkungan hasil pemulihan repo github.com/wasakalakaha/kn TERBUKTI BISA DIPAKAI. Semua layar inti merender data seed dengan benar, navigasi berbasis state berfungsi, tidak ada error konsol/API, dan invarian UI/UX (INV-UI-02: id entitas teknis tidak tampil) terpenuhi. Ini adalah baseline 'sebelum' yang sah untuk kontrak UI/UX §4 RENCANA_EKSEKUSI_MD_ERP.md v2.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "LOGIN: Berhasil login dengan admin@kainnusantara.id / demo12345 (kredensial terisi otomatis), masuk ke beranda (URL: ?view=admin-home), TIDAK kembali ke layar login",
+    "BERANDA: KPI/kartu merender angka dengan benar (Penjualan Hari Ini: Rp 60.368.250, Penjualan MTD: Rp 93.779.250, Tertagih MTD: Rp 42.657.800, Piutang Belum Lunas: Rp 50.992.150, Putang Lewat Tempo: Rp 5.571.200, Persetujuan Menunggu: 29, Stok Rendah: 5, Payout Insentif: Rp 634.246)",
+    "NAVIGASI: Ditemukan 29 elemen navigasi dengan data-testid (nav-home, nav-approval-inbox, nav-sales-admin-desk, nav-finance-desk, nav-group-penjualan, nav-group-pembelian, nav-rnd-hub, dll.)",
+    "LAYAR PESANAN (Penjualan → Pesanan & Retur): Daftar Sales Order tampil dengan 11 SO (KSC/SO-00010, SO-0007, SO-0006, SO-0009, KANDA/SO-00001, SO-0008, SO-0005, SO-0004, SO-0003, SO-0002, Kanda), paginasi terlihat (Menampilkan 1-11 dari 11 pesanan), tombol Unduh CSV ada",
+    "LAYAR PESANAN PEMBELIAN (Pembelian → Pesanan Pembelian): Daftar Purchase Order tampil dengan 14 PO (KANDA/PO-00002, PO-00006, PO-00005, PO-00010, PO-00001, PO-00007, KSC/PO-00012, KSC/PO-00011, PO-00009, PO-00008, PO-00004, PO-00003, PO-00002, PO-00001), paginasi terlihat, tombol Unduh CSV ada",
+    "LAYAR STOK (Gudang → Stok & ATP): View 'Status Stok & ATP' tampil dengan papan status persediaan (PRODUK: 19, TOTAL INCOMING: 5.775, TOTAL ATP: 9.996,29, PELUANG INTER-CO: 0), daftar produk dengan kolom STOK FISIK, TERSEDIA, DIPESAN, INCOMING, ATP, ENTITAS. Tab 'Stok Multi-Bucket' menampilkan ringkasan bucket (TOTAL TERSEDIA: 4.221,29, DITAHAN: 0, WIP (PROSES): 0, RTF (SIAP JUAL): 5.021,29, SO MENUNGGU: 320)",
+    "LAYAR R&D SAMPLE (R&D → Permintaan Sample): Daftar sample tampil dengan 28 permintaan (TOTAL PERMINTAAN: 28, DIKERJAKN: 1, ADA YANG ACC: 2, SUDAH DIPUTUS: 21, ROUND TERLAMBAT: 5, BIAYA SAMPLE: Rp 8.105.700). Nomor sample seperti KSC/SMP-00008, KSC/SMP-00007, KSC/SMP-00006, KSC/SMP-00005, KSC/SMP-00004, KSC/SMP-00003, KSC/SMP-00002, KSC/SMP-00001, KSC/SMP-HRR1, KSC/SMP-HDE, KSC/SMP-H1DE terlihat",
+    "LAYAR PENGATURAN → MASTER (Pengaturan & Master Data → Master per Badan Usaha): Daftar jenis master tampil (Syarat Pembayaran, Kategori Biaya, Template Dokumen & Kop Surat, Kebijakan Retur Jual, Tarif Insentif Sales, Aturan Persetujuan). Tabel 'Syarat Pembayaran' berisi 6 baris (CASH: Tunai/POS, NET7: Kredit NET 7 Hari, NET14: Kredit NET 14 Hari, NET30: Kredit NET 30 Hari, DP50: DP 50% + Pelunasan, INST3: Bertahap 3x) dengan kolom KODE, NAMA, JENIS, JATUH TEMPO (HARI), DP %, ASAL, AKSI",
+    "PEMILIH BADAN USAHA: Pemilih badan usaha ditemukan di header (menampilkan 'Semua Entitas' dengan chip 'KSC' dan 'Kanda'). Opsi yang tersedia: 'Semua Entitas hanya lihat', 'PT Kain Suka Cita PT Utama', 'CV Kanda Suka CV'. Berhasil berpindah ke 'CV Kanda Suka' (header berubah menjadi 'Kanda', tabel Syarat Pembayaran menampilkan tombol 'Buat khusus Kanda' untuk baris Global). Berhasil berpindah ke mode 'Semua Entitas' dengan spanduk hanya-lihat terdeteksi ('Anda sedang melihat gabungan semua badan usaha — mode ini hanya untuk melihat')",
+    "TIDAK ADA ID ENTITAS TEKNIS: Tidak ada 'ent_ksc' atau 'ent_kanda' yang tampil di layar mana pun (invarian INV-UI-02 terpenuhi). Nama badan usaha ditampilkan sebagai 'PT Kain Suka Cita', 'CV Kanda Suka', atau chip 'KSC'/'Kanda'",
+    "TIDAK ADA ERROR KONSOL: Tidak ada error konsol JavaScript yang terdeteksi selama seluruh sesi smoke test",
+    "TIDAK ADA API FAILURE: Tidak ada kegagalan API (status 4xx/5xx) yang terdeteksi selama seluruh sesi smoke test"
+  ],
+  
+  "test_report_links": [
+    "/.screenshots/beranda.png",
+    "/.screenshots/after_login.png",
+    "/.screenshots/beranda_state.png",
+    "/.screenshots/attempt_pesanan.png",
+    "/.screenshots/layar_po.png",
+    "/.screenshots/layar_stok.png",
+    "/.screenshots/rnd_sample_tab.png",
+    "/.screenshots/stok_view.png",
+    "/.screenshots/master_data.png",
+    "/.screenshots/entity_dropdown.png",
+    "/.screenshots/entity_kanda.png",
+    "/.screenshots/entity_all.png"
+  ],
+  
+  "action_item_for_main_agent": "",
+  
+  "updated_files": [],
+  
+  "success_percentage": {
+    "backend": "N/A (backend sudah diverifikasi lewat curl: POST /api/auth/login HTTP 200, gate statik scripts/gate.sh --quick SEMUA HIJAU)",
+    "frontend": "100% (10/10 test smoke UI berhasil)"
+  },
+  
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  
+  "catatan_tambahan": {
+    "kondisi_warisan_repo": "Sesi ini TIDAK mengubah satu baris pun kode backend/frontend (git status hanya menunjukkan perubahan berkas .md dan satu skrip baru di scripts/). Semua layar yang diuji adalah kondisi warisan repo hasil pemulihan dari github.com/wasakalakaha/kn.",
+    "navigasi_berbasis_state": "Navigasi aplikasi BERBASIS STATE, bukan URL hash. Klik grup nav dulu (nav-group-...) lalu itemnya (nav-...). Deep-link yang sah hanya ?view=<id>. Semua navigasi berfungsi dengan benar menggunakan data-testid.",
+    "bahasa_antarmuka": "Aplikasi 100% Bahasa Indonesia — 'Masuk' = login, 'Pesanan' = sales order, 'Pesanan Pembelian' = purchase order, 'Gudang' = warehouse, 'Syarat Pembayaran' = payment terms. Semua teks UI dalam Bahasa Indonesia.",
+    "data_seed": "Data seed realistic.py berfungsi dengan benar: 11 SO, 14 PO, 28 sample R&D, 19 produk, 6 syarat pembayaran, 59 roll (terlihat di view Stok Multi-Bucket), KPI beranda menampilkan angka real-time.",
+    "pemilih_badan_usaha": "Mesin master berlapis global→badan usaha hidup: tabel Syarat Pembayaran menampilkan 6 baris Global saat mode 'Semua Entitas', dan tombol 'Buat khusus Kanda' muncul saat berpindah ke CV Kanda Suka. Spanduk hanya-lihat muncul dengan benar saat mode 'Semua Entitas'.",
+    "invarian_ui_ux": "INV-UI-02 (id entitas teknis tak tampil) terpenuhi: tidak ada 'ent_ksc' atau 'ent_kanda' yang tampil di layar mana pun. Nama badan usaha ditampilkan dengan benar sebagai 'PT Kain Suka Cita', 'CV Kanda Suka', atau chip 'KSC'/'Kanda'.",
+    "baseline_sebelum": "Smoke test ini adalah bukti baseline 'sebelum' untuk kontrak UI/UX di §4 RENCANA_EKSEKUSI_MD_ERP.md v2. Lingkungan hasil pemulihan TERBUKTI BISA DIPAKAI untuk fase-fase MD ERP berikutnya (L → T → U → S → I → P → N → M)."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "summary": "Verified Sub-fase 1.13 UOM Conversion Engine in Sales POS Cart (frontend). All 6 review-request scenarios pass end-to-end: login, add to cart, default Meter (no base-eq), change to Yard with qty=10 shows '≈ 9,14 meter (base) · Rp 205.740/yard' and subtotal Rp 2.057.400 (=225.000 × 0.9144 × 10), Batik (BTK-MEGA-001) unit dropdown contains Roll plus Meter/Yard/Cm/Inch (5 opts), Roll qty=1 shows '≈ 50 meter (base) · Rp 9.250.000/roll' (185.000 × 50), order submission with yard succeeds (SO-00009, status Reserved, Rp 2.057.400, toast 'SO-00009 dibuat (reserved) · PPN 226.314. Grand total Rp 2.283.714'). No console errors, no pageerror, no toast/alert. Backend API POST /api/sales-orders returned 200.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "CartPanel.jsx renders KNSelect with 4-5 options for unit (well below SEARCH_THRESHOLD=6) so it correctly uses Radix Select path. Verified options exposed via role=option text (Meter/Yard/Cm/Inch/Roll for Batik). Trigger has data-testid 'cart-item-unit-select-<id>'.",
+    "Price scaling is computed in CartPanel via lineFactor = convFactor(product, sellUnit) and applied as Math.round((product.price||0) * lineFactor * 100)/100. For Tenun Ikat (225.000/meter) × 0.9144 = 205.740 — matched exactly in the rendered base-eq line and in the subtotal (205.740 × 10 = 2.057.400). Confirms price-per-base-unit scaling decision (1a) is implemented correctly.",
+    "uom.js mirror is consistent with the backend: FIXED_LENGTH_FACTORS (meter=1, yard=0.9144, cm=0.01, inch=0.0254) and per-product uom_conversions for Roll→meter=50 surfaced in unitOptions(). One small note: unitOptions seeds `new Set([base, 'yard', 'cm', 'inch'])` — fine for length products but if a non-length base_unit product is introduced later, those will incorrectly show up as selectable. Not blocking for this iteration (length-only scope).",
+    "CartPanel base-eq label uses 'meter' literal via item.product.base_unit (defaults to 'meter') — good. Formatting via formatQty produces Indonesian thousands separator ('9,14' with comma as decimal, '50' as integer) — matched expected output.",
+    "Default unit on addToCart uses product.base_unit (useAppActions.js:148) — backward compatible (no base-eq line shown when unit==base)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "skipped (per request)", "frontend": "100% (6/6 scenarios)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 — login prefilled, click [data-testid=login-submit-button]",
+  "seed_data_creation": "Created ONE sales order (SO-00009) per instructions: Toko Kain Sejahtera, 10 yard Tenun Ikat Garuda Premium, status Reserved, Rp 2.057.400. No additional data created.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "POS cart unit-selector flow (Sub-fase 1.13) is verified working. Key testids: cart-item-<pid>, cart-item-qty-input-<pid>, cart-item-unit-select-<pid> (Radix Select trigger button), cart-item-base-eq-<pid> (shown only when unit != base). Unit dropdown <6 options → Radix Select (no portal testid on items; use page.get_by_role('option', name='Yard')). Batik product id 'prod_batik_mega' has Roll factor 50. To reach POS: login → toggle [data-testid=nav-group-toggle-penjualan] → click [data-testid=nav-sales]. Customer/Address pickers are KNSelect SelectTrigger buttons — click '[data-testid=customer-select] button' then role=option. Backend route confirmed: POST /api/sales-orders → 200.",
+  "rca of the issue": "N/A — feature works as designed. All assertions matched expected values exactly (9,14 meter, 205.740/yard, 50 meter, 9.250.000/roll, 2.057.400 subtotal)."
+}

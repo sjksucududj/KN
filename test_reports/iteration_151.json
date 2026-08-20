@@ -1,0 +1,90 @@
+{
+  "summary": "R5.2 Store Credit (Saldo Kredit Pelanggan) - Comprehensive Backend & Frontend Testing Complete",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: GET /api/store-credit (summary) - Returns array of customers with non-zero balance",
+    "Backend: GET /api/store-credit/balance - Returns balance and by_entity breakdown",
+    "Backend: GET /api/store-credit/ledger - Returns ledger entries with type (issue/redeem/adjust)",
+    "Backend: GET /api/store-credit/open-orders - Returns open AR orders for customer",
+    "Backend: POST /api/store-credit/redeem - Successfully redeems store credit against AR orders",
+    "Backend: POST /api/store-credit/adjust - Successfully adjusts balance (+ and -)",
+    "Backend: Over-redeem validation - Correctly rejects with 400 when amount > balance",
+    "Backend: ISSUE flow - Sales return settled with outcome='store_credit' creates ledger entry and GL credits 2-1450",
+    "Backend: Idempotency - Settle store_credit multiple times does not duplicate issue entries",
+    "Backend: GL reconciliation - Account 2-1450 (credit-debit) matches sum of ledger balances",
+    "Frontend: Store Credit view loads with data-testid='store-credit-view'",
+    "Frontend: KPI cards display (sc-kpi-total, sc-kpi-customers, sc-kpi-info)",
+    "Frontend: Table displays customer rows with balance (sc-row-<id>)",
+    "Frontend: Ledger panel opens and displays entries (sc-ledger-panel, sc-ledger-table)",
+    "Frontend: Redeem modal opens with order dropdown and amount input (sc-redeem-modal)",
+    "Frontend: Search functionality works (sc-search)",
+    "Frontend: Refresh button works (sc-refresh)",
+    "Frontend: Empty state displays when no data (sc-empty)",
+    "Frontend: StoreCreditBadge component exists and integrated in CheckoutDrawer (data-testid='checkout-store-credit')",
+    "POC Test: All 21 tests passed (issue, idempotency, redeem, over-redeem, GL reconciliation)"
+  ],
+  "test_report_links": [
+    "/app/backend/test_store_credit_comprehensive.py",
+    "/app/test_r5_store_credit_poc.py",
+    "/app/test_reports/iteration_151.json"
+  ],
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend/test_store_credit_comprehensive.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (12/12 tests passed)",
+    "frontend": "100% (all UI elements verified)",
+    "poc_reference": "100% (21/21 tests passed)"
+  },
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  "detailed_findings": {
+    "backend_api_endpoints": {
+      "GET /api/store-credit": "✅ Returns array of customers with non-zero balance. Empty array when no data.",
+      "GET /api/store-credit/balance": "✅ Returns {balance, by_entity} for customer. Correctly calculates balance from ledger.",
+      "GET /api/store-credit/ledger": "✅ Returns array of ledger entries. Supports filtering by customer_id and entity_id.",
+      "GET /api/store-credit/open-orders": "✅ Returns array of open AR orders for customer to redeem against.",
+      "POST /api/store-credit/redeem": "✅ Successfully redeems store credit. Creates GL entry Dr 2-1450 / Cr 1-1200. Updates order outstanding. Returns applied_amount and redemption number.",
+      "POST /api/store-credit/adjust": "✅ Successfully adjusts balance (positive and negative). Admin/manager only. Creates GL entry and ledger entry."
+    },
+    "issue_flow": {
+      "sales_return_settlement": "✅ When sales return is settled with outcome='store_credit', system correctly: (1) Creates Credit Note, (2) Posts GL entry crediting 2-1450 (NOT 1-1200 Piutang), (3) Creates ledger 'issue' entry, (4) Increases customer balance",
+      "idempotency": "✅ Settling same return multiple times does not duplicate issue entries",
+      "gl_reconciliation": "✅ GL account 2-1450 balance matches sum of all ledger entries across all entities"
+    },
+    "frontend_ui": {
+      "store_credit_view": "✅ Main view loads with all required elements: KPI cards (total, customers, GL account), table with customer rows, search, refresh button",
+      "ledger_panel": "✅ Opens when clicking History button. Displays ledger entries with type badges (Terbit/issue, Pakai/redeem, Sesuai/adjust), amounts, and running balance",
+      "redeem_modal": "✅ Opens from ledger panel. Shows available balance, order dropdown with outstanding amounts, amount input with max button, submit and cancel buttons",
+      "adjust_modal": "✅ Opens for admin/manager. Has plus/minus toggle, amount input, note field",
+      "empty_state": "✅ Displays when no customers have store credit balance > 0",
+      "store_credit_badge": "✅ Component exists at /app/frontend/src/components/StoreCreditBadge.jsx and is integrated in CheckoutDrawer (data-testid='checkout-store-credit'). Shows customer balance when > 0."
+    },
+    "validation": {
+      "over_redeem": "✅ Correctly rejects with HTTP 400 when redeem amount exceeds balance",
+      "permissions": "✅ Adjust endpoint requires admin/manager role (ar_receipt:void permission)",
+      "data_integrity": "✅ All amounts are properly rounded to 2 decimals. Balance calculations are accurate."
+    }
+  },
+  "notes": [
+    "Store credit is a customer liability (GL account 2-1450 'Saldo Kredit Pelanggan')",
+    "Store credit is issued when sales returns are settled with outcome='store_credit'",
+    "Customers can redeem store credit against open AR orders (from POS, Sales Order, or Invoice)",
+    "Admins/managers can manually adjust balances with reason notes",
+    "All GL postings are idempotent (source_type + source_id)",
+    "Redeem creates GL entry: Dr 2-1450 / Cr 1-1200 (reduces liability and AR)",
+    "Issue creates GL entry: Cr 2-1450 (increases liability, part of sales return CN)",
+    "Frontend uses Bahasa Indonesia labels throughout",
+    "POC test (test_r5_store_credit_poc.py) passed 21/0 tests covering full flow",
+    "POS menu not accessible from main navigation (expected per agent note about skipping certain interactions)"
+  ]
+}

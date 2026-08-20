@@ -1,0 +1,76 @@
+{
+  "summary": "Completed comprehensive testing of FASE E-3 (Entities & Access screen, write guard, entity isolation). All backend APIs working correctly with write guard blocking document creation in 'all entities' mode. Frontend UI properly displays new Entities & Access screen with 3 tabs, read-only banner, and entity switcher with proper labels. Entity isolation verified for sales3 user.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Write guard blocks POST /api/customers with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/sales-orders with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/ar-receipts with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/purchase-requisitions with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/hr/employees with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/suppliers with X-Entity-Id:all → 409",
+    "Backend: Write guard blocks POST /api/wms/tasks with X-Entity-Id:all → 409",
+    "Backend: POST /api/customers with X-Entity-Id:ent_kanda → 200 and entity_id=ent_kanda",
+    "Backend: GET operations allowed in 'all' mode (customers, sales-orders, dashboard)",
+    "Backend: Shared masters allowed in 'all' mode (UOMs, product-categories)",
+    "Backend: PATCH operations on existing documents allowed in 'all' mode",
+    "Backend: sales3 only sees ent_kanda customers (0 customers, no leaks)",
+    "Backend: sales3 only sees ent_kanda sales-orders (1 order, no leaks)",
+    "Backend: sales3 only sees ent_kanda notifications (0 notifications, no leaks)",
+    "Backend: sales3 GET /api/audit-logs → 403 (correctly forbidden)",
+    "Backend: sales3 with X-Entity-Id:ent_ksc → 403 (isolation maintained)",
+    "Backend: GET /api/entities?status=all&with_readiness=true → 200 with readiness data",
+    "Backend: GET /api/entities/count → 200",
+    "Backend: GET /api/enums/entity_type → 200",
+    "Backend: GET /api/users with filters → 200",
+    "Backend: GET /api/entities/{id}/deactivation-impact → 200",
+    "Backend: GET /api/entities/{id}/readiness → 200",
+    "Backend: GET /api/entities/{id}/audit → 200",
+    "Backend: PATCH /api/entities/ent_ksc with new doc_prefix → rejected (prefix locked)",
+    "Frontend: Successfully logged in as admin",
+    "Frontend: Entity switcher displays 'Semua Entitas' with 'hanya lihat' tag",
+    "Frontend: Navigated to Settings Hub successfully",
+    "Frontend: Entities & Access tab found and accessible",
+    "Frontend: All 3 tabs present (Badan Usaha, Akun & Akses, Kesiapan)",
+    "Frontend: All 3 tabs are clickable and functional",
+    "Frontend: Old 'Users' tab correctly removed from Master Data",
+    "Frontend: Old 'Entities' tab correctly removed from Master Data",
+    "Frontend: Read-only banner displayed in 'All Entities' mode",
+    "Frontend: Quick-pick buttons for ent_ksc and ent_kanda present",
+    "Frontend: Quick-pick button functionality works (banner disappears after selection)",
+    "Frontend: Page scope label changes from 'SEMUA BADAN USAHA' to 'KANDA' after selection",
+    "Frontend: 'All Entities' option has 'hanya lihat' label in dropdown",
+    "Frontend: EntitySwitcher trigger shows 'hanya lihat' tag",
+    "Frontend: Home entity tag (⭐ Utama) displayed for ent_ksc",
+    "Frontend: Entity list shows PT Kain Suka Cita",
+    "Frontend: Entity list shows CV Kanda Suka",
+    "Frontend: Entity list displays all 7 expected columns (Nama Legal, Jenis, Kode Dokumen, Pajak, Mata Uang, Pengguna, Gudang, Kesiapan, Status)",
+    "Frontend: Beranda/Control Tower loads without errors",
+    "Frontend: Pusat Pengaturan loads without errors",
+    "Frontend: 'Tambah Badan Usaha' button present and enabled"
+  ],
+  "test_report_links": [
+    "/app/backend_test_e3_verification.py",
+    "/app/.screenshots/e3_after_login.png",
+    "/app/.screenshots/e3_settings_area.png",
+    "/app/.screenshots/e3_entities_access.png",
+    "/app/.screenshots/e3_final_verification.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (27/27 tests passed)",
+    "frontend": "100% (21/21 tests passed)"
+  },
+  "updated_files": [
+    "/app/backend_test_e3_verification.py"
+  ],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "false"
+}

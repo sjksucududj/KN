@@ -1,0 +1,156 @@
+{
+  "summary": "Session #076 - Frontend forensic audit complete. Tested all 4 roles (admin, sales, manager, warehouse) across multiple pages. CONFIRMED: BUG #1 (dashboard cards leak to non-home pages) and BUG #2 (onboarding section leak). BUG #4 and #5 from backlog are NOT FOUND (already fixed). Sales role access restrictions working correctly. No white screens, crashes, or broken navigation found.",
+  "backend_issues": {},
+  "frontend_issues": {
+    "critical_bugs": [
+      {
+        "bug_id": "BUG #1",
+        "title": "Dashboard Cards Leaking to All Pages",
+        "severity": "CRITICAL",
+        "status": "CONFIRMED",
+        "description": "Dashboard summary cards (PRODUK AKTIF, AVAILABLE QTY, RESERVED QTY, ACTIVE ORDERS, GUDANG) are rendering on multiple pages instead of only on Beranda (home) page",
+        "affected_roles": ["admin", "manager", "warehouse"],
+        "affected_pages": [
+          "Manager: Pusat Persetujuan",
+          "Manager: Analytics Hub (Dashboard & Analytics)",
+          "Warehouse: Operasi Gudang (WMS)",
+          "Admin: Analytics Hub (observed in screenshots)"
+        ],
+        "expected_behavior": "Dashboard cards should ONLY appear on Beranda (home/dashboard) view",
+        "reproduction_steps": [
+          "1. Login as Manager or Warehouse role",
+          "2. Navigate to any page except Beranda (e.g., Analytics Hub, WMS Operations, Pusat Persetujuan)",
+          "3. Observe dashboard cards at top of page"
+        ],
+        "visual_evidence": "Screenshots show cards with: PRODUK AKTIF: 11, AVAILABLE QTY: 3,715, RESERVED QTY: 220, ACTIVE ORDERS: 7-8, GUDANG: 3",
+        "fix_priority": "P0 (CRITICAL)"
+      },
+      {
+        "bug_id": "BUG #2",
+        "title": "Onboarding Section Leaking to All Pages",
+        "severity": "HIGH",
+        "status": "CONFIRMED",
+        "description": "Role-specific onboarding checklist sections appear on multiple pages instead of only on home page or being dismissible",
+        "affected_roles": ["admin", "manager", "warehouse"],
+        "affected_pages": [
+          "Admin: Analytics Hub",
+          "Admin: WMS Operations",
+          "Manager: Analytics Hub",
+          "Warehouse: Operasi Gudang (WMS)"
+        ],
+        "onboarding_items_found": {
+          "admin": ["Buat gudang pertama", "Buat UOM pertama", "Buat produk pertama", "Konfigurasi document template", "Buat user baru", "Review permission matrix"],
+          "warehouse": ["Cek WMS task queue", "Proses inbound pertama", "Advance task ke stage berikutnya", "Dispatch pengiriman"],
+          "manager": ["Cek Manager Dashboard", "Approve sales order", "Review stock aging", "Jalankan cycle count", "Export laporan"]
+        },
+        "expected_behavior": "Onboarding checklist should only appear on first login, OR only on dedicated onboarding page, OR be dismissible and not reappear",
+        "fix_priority": "P0 (HIGH)"
+      }
+    ],
+    "bugs_not_found": [
+      {
+        "bug_id": "BUG #4",
+        "title": "Special Order (OD) Menu Not Accessible",
+        "status": "NOT FOUND - Working correctly",
+        "verification": "Admin role can access Special Order page via Pesanan & Retur hub. Tab is visible and functional."
+      },
+      {
+        "bug_id": "BUG #5",
+        "title": "Returns Page Status Tab Text Formatting Issue",
+        "status": "NOT FOUND - Working correctly",
+        "verification": "Returns page status tabs are properly formatted with spacing. No 'SemuaDraftMenunggu' or 'ApprovedDitolak' text found."
+      }
+    ],
+    "bugs_not_verified": [
+      {
+        "bug_id": "BUG #3",
+        "title": "Redundant Navigation Tabs",
+        "status": "NOT FULLY VERIFIED",
+        "note": "Observed status filter tabs on Pesanan & Retur hub, but did not confirm if this creates user confusion. Requires UX review."
+      },
+      {
+        "bug_id": "BUG #6",
+        "title": "Inconsistent Page Titles",
+        "status": "NOT VERIFIED",
+        "note": "Did not systematically check page title/kicker consistency across all pages"
+      },
+      {
+        "bug_id": "BUG #7",
+        "title": "Tab Badge Count Position",
+        "status": "NOT VERIFIED",
+        "note": "Did not specifically check badge positioning on tabs"
+      }
+    ],
+    "role_based_access": {
+      "status": "WORKING CORRECTLY",
+      "sales_role_restrictions": {
+        "verified": "Sales role correctly cannot see back-office items",
+        "hidden_items": [
+          "Tagihan Supplier (vendor-bills)",
+          "Landed Cost",
+          "Faktur Pajak Masukan (input-tax)",
+          "Purchase Requisition",
+          "PEMBELIAN group"
+        ],
+        "correct_home_page": "Performa Saya (Sales Home) - not Admin Control Tower"
+      }
+    },
+    "navigation_health": {
+      "status": "GOOD",
+      "white_screens": 0,
+      "broken_links": 0,
+      "crashes": 0,
+      "notes": "All tested menu items navigated successfully. No white screens or error pages encountered."
+    },
+    "new_bugs_found": []
+  },
+  "passed_tests": [
+    "Login flow for all 4 roles (admin, sales, manager, warehouse) - all successful",
+    "Role-based home pages: Admin sees Control Tower, Sales sees Performa Saya, Manager sees Dashboard & Analytics, Warehouse sees Operasi Gudang (WMS)",
+    "Sales role access restrictions: Back-office items correctly hidden",
+    "Navigation: All tested sidebar menu items accessible and functional",
+    "Special Order (OD) page: Accessible and working (BUG #4 resolved)",
+    "Returns page tab formatting: Properly formatted (BUG #5 resolved)",
+    "No white screens or crashes across all tested pages",
+    "Print Center page loads correctly for all roles",
+    "Pusat Persetujuan (Approval Center) loads correctly",
+    "Analytics Hub loads correctly (but has BUG #1 and #2)",
+    "WMS Operations page loads correctly (but has BUG #1 and #2)",
+    "Profil Saya (ESS) page loads correctly"
+  ],
+  "test_report_links": [
+    "/app/test_reports/iteration_115.json",
+    "/app/.screenshots/ (20+ screenshots captured)"
+  ],
+  "action_item_for_main_agent": "FIX CRITICAL BUG #1: Dashboard cards are leaking to non-home pages (Manager: Pusat Persetujuan, Analytics Hub; Warehouse: WMS Operations). Root cause likely in App.js - dashboard cards rendered outside conditional view logic. FIX HIGH-PRIORITY BUG #2: Onboarding sections leaking to multiple pages (Analytics Hub, WMS Operations). Should only appear on home or be dismissible. GOOD NEWS: BUG #4 (Special Order) and BUG #5 (Returns tabs) are already fixed. Sales role restrictions working correctly.",
+  "updated_files": [
+    "/app/test_reports/iteration_115.json"
+  ],
+  "success_percentage": {
+    "backend": "N/A (backend testing skipped per instructions)",
+    "frontend_login": "100% (4/4 roles)",
+    "frontend_navigation": "100% (all tested pages accessible)",
+    "frontend_role_access": "100% (sales restrictions working)",
+    "bug_verification": "50% (2 of 4 verified bugs confirmed, 2 already fixed)"
+  },
+  "should_call_test_agent_after_fix": "true",
+  "should_main_agent_test_itself": "false",
+  "console_errors": {
+    "count": 0,
+    "note": "No console errors or warnings captured during testing"
+  },
+  "testing_metadata": {
+    "session": "076",
+    "date": "2026-07-05",
+    "testing_type": "frontend_only",
+    "roles_tested": ["admin", "sales", "manager", "warehouse"],
+    "pages_tested_per_role": {
+      "admin": ["Control Tower (home)", "Pusat Persetujuan", "Print Center", "Analytics Hub", "Profil Saya", "Eskalasi", "WMS Operations", "Pesanan & Retur hub", "Special Order", "Returns"],
+      "sales": ["Performa Saya (home)", "Pusat Persetujuan", "Print Center", "Profil Saya"],
+      "manager": ["Dashboard & Analytics (home)", "Pusat Persetujuan", "Analytics Hub", "Print Center"],
+      "warehouse": ["Operasi Gudang (WMS) (home)", "Stok & ATP"]
+    },
+    "total_screenshots": 20,
+    "test_duration_minutes": "~15"
+  }
+}

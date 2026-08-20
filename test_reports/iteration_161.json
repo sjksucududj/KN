@@ -1,0 +1,54 @@
+{
+  "summary": "Completed comprehensive testing of R6.6 features: Daily Digest (Ringkasan Harian), Escalation (Eskalasi Bertingkat), and Bell Notification Filters. All backend APIs and frontend UI components working correctly with proper RBAC enforcement.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: 9 jobs present (7 alert + escalation_scan + daily_digest) with scheduler running",
+    "Backend: Settings include escalation config (enabled, after_hours, min_severity, max_level) and delivery_modes (instant, digest)",
+    "Backend: Credentials properly masked (only has_access_token/has_fonnte_token exposed)",
+    "Backend: Validation working (400 for invalid delivery_mode, after_hours 0/100, max_level 0/9, invalid min_severity)",
+    "Backend: Digest preview endpoint works for admin/manager, returns 403 for sales/warehouse",
+    "Backend: Summary endpoint includes escalation stats (today=4, open=4, pending=0) and delivery_mode",
+    "Backend: RBAC enforced - manager cannot configure (403), sales/warehouse cannot access scheduler (403)",
+    "Backend: Jobs execute successfully (escalation_scan, daily_digest) with idempotency (created=0 on 2nd run same day)",
+    "Backend: Notifications have required fields for filtering (id, type, severity, title, body, read, created_at)",
+    "Backend: 2 escalation notifications found with severity=critical and ESKALASI title marker",
+    "Frontend Admin: Scheduler view loads with active status and KPI showing digest mode",
+    "Frontend Admin: Escalation panel visible with all stats (today=4, open=4, pending=0) and controls enabled",
+    "Frontend Admin: 9 job rows displayed including escalation_scan and daily_digest",
+    "Frontend Admin: WhatsApp tab with mode selector, critical bypass toggle (checked), and digest preview button",
+    "Frontend Admin: Digest preview modal works showing stats (total=25, unread=25, groups=6) with 'RINGKASAN HARIAN' text",
+    "Frontend Manager: Bell filters work (severity, type, unread) with correct count updates (27 total, 4 critical after filter)",
+    "Frontend Manager: 2 escalation notification badges visible in bell",
+    "Frontend Manager: Escalation panel visible but controls DISABLED, save button ABSENT (correct view-only mode)",
+    "Frontend Manager: Can run jobs (has run permission) but WA mode selector and save button DISABLED",
+    "Frontend Sales: Bell filters work (15 unread notifications), no escalation notifications visible (correct scoping)",
+    "Frontend Sales: 'Pengaturan & Master Data' nav item ABSENT (correct RBAC - no scheduler access)",
+    "Frontend Warehouse: Bell filters work (type filter functional, 1 of 16 shown after filtering)",
+    "Frontend Warehouse: 'Pengaturan & Master Data' nav item ABSENT (correct RBAC - no scheduler access)"
+  ],
+  "test_report_links": [
+    "/app/backend_test_r6_6.py",
+    "/app/.screenshots/r6_6_admin_view.png",
+    "/app/.screenshots/r6_6_manager_view.png",
+    "/app/.screenshots/r6_6_sales_view.png",
+    "/app/.screenshots/r6_6_warehouse_view.png"
+  ],
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend_test_r6_6.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (28/28 tests passed)",
+    "frontend": "100% (all UI elements and interactions working correctly)"
+  },
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

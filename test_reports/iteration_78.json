@@ -1,0 +1,67 @@
+{
+  "summary": "FASE 6 Frontend Testing Complete - Entity/Role UX, PPN/Faktur per-entity, Multi-entity sales, Bank accounts per-entity",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Login / Session Management",
+        "issue": "Sales user login does not properly clear admin session - entity switcher shows as unlocked instead of locked for sales role",
+        "selector": "[data-testid='entity-switcher-locked']",
+        "fix_priority": "MEDIUM",
+        "details": "When logging in as Sales after Admin, the session appears to retain admin privileges. Expected: locked entity switcher with 'entity-switcher-locked' testid. Actual: regular unlocked entity switcher."
+      },
+      {
+        "component": "AdminView - Users Tab",
+        "issue": "Users tab button not clickable or not found in Admin section",
+        "selector": "[data-testid='admin-tab-users-button']",
+        "fix_priority": "MEDIUM",
+        "details": "Could not navigate to Users tab to test entity assignment form. The tab button with text 'Users' or testid 'admin-tab-users-button' was not found or not clickable."
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Entity Switcher - Admin role tag displays correctly ('· Admin')",
+    "Entity Switcher - Admin can switch between entities (ent_ksc, ent_kanda, all)",
+    "Entity Switcher - Dropdown shows all entity options correctly",
+    "Checkout - PKP entity (ent_ksc) shows 'Minta Faktur Pajak' toggle in step 3",
+    "Checkout - Faktur toggle can be enabled/disabled",
+    "Checkout - Non-PKP entity (ent_kanda) shows non-PKP note instead of toggle",
+    "Checkout - Non-PKP note displays correct text about no PPN/Faktur",
+    "Checkout - PPN calculation shows 11% for PKP entity",
+    "Checkout - PPN shows 'Non-PKP (0)' for non-PKP entity",
+    "Bank Accounts - View loads successfully",
+    "Bank Accounts - Displays account cards with balances",
+    "Bank Accounts - Shows KPIs (Total Saldo, Saldo Bank, Saldo Kas, Belum Rekonsiliasi)",
+    "No console errors or red screens during testing"
+  ],
+  "test_report_links": [
+    "/root/.emergent/automation_output/20260626_225557/console_20260626_225557.log",
+    "/root/.emergent/automation_output/20260626_225640/console_20260626_225640.log",
+    "/root/.emergent/automation_output/20260626_225718/console_20260626_225718.log",
+    "/root/.emergent/automation_output/20260626_225827/console_20260626_225827.log",
+    "/root/.emergent/automation_output/20260626_225935/console_20260626_225935.log"
+  ],
+  "action_item_for_main_agent": {
+    "high_priority": [
+      "Fix session management: Sales user login should properly clear admin session and show locked entity switcher (data-testid='entity-switcher-locked')",
+      "Fix Admin Users tab navigation: Ensure Users tab button is accessible and clickable to test entity assignment form"
+    ],
+    "medium_priority": [
+      "Test order creation with faktur toggle enabled to verify 'order-needs-faktur-badge' appears in OrderDetailPanel"
+    ],
+    "low_priority": []
+  },
+  "updated_files": [],
+  "success_percentage": {
+    "frontend": "80%",
+    "backend": "N/A (backend already verified via POC 21/21)",
+    "overall": "80%"
+  },
+  "should_call_test_agent_after_fix": "true",
+  "should_main_agent_test_itself": "false"
+}

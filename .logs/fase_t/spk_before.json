@@ -1,0 +1,617 @@
+{
+  "MKO-00001": {
+    "costing": {
+      "aux_cost": 0.0,
+      "byproduct_credit": 51500.0,
+      "hpp_output": 1875000.0,
+      "hpp_per_unit": 17201.83,
+      "material_cost": 1545000.0,
+      "service_cost": 381500.0,
+      "steps": [
+        {
+          "actual_output_qty": 109.0,
+          "aux_cost": 0.0,
+          "byproduct_value": 51500.0,
+          "claim_status": "none",
+          "contract_number": "KSC/SCT-00004",
+          "expected_output_qty": 109.44,
+          "hpp_per_unit": 17201.83,
+          "input_qty": 30.0,
+          "input_unit": "kg",
+          "makloon_name": "PT Tenun Nusantara Jaya",
+          "material_value": 1545000.0,
+          "output_unit": "yard",
+          "output_value": 1875000.0,
+          "process_type": "tenun",
+          "seq": 1,
+          "service_value": 381500.0,
+          "status": "received",
+          "tariff_basis": "kg",
+          "variance_pct": -0.402
+        }
+      ]
+    },
+    "forecast": {
+      "expected_byproduct_qty": 0.6,
+      "expected_finished_qty": 109.44,
+      "explain": [
+        "Bahan masuk 30 kg.",
+        "Susut 4% (input langkah) → berat efektif 28.8 kg.",
+        "OVERRIDE yield 3.8 yard/kg dipakai → 30 × 3.8 − susut 4% = 109.44 yard",
+        "Barang sisa diperkirakan 0.6 kg (2% dari bahan)."
+      ],
+      "input_qty": 30.0,
+      "method": "yield_override"
+    },
+    "material_qty": 30.0,
+    "material_unit": "kg",
+    "mko_number": "MKO-00001",
+    "mode": "process_only",
+    "planned_service_cost": 500000.0,
+    "status": "completed",
+    "steps": [
+      {
+        "actual_byproduct_qty": 1.0,
+        "actual_output_qty": 109.0,
+        "aux_cost": 0,
+        "byproduct_pct": 2.0,
+        "byproduct_product_id": "prod_benang_sisa",
+        "estimate": {
+          "expected_byproduct_qty": 0.6,
+          "expected_output_qty": 109.44,
+          "explain": [
+            "Bahan masuk 30 kg.",
+            "Susut 4% (input langkah) → berat efektif 28.8 kg.",
+            "OVERRIDE yield 3.8 yard/kg dipakai → 30 × 3.8 − susut 4% = 109.44 yard",
+            "Barang sisa diperkirakan 0.6 kg (2% dari bahan)."
+          ],
+          "fabric_type": "woven",
+          "gsm_output": 120.0,
+          "input_kg": 30.0,
+          "input_qty": 30.0,
+          "input_unit": "kg",
+          "kg_effective": 28.8,
+          "kg_per_input_unit": 1.0,
+          "kg_per_output_unit": 0.126187,
+          "method": "yield_override",
+          "output_unit": "yard",
+          "process_type": "tenun",
+          "shrinkage_pct": 4.0,
+          "shrinkage_source": "input langkah",
+          "warnings": [
+            "Override yield tanpa alasan — wajib diisi agar bisa diaudit (PS-03)."
+          ],
+          "width_output": 1.15,
+          "yield_factor": 3.8,
+          "yield_reason": ""
+        },
+        "expected_byproduct_qty": 0.6,
+        "expected_output_qty": 109.44,
+        "input_product_id": "prod_benang_katun",
+        "input_qty": 30.0,
+        "input_unit": "kg",
+        "makloon_id": "mak_seed_tenun",
+        "makloon_name": "PT Tenun Nusantara Jaya",
+        "material_value": 1545000.0,
+        "output_product_id": "prod_grey_katun",
+        "output_unit": "yard",
+        "output_unit_cost": 17201.8349,
+        "output_value": 1875000.0,
+        "process_type": "tenun",
+        "seq": 1,
+        "service_value": 381500.0,
+        "shrinkage_pct": 4.0,
+        "shrinkage_source": "input langkah",
+        "status": "received",
+        "target_use": "",
+        "tariff": 381500.0,
+        "tariff_base_equivalent": {
+          "amount": 500000.0,
+          "qty": 30.0,
+          "uom": "kg"
+        },
+        "tariff_basis": "kg",
+        "tariff_original": {
+          "basis": "kg",
+          "qty": 30.0,
+          "rate": 13500.0,
+          "uom": "kg"
+        },
+        "tariff_plan": {
+          "amount": 500000.0,
+          "aux_breakdown": [],
+          "aux_total": 0.0,
+          "base_uom": "kg",
+          "basis": "kg",
+          "basis_qty": 30.0,
+          "basis_uom": "kg",
+          "computed_at": "2026-08-19T03:30:51.784876+00:00",
+          "contract_id": "sct_6a08bad843b8",
+          "contract_number": "KSC/SCT-00004",
+          "conversion": {
+            "factor": 1.0,
+            "from": "kg",
+            "source": "same_unit",
+            "to": "kg"
+          },
+          "explain": [
+            "Basis kg → qty tarif 30 kg.",
+            "Ongkos jasa = tarif Rp 13.500 × 30 kg = Rp 405.000",
+            "Tagihan minimum kontrak Rp 500.000 berlaku (hitungan Rp 405.000)."
+          ],
+          "formula_used": "",
+          "min_charge": 500000.0,
+          "min_charge_applied": true,
+          "qty_base": 30.0,
+          "rate": 13500.0,
+          "service_amount": 405000.0,
+          "source": "contract",
+          "warnings": []
+        },
+        "tariff_rate": 13500.0,
+        "tolerance_pct": 4.0,
+        "waste_pct": 4.0,
+        "yield_factor": 3.8,
+        "yield_override_reason": ""
+      }
+    ]
+  },
+  "MKO-00002": {
+    "costing": {
+      "aux_cost": 0.0,
+      "byproduct_credit": 0.0,
+      "hpp_output": 0.0,
+      "hpp_per_unit": 0.0,
+      "material_cost": 0.0,
+      "service_cost": 500000.0,
+      "steps": [
+        {
+          "actual_output_qty": 0.0,
+          "aux_cost": 0.0,
+          "byproduct_value": 0.0,
+          "claim_status": "none",
+          "contract_number": "KSC/SCT-00004",
+          "expected_output_qty": 72.96,
+          "hpp_per_unit": 0.0,
+          "input_qty": 20.0,
+          "input_unit": "kg",
+          "makloon_name": "PT Tenun Nusantara Jaya",
+          "material_value": 0.0,
+          "output_unit": "yard",
+          "output_value": 0.0,
+          "process_type": "tenun",
+          "seq": 1,
+          "service_value": 500000.0,
+          "status": "pending",
+          "tariff_basis": "kg",
+          "variance_pct": null
+        }
+      ]
+    },
+    "forecast": {
+      "expected_byproduct_qty": 0.4,
+      "expected_finished_qty": 72.96,
+      "explain": [
+        "Bahan masuk 20 kg.",
+        "Susut 4% (input langkah) → berat efektif 19.2 kg.",
+        "OVERRIDE yield 3.8 yard/kg dipakai → 20 × 3.8 − susut 4% = 72.96 yard",
+        "Barang sisa diperkirakan 0.4 kg (2% dari bahan)."
+      ],
+      "input_qty": 20.0,
+      "method": "yield_override"
+    },
+    "material_qty": 20.0,
+    "material_unit": "kg",
+    "mko_number": "MKO-00002",
+    "mode": "process_only",
+    "planned_service_cost": 500000.0,
+    "status": "in_process",
+    "steps": [
+      {
+        "actual_byproduct_qty": 0.0,
+        "actual_output_qty": 0.0,
+        "aux_cost": 0.0,
+        "byproduct_pct": 2.0,
+        "byproduct_product_id": "prod_benang_sisa",
+        "estimate": {
+          "expected_byproduct_qty": 0.4,
+          "expected_output_qty": 72.96,
+          "explain": [
+            "Bahan masuk 20 kg.",
+            "Susut 4% (input langkah) → berat efektif 19.2 kg.",
+            "OVERRIDE yield 3.8 yard/kg dipakai → 20 × 3.8 − susut 4% = 72.96 yard",
+            "Barang sisa diperkirakan 0.4 kg (2% dari bahan)."
+          ],
+          "fabric_type": "woven",
+          "gsm_output": 120.0,
+          "input_kg": 20.0,
+          "input_qty": 20.0,
+          "input_unit": "kg",
+          "kg_effective": 19.2,
+          "kg_per_input_unit": 1.0,
+          "kg_per_output_unit": 0.126187,
+          "method": "yield_override",
+          "output_unit": "yard",
+          "process_type": "tenun",
+          "shrinkage_pct": 4.0,
+          "shrinkage_source": "input langkah",
+          "warnings": [
+            "Override yield tanpa alasan — wajib diisi agar bisa diaudit (PS-03)."
+          ],
+          "width_output": 1.15,
+          "yield_factor": 3.8,
+          "yield_reason": ""
+        },
+        "expected_byproduct_qty": 0.4,
+        "expected_output_qty": 72.96,
+        "input_product_id": "prod_benang_katun",
+        "input_qty": 20.0,
+        "input_unit": "kg",
+        "makloon_id": "mak_seed_tenun",
+        "makloon_name": "PT Tenun Nusantara Jaya",
+        "material_value": 1030000.0,
+        "output_product_id": "prod_grey_katun",
+        "output_unit": "yard",
+        "output_unit_cost": null,
+        "output_value": 0.0,
+        "process_type": "tenun",
+        "seq": 1,
+        "service_value": 0.0,
+        "shrinkage_pct": 4.0,
+        "shrinkage_source": "input langkah",
+        "status": "issued",
+        "target_use": "",
+        "tariff": 500000.0,
+        "tariff_base_equivalent": {
+          "amount": 500000.0,
+          "qty": 20.0,
+          "uom": "kg"
+        },
+        "tariff_basis": "kg",
+        "tariff_original": {
+          "basis": "kg",
+          "qty": 20.0,
+          "rate": 13500.0,
+          "uom": "kg"
+        },
+        "tariff_plan": {
+          "amount": 500000.0,
+          "aux_breakdown": [],
+          "aux_total": 0.0,
+          "base_uom": "kg",
+          "basis": "kg",
+          "basis_qty": 20.0,
+          "basis_uom": "kg",
+          "computed_at": "2026-08-19T03:30:51.872462+00:00",
+          "contract_id": "sct_6a08bad843b8",
+          "contract_number": "KSC/SCT-00004",
+          "conversion": {
+            "factor": 1.0,
+            "from": "kg",
+            "source": "same_unit",
+            "to": "kg"
+          },
+          "explain": [
+            "Basis kg → qty tarif 20 kg.",
+            "Ongkos jasa = tarif Rp 13.500 × 20 kg = Rp 270.000",
+            "Tagihan minimum kontrak Rp 500.000 berlaku (hitungan Rp 270.000)."
+          ],
+          "formula_used": "",
+          "min_charge": 500000.0,
+          "min_charge_applied": true,
+          "qty_base": 20.0,
+          "rate": 13500.0,
+          "service_amount": 270000.0,
+          "source": "contract",
+          "warnings": []
+        },
+        "tariff_rate": 13500.0,
+        "tolerance_pct": 4.0,
+        "waste_pct": 4.0,
+        "yield_factor": 3.8,
+        "yield_override_reason": ""
+      }
+    ]
+  },
+  "MKO-00003": {
+    "costing": {
+      "aux_cost": 0.0,
+      "byproduct_credit": 20600.0,
+      "hpp_output": 1251900.0,
+      "hpp_per_unit": 24600.12,
+      "material_cost": 772500.0,
+      "service_cost": 1250000.0,
+      "steps": [
+        {
+          "actual_output_qty": 50.89,
+          "aux_cost": 0.0,
+          "byproduct_value": 20600.0,
+          "claim_status": "open",
+          "contract_number": "KSC/SCT-00004",
+          "expected_output_qty": 54.72,
+          "hpp_per_unit": 24600.12,
+          "input_qty": 15.0,
+          "input_unit": "kg",
+          "makloon_name": "PT Tenun Nusantara Jaya",
+          "material_value": 772500.0,
+          "output_unit": "yard",
+          "output_value": 1251900.0,
+          "process_type": "tenun",
+          "seq": 1,
+          "service_value": 500000.0,
+          "status": "received",
+          "tariff_basis": "kg",
+          "variance_pct": -6.999
+        },
+        {
+          "actual_output_qty": 0.0,
+          "aux_cost": 0.0,
+          "byproduct_value": 0.0,
+          "claim_status": "none",
+          "contract_number": "KSC/SCT-00005",
+          "expected_output_qty": 48.349,
+          "hpp_per_unit": 0.0,
+          "input_qty": 50.89,
+          "input_unit": "yard",
+          "makloon_name": "CV Celup Warna Abadi",
+          "material_value": 0.0,
+          "output_unit": "yard",
+          "output_value": 0.0,
+          "process_type": "celup",
+          "seq": 2,
+          "service_value": 750000.0,
+          "status": "pending",
+          "tariff_basis": "yard",
+          "variance_pct": null
+        }
+      ]
+    },
+    "forecast": {
+      "expected_byproduct_qty": 1.94,
+      "expected_finished_qty": 51.986,
+      "explain": [
+        "Bahan masuk 15 kg.",
+        "Susut 4% (kontrak KSC/SCT-00004) → berat efektif 14.4 kg.",
+        "OVERRIDE yield 3.8 yard/kg dipakai → 15 × 3.8 − susut 4% = 54.72 yard",
+        "Barang sisa diperkirakan 0.3 kg (2% dari bahan).",
+        "Bahan masuk 54.72 yard × 0.126187 kg/yard (GSM 120 × lebar 1.15 m) = 6.905 kg.",
+        "Susut 5% (kontrak KSC/SCT-00005) → berat efektif 6.56 kg.",
+        "Output yard: 6.56 kg ÷ 0.126187 kg/yard (GSM 120 × lebar 1.15 m) = 51.986 yard.",
+        "Barang sisa diperkirakan 1.642 yard (3% dari bahan)."
+      ],
+      "input_qty": 15.0,
+      "method": "yield_override"
+    },
+    "material_qty": 15.0,
+    "material_unit": "kg",
+    "mko_number": "MKO-00003",
+    "mode": "process_only",
+    "planned_service_cost": 1250000.0,
+    "status": "partially_received",
+    "steps": [
+      {
+        "actual_byproduct_qty": 0.4,
+        "actual_output_qty": 50.89,
+        "aux_cost": 0,
+        "byproduct_pct": 2.0,
+        "byproduct_product_id": "prod_benang_sisa",
+        "estimate": {
+          "expected_byproduct_qty": 0.3,
+          "expected_output_qty": 54.72,
+          "explain": [
+            "Bahan masuk 15 kg.",
+            "Susut 4% (kontrak KSC/SCT-00004) → berat efektif 14.4 kg.",
+            "OVERRIDE yield 3.8 yard/kg dipakai → 15 × 3.8 − susut 4% = 54.72 yard",
+            "Barang sisa diperkirakan 0.3 kg (2% dari bahan)."
+          ],
+          "fabric_type": "woven",
+          "gsm_output": 120.0,
+          "input_kg": 15.0,
+          "input_qty": 15.0,
+          "input_unit": "kg",
+          "kg_effective": 14.4,
+          "kg_per_input_unit": 1.0,
+          "kg_per_output_unit": 0.126187,
+          "method": "yield_override",
+          "output_unit": "yard",
+          "process_type": "tenun",
+          "shrinkage_pct": 4.0,
+          "shrinkage_source": "kontrak KSC/SCT-00004",
+          "warnings": [
+            "Override yield tanpa alasan — wajib diisi agar bisa diaudit (PS-03)."
+          ],
+          "width_output": 1.15,
+          "yield_factor": 3.8,
+          "yield_reason": ""
+        },
+        "expected_byproduct_qty": 0.3,
+        "expected_output_qty": 54.72,
+        "input_product_id": "prod_benang_katun",
+        "input_qty": 15.0,
+        "input_unit": "kg",
+        "makloon_id": "mak_seed_tenun",
+        "makloon_name": "PT Tenun Nusantara Jaya",
+        "material_value": 772500.0,
+        "output_product_id": "prod_grey_katun",
+        "output_unit": "yard",
+        "output_unit_cost": 24600.1179,
+        "output_value": 1251900.0,
+        "process_type": "tenun",
+        "seq": 1,
+        "service_value": 500000.0,
+        "shrinkage_pct": 4.0,
+        "shrinkage_source": "kontrak KSC/SCT-00004",
+        "status": "received",
+        "target_use": "",
+        "tariff": 500000.0,
+        "tariff_base_equivalent": {
+          "amount": 500000.0,
+          "qty": 15.0,
+          "uom": "kg"
+        },
+        "tariff_basis": "kg",
+        "tariff_original": {
+          "basis": "kg",
+          "qty": 15.0,
+          "rate": 13500.0,
+          "uom": "kg"
+        },
+        "tariff_plan": {
+          "amount": 500000.0,
+          "aux_breakdown": [],
+          "aux_total": 0.0,
+          "base_uom": "kg",
+          "basis": "kg",
+          "basis_qty": 15.0,
+          "basis_uom": "kg",
+          "computed_at": "2026-08-19T03:30:51.896833+00:00",
+          "contract_id": "sct_6a08bad843b8",
+          "contract_number": "KSC/SCT-00004",
+          "conversion": {
+            "factor": 1.0,
+            "from": "kg",
+            "source": "same_unit",
+            "to": "kg"
+          },
+          "explain": [
+            "Basis kg → qty tarif 15 kg.",
+            "Ongkos jasa = tarif Rp 13.500 × 15 kg = Rp 202.500",
+            "Tagihan minimum kontrak Rp 500.000 berlaku (hitungan Rp 202.500)."
+          ],
+          "formula_used": "",
+          "min_charge": 500000.0,
+          "min_charge_applied": true,
+          "qty_base": 15.0,
+          "rate": 13500.0,
+          "service_amount": 202500.0,
+          "source": "contract",
+          "warnings": []
+        },
+        "tariff_rate": 13500.0,
+        "tolerance_pct": 4.0,
+        "waste_pct": 4.0,
+        "yield_factor": 3.8,
+        "yield_override_reason": ""
+      },
+      {
+        "actual_byproduct_qty": 0.0,
+        "actual_output_qty": 0.0,
+        "aux_cost": 0.0,
+        "byproduct_pct": 3.0,
+        "byproduct_product_id": "prod_grey_sisa",
+        "estimate": {
+          "expected_byproduct_qty": 1.527,
+          "expected_output_qty": 48.349,
+          "explain": [
+            "Bahan masuk 50.89 yard × 0.126187 kg/yard (GSM 120 × lebar 1.15 m) = 6.422 kg.",
+            "Susut 5% (kontrak KSC/SCT-00005) → berat efektif 6.101 kg.",
+            "Output yard: 6.101 kg ÷ 0.126187 kg/yard (GSM 120 × lebar 1.15 m) = 48.349 yard.",
+            "Barang sisa diperkirakan 1.527 yard (3% dari bahan)."
+          ],
+          "fabric_type": "woven",
+          "gsm_output": 120.0,
+          "input_kg": 6.422,
+          "input_qty": 50.89,
+          "input_unit": "yard",
+          "kg_effective": 6.101,
+          "kg_per_input_unit": 0.126187,
+          "kg_per_output_unit": 0.126187,
+          "method": "gsm",
+          "output_unit": "yard",
+          "process_type": "celup",
+          "shrinkage_pct": 5.0,
+          "shrinkage_source": "kontrak KSC/SCT-00005",
+          "warnings": [],
+          "width_output": 1.15,
+          "yield_factor": 0.0,
+          "yield_reason": ""
+        },
+        "expected_byproduct_qty": 1.527,
+        "expected_output_qty": 48.349,
+        "input_product_id": "prod_grey_katun",
+        "input_qty": 50.89,
+        "input_unit": "yard",
+        "makloon_id": "mak_seed_celup",
+        "makloon_name": "CV Celup Warna Abadi",
+        "material_value": 0.0,
+        "output_product_id": "prod_batik_mega",
+        "output_unit": "yard",
+        "output_unit_cost": null,
+        "output_value": 0.0,
+        "process_type": "celup",
+        "seq": 2,
+        "service_value": 0.0,
+        "shrinkage_pct": 5.0,
+        "shrinkage_source": "kontrak KSC/SCT-00005",
+        "status": "pending",
+        "target_use": "",
+        "tariff": 750000.0,
+        "tariff_base_equivalent": {
+          "amount": 750000.0,
+          "qty": 51.986,
+          "uom": "yard"
+        },
+        "tariff_basis": "yard",
+        "tariff_original": {
+          "basis": "yard",
+          "qty": 51.986,
+          "rate": 2600.0,
+          "uom": "yard"
+        },
+        "tariff_plan": {
+          "amount": 750000.0,
+          "aux_breakdown": [
+            {
+              "amount": 120000.0,
+              "basis": "per_color",
+              "code": "screen",
+              "label": "Biaya screen per warna",
+              "value": 360000.0
+            },
+            {
+              "amount": 65000.0,
+              "basis": "per_repeat",
+              "code": "repeat",
+              "label": "Biaya repeat motif",
+              "value": 130000.0
+            }
+          ],
+          "aux_total": 490000.0,
+          "base_uom": "yard",
+          "basis": "yard",
+          "basis_qty": 51.986,
+          "basis_uom": "yard",
+          "computed_at": "2026-08-19T03:30:51.899747+00:00",
+          "contract_id": "sct_51079d8e1560",
+          "contract_number": "KSC/SCT-00005",
+          "conversion": {
+            "factor": 1.0,
+            "from": "yard",
+            "source": "same_unit",
+            "to": "yard"
+          },
+          "explain": [
+            "Basis yard → qty tarif 51.986 yard.",
+            "Ongkos jasa = tarif Rp 2.600 × 51.986 yard = Rp 135.164",
+            "Biaya Biaya screen per warna: Rp 360.000 (per_color)",
+            "Biaya Biaya repeat motif: Rp 130.000 (per_repeat)",
+            "Tagihan minimum kontrak Rp 750.000 berlaku (hitungan Rp 625.164)."
+          ],
+          "formula_used": "",
+          "min_charge": 750000.0,
+          "min_charge_applied": true,
+          "qty_base": 51.986,
+          "rate": 2600.0,
+          "service_amount": 135163.6,
+          "source": "contract",
+          "warnings": []
+        },
+        "tariff_rate": 2600.0,
+        "tolerance_pct": 3.0,
+        "waste_pct": 5.0,
+        "yield_factor": 0.0,
+        "yield_override_reason": ""
+      }
+    ]
+  }
+}

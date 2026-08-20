@@ -1,0 +1,15 @@
+[run]
+branch = True
+parallel = True
+source = /app/backend
+omit =
+    */tests/*
+    *_test.py
+    *test_*.py
+    */scripts/*
+    */__pycache__/*
+    */site-packages/*
+
+[report]
+show_missing = False
+skip_empty = True

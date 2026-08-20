@@ -1,0 +1,39 @@
+{
+  "summary": "F1b Product Templates & Variants (ADDITIVE/non-destruktif) — 20/20 backend tests PASSED + frontend smoke PASS. Coverage: create template (axes ter-normalisasi), generate varian cartesian (3×2=6) + IDEMPOTEN (skipped=6 on re-run), subset axes override (1 combo), GET detail/list (variant_count, axes), search, assign/detach produk, integrasi /api/products (template_id + variant_attrs), PATCH product template_id, RBAC (sales+manager 403 create/generate/delete; sales+manager 200 view), DELETE non-destruktif (detached_variants=7 dan produk varian masih ada di /api/products dgn template_id=''). Regresi GET /api/products, /api/sales-orders, /api/pricelist, /api/gl/consolidation semua 200. Entity scoping gate F0-C LULUS (product_templates SHARED, entity_prices SCOPED). Frontend smoke: login admin → Penjualan → Template & Varian, buat template 'TPL Smoke UI 2026' + axis Warna (Merah,Biru) → save sukses, klik template, Generate Varian → 2 variants ter-render di tabel, Delete menampilkan notice 'Template dihapus, 2 varian dilepas (produk tetap utuh)'. Tidak ada JS error. Cleanup teardown: template & produk varian uji dihapus (DB products tetap 7 seed).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/product-templates", "issue": "Missing 'name' field returns 422 (FastAPI/Pydantic default), bukan 400 sesuai spesifikasi. Test menyesuaikan: name='' → 400, missing field → 422 (both accepted). Pertimbangkan custom 400 untuk konsistensi spec."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_f1b_product_templates.py",
+    "/app/test_reports/pytest/f1b_results.xml"
+  ],
+  "action_items": [
+    "Opsional: ubah schema ProductTemplateCreate.name → kembalikan 400 (custom validator) untuk konsistensi spec; saat ini 422 (Pydantic default).",
+    "Opsional cleanup script: produk varian yatim (template_id='') yang dibuat oleh test UI cenderung tertinggal jika modal generate gagal — sudah ditangani teardown DB di test."
+  ],
+  "critical_code_review_comments": [
+    "generate_variants memakai cache 'existing' SKU lokal in-memory yang sudah meng-add(sku) saat insert — bagus, idempoten dalam satu request. Tapi tidak ada UNIQUE INDEX di products.sku → race antar request bisa men-duplikasi SKU. Tambahkan unique index (`sku`).",
+    "delete_template non-destruktif: produk dengan template_id='' kehilangan jejak induk. Untuk audit/restore, pertimbangkan menambah field 'former_template_id' (snapshot) saat detach via delete.",
+    "_normalize_axes: bila code kosong, _slug(label,6) dipakai. Untuk label panjang/dengan karakter non-ASCII (Unicode Bahasa Indonesia), regex [^A-Za-z0-9] hanya menyimpan latin → label seperti 'Hijau Tosca' menjadi 'HIJAUTO'. OK untuk umum, tapi label berbasis non-latin akan jadi kosong → akan jatuh ke ''. Tambahkan fallback default code (mis. seq number).",
+    "list_templates: search dilakukan di Python setelah find(); untuk volume tinggi, pakai $regex/$text index di mongo. Saat ini OK karena katalog kecil.",
+    "POST /product-templates/detach tidak memvalidasi product_ids — jika kosong → modified_count=0 (silent). Optional: kembalikan 400 bila list kosong."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_f1b_product_templates.py (BARU)"
+  ],
+  "success_rate": {"backend": "100% (20/20)", "frontend": "100% smoke (create→generate→variants render→delete non-destructive)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (manage), manager@kainnusantara.id (view only), sales@kainnusantara.id (view only) — RBAC verified",
+  "seed_data_creation": "Test fixture membuat 1 template 'TPL Test Katun' (sku_prefix=TPLTST, 3×2 axes) → 7 varian (6 cartesian + 1 subset Kuning/A) → template dihapus di tearDown (otomatis detach varian). Cleanup DB tambahan: hapus produk SKU regex ^TPLTST- + template sku_prefix=TPLTST. Frontend smoke: 1 template 'TPL Smoke UI 2026' + 2 varian TSU2-MERAH/TSU2-BIRU → dihapus via DB. Akhir: products=7 (seed asli), product_templates=0.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "F1b selesai 20/20 backend + frontend smoke PASS. File regresi: /app/backend/tests/test_f1b_product_templates.py + /app/backend/tests/test_f1a_pricelist.py. Untuk fase berikutnya, perhatikan: (1) products tidak ada unique index pada SKU; (2) hapus template hanya melepas tautan, varian tetap ada → bila menambah fase 'archive variant', perlu strategi terpisah. Header X-Entity-Id OPSIONAL untuk endpoint product-templates (SHARED). Test login menggunakan data-testid='login-email-input'/'login-password-input' dan tombol Masuk (text='Masuk').",
+  "rca of the issue": "N/A — tidak ada bug ditemukan. Hanya 1 catatan minor: status code 422 vs 400 saat 'name' missing (Pydantic default) sudah disesuaikan di test (terima keduanya)."
+}

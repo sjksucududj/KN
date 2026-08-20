@@ -1,0 +1,139 @@
+{
+  "summary": "Completed comprehensive testing of QC Hold/Quarantine feature (Depth #3a). Backend APIs fully functional with all QC flows working correctly. Frontend UI working for admin and manager roles. CRITICAL RBAC BUG: warehouse role cannot access QC Inspection menu despite configuration indicating they should have access.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": [],
+    "notes": "All backend QC endpoints working correctly. Data integrity verified (114 PASS, 0 FAIL)."
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "critical_bugs": [
+      {
+        "component": "Navigation / RBAC",
+        "issue": "QC Inspection menu NOT visible for warehouse role despite navigationConfig.js specifying roles: ['admin', 'warehouse', 'manager']",
+        "impact": "Warehouse users cannot access QC Inspection view, blocking their ability to perform QC inspections",
+        "affected_roles": ["warehouse"],
+        "expected_behavior": "Warehouse role should see 'Inspeksi QC' menu item in Gudang group",
+        "actual_behavior": "Gudang group shows 0 items for warehouse role (buildNavGroups returns empty items array)",
+        "fix_priority": "CRITICAL",
+        "location": "/app/frontend/src/config/navigationConfig.js line 186 + buildNavGroups function",
+        "reproduction": "1. Login as warehouse@kainnusantara.id, 2. Expand Gudang group, 3. Observe no menu items shown"
+      }
+    ]
+  },
+  
+  "passed_tests": [
+    "Backend: Login as admin",
+    "Backend: GR routes to quarantine (scan-receive → complete → qc_pending with quarantine roll created)",
+    "Backend: QC queue endpoint returns enriched tasks with all required fields",
+    "Backend: QC accept (full) - quarantine → available, task status=completed, qc_status=passed",
+    "Backend: QC reject return (partial) - creates Purchase Return (PRET-00003) with correct disposition",
+    "Backend: Validation - over-allocation rejected (400)",
+    "Backend: Validation - both zero rejected (400)",
+    "Backend: Validation - non-qc_pending task rejected (400)",
+    "Backend: Data integrity verified (114 PASS, 0 FAIL)",
+    "Frontend: QC Inspection view loads correctly for admin role",
+    "Frontend: Metrics display correctly (tasks count, quarantine qty)",
+    "Frontend: Empty state displays when no tasks in queue",
+    "Frontend: QC Inspection menu visible and accessible for manager role",
+    "Frontend: All data-testid attributes present for testing"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/backend_test_qc.py",
+    "/root/.emergent/automation_output/20260619_123215/console_20260619_123215.log",
+    "/root/.emergent/automation_output/20260619_123334/console_20260619_123334.log",
+    "/root/.emergent/automation_output/20260619_123447/console_20260619_123447.log"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (11/11 tests passed, data integrity verified)",
+    "frontend_ui": "100% (all UI elements working for admin/manager)",
+    "frontend_rbac": "67% (2/3 roles working - admin ✓, manager ✓, warehouse ✗)"
+  },
+  
+  "updated_files": [
+    "/app/backend/backend_test_qc.py"
+  ],
+  
+  "action_item_for_main_agent": {
+    "critical": [
+      {
+        "priority": "HIGH",
+        "issue": "RBAC Bug - Warehouse role cannot access QC Inspection",
+        "description": "The buildNavGroups function in navigationConfig.js is returning an empty items array for the Gudang group when role='warehouse', despite the configuration specifying that warehouse should have access to multiple items including 'qc-inspection'. This blocks warehouse users from performing QC inspections.",
+        "affected_file": "/app/frontend/src/config/navigationConfig.js",
+        "debug_info": "When logged in as warehouse@kainnusantara.id, the Gudang group renders with 0 items. The group header is visible but clicking it shows no menu items. Other roles (admin, manager) work correctly.",
+        "suggested_fix": "Debug the buildNavGroups function to understand why items are being filtered out for warehouse role. Verify that the role string matching is case-sensitive and exact. Check if there's any additional filtering logic in the Sidebar component or App.js that might be removing items for warehouse role."
+      }
+    ],
+    "notes": [
+      "Backend QC functionality is fully working and production-ready",
+      "Frontend UI components are well-designed and functional",
+      "Only the RBAC filtering for warehouse role needs to be fixed",
+      "After fixing the RBAC bug, warehouse users will be able to access and use the QC Inspection feature"
+    ]
+  },
+  
+  "should_call_test_agent_after_fix": "true",
+  "should_main_agent_test_itself": "false",
+  
+  "detailed_test_results": {
+    "backend_qc_flows": {
+      "gr_to_quarantine": {
+        "status": "PASS",
+        "details": "Task transitions correctly: waiting_goods → (scan-receive) → qc_check → (complete) → qc_pending. Quarantine roll created with status='quarantine', qc_task_id set correctly."
+      },
+      "qc_queue": {
+        "status": "PASS",
+        "details": "Returns array of qc_pending tasks enriched with product_name, sku, supplier_name, po_number, warehouse_name, quarantine_qty. Seeded task (Batik Mega Mendung Premium, 75m) found in queue."
+      },
+      "qc_accept_full": {
+        "status": "PASS",
+        "details": "Accepted 120m, task status=completed, qc_status=passed. Quarantine stock moved to available."
+      },
+      "qc_reject_return": {
+        "status": "PASS",
+        "details": "Partial accept (45m) + reject return (30m) created Purchase Return PRET-00003 with status=pending_approval, stock_adjusted=true, source=qc_reject."
+      },
+      "validations": {
+        "status": "PASS",
+        "details": "All validations working: over-allocation (400), both zero (400), non-qc_pending task (400)."
+      },
+      "data_integrity": {
+        "status": "PASS",
+        "details": "verify_data_integrity.py: 114 PASS, 0 FAIL. All invariants valid including roll-as-SSOT, balance integrity, and number-series uniqueness."
+      }
+    },
+    "frontend_ui": {
+      "qc_view_load": {
+        "status": "PASS",
+        "roles_tested": ["admin", "manager"],
+        "details": "QC Inspection view (data-testid='qc-inspection-view') loads correctly with metrics, queue, and empty state."
+      },
+      "metrics_display": {
+        "status": "PASS",
+        "details": "Metrics tiles (qc-metric-tasks, qc-metric-quarantine) display correctly with counts and quantities."
+      },
+      "empty_state": {
+        "status": "PASS",
+        "details": "Empty state (data-testid='qc-empty') displays correctly when no tasks in queue: 'Tidak ada barang menunggu QC'"
+      },
+      "rbac_admin": {
+        "status": "PASS",
+        "details": "Admin role can see and access QC Inspection menu in Gudang group."
+      },
+      "rbac_manager": {
+        "status": "PASS",
+        "details": "Manager role can see and access QC Inspection menu in Gudang group."
+      },
+      "rbac_warehouse": {
+        "status": "FAIL",
+        "details": "Warehouse role CANNOT see QC Inspection menu. Gudang group shows 0 items despite configuration indicating warehouse should have access."
+      }
+    }
+  }
+}

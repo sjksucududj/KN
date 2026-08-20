@@ -1,0 +1,50 @@
+{
+  "summary": "Completed comprehensive end-to-end testing of Pegging/Earmarking feature (Sub-fase 1.7). All backend APIs, frontend UI components, owner-scoped guards, and anti-rebutan allocation logic verified. Regression tests for allocation policy and mixed-lot confirmation also passed.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: POST /api/inventory/rolls/{roll_id}/earmark - earmarks roll to customer (200)",
+    "Backend: GET /api/pegging/rolls - lists all earmarked rolls (200)",
+    "Backend: DELETE /api/inventory/rolls/{roll_id}/earmark - clears earmark (200)",
+    "Backend: Owner-scoped D3 guard - returns 409 for cross-entity pegging",
+    "Backend: Status guard - returns 409 for non-available roll pegging",
+    "Backend: Anti-rebutan logic - roll excluded for other customers, included for same customer (test_pegging_17.py: 12/12)",
+    "Frontend: Login and navigation to WMS -> Stok -> Rolls tab",
+    "Frontend: Rolls table displays with Pegging column",
+    "Frontend: Pegging filter bar with count (data-testid=rolls-pegging-bar, pegging-count)",
+    "Frontend: Peg button on available, non-pegged rolls (data-testid=roll-peg-btn-{rollId})",
+    "Frontend: PeggingModal opens with customer dropdown, note input, confirm button",
+    "Frontend: Owner-scoped customer dropdown filters customers by roll's entity",
+    "Frontend: Earmark confirmation creates purple badge (data-testid=roll-earmark-badge-{rollId})",
+    "Frontend: Pegging count increments after earmark",
+    "Frontend: Pegging filter toggle (data-testid=pegging-only-toggle) filters to only pegged rolls",
+    "Frontend: Lepas (unpeg) button (data-testid=roll-unpeg-btn-{rollId}) removes earmark",
+    "Regression: Allocation policy tests pass 19/19 (test_allocation_policy_17.py)",
+    "Regression: Pegging integration tests pass 12/12 (test_pegging_17.py)"
+  ],
+  "test_report_links": [
+    "/app/test_pegging_backend.py",
+    "/app/tests/test_pegging_17.py",
+    "/app/tests/test_allocation_policy_17.py",
+    ".screenshots/pegging_final.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (9/9 tests passed)",
+    "frontend": "100% (11/11 tests passed)",
+    "regression": "100% (31/31 tests passed)"
+  },
+  "updated_files": [
+    "/app/test_pegging_backend.py",
+    "/app/backend_test.py"
+  ],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

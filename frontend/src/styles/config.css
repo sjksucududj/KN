@@ -1,0 +1,538 @@
+/* ============================================================================
+ * config.css — FASE G-0 · PUSAT PENGATURAN (Config Center)
+ * ----------------------------------------------------------------------------
+ * Gaya untuk: SettingsHub · SettingCard · SettingEditor · ConfigDrawers
+ *             (Kenapa nilainya begini / Coba dulu / Riwayat) · ImpactPicker ·
+ *             ConfigHealthPanel.
+ * Memakai token global dari tokens.css — tidak ada warna hardcode baru.
+ * Semua latar SOLID (tidak transparan) agar tetap terbaca di tema apa pun.
+ * ==========================================================================*/
+
+/* ── Kerangka hub ─────────────────────────────────────────────────────────── */
+.cfg-hub { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+.cfg-hub-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--sp-4); flex-wrap: wrap;
+}
+.cfg-hub-head h2 {
+  font-family: Outfit, Manrope, sans-serif; font-size: 1.45rem; font-weight: 700;
+  color: var(--ios-text); margin: 2px 0 4px;
+}
+.cfg-kicker {
+  font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ios-blue); margin: 0;
+}
+.cfg-sub-lead { color: var(--ios-muted); font-size: .85rem; margin: 0; max-width: 62ch; }
+
+.cfg-tabs { margin-bottom: 0; }
+.cfg-tabs .tab-pill { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── Notifikasi aksi ─────────────────────────────────────────────────────── */
+.cfg-notice {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: 10px var(--sp-3); border-radius: var(--r-md);
+  border: 1px solid var(--line); background: #ecfdf5; color: #065f46;
+  font-size: .85rem; font-weight: 600;
+}
+.cfg-notice.err { background: #fef2f2; color: #991b1b; }
+.cfg-notice.info {
+  background: #F5F9FF; color: #1E3A5F;
+  border-color: rgba(0, 122, 255, 0.22); font-weight: 500; align-items: flex-start;
+}
+.cfg-notice.info svg { margin-top: 2px; flex: 0 0 auto; color: var(--ios-blue-strong); }
+.cfg-notice span { flex: 1; }
+
+/* ── Toolbar (pencarian + cakupan) ───────────────────────────────────────── */
+.cfg-toolbar {
+  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+  padding: var(--sp-3); background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.cfg-search-wrap {
+  display: flex; align-items: center; gap: 8px; flex: 1 1 340px; min-width: 260px;
+  padding: 0 10px; background: #f8fafc; border: 1px solid var(--line);
+  border-radius: var(--r-md); color: var(--ios-muted);
+}
+.cfg-search-wrap input {
+  flex: 1; border: none !important; background: transparent !important;
+  box-shadow: none !important; padding: 9px 0 !important; font-size: .88rem;
+}
+.cfg-search-wrap input:focus { outline: none; }
+.cfg-search-sm { flex: 0 1 300px; }
+
+.cfg-scope-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cfg-scope-caption {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .76rem; font-weight: 700; color: var(--ios-muted); text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.cfg-select-sm { min-width: 190px; }
+.cfg-scope-warn {
+  margin: 0; padding: 9px var(--sp-3); border-radius: var(--r-md);
+  background: #fffbeb; border: 1px solid #fde68a; color: #92400e; font-size: .82rem;
+}
+
+/* FASE E-4 (E4.6) — pita konteks "nilai siapa yang sedang diubah".
+   Warna dibedakan sengaja: biru = satu badan usaha (aman), kuning = Global
+   (menyentuh semua badan usaha) sehingga pengguna berhenti sejenak. */
+.cfg-scope-ribbon {
+  display: flex; align-items: flex-start; gap: 7px;
+  margin: 0 0 var(--sp-3); padding: 9px var(--sp-3);
+  border-radius: var(--r-md); font-size: .82rem; line-height: 1.45;
+}
+.cfg-scope-ribbon.is-entity {
+  background: #f0f6ff; border: 1px solid #d6e6ff; color: #004099;
+}
+.cfg-scope-ribbon.is-global {
+  background: #fff7e6; border: 1px solid #f5c97b; color: #8c4a00;
+}
+.cfg-scope-ribbon svg { flex: 0 0 auto; margin-top: 2px; }
+
+/* ── Badan: nav kelompok + daftar kartu ──────────────────────────────────── */
+.cfg-body { display: grid; grid-template-columns: 252px 1fr; gap: var(--sp-4); align-items: start; }
+
+.cfg-groupnav {
+  position: sticky; top: calc(var(--topbar-h) + var(--sp-3));
+  display: flex; flex-direction: column; gap: 3px;
+  padding: var(--sp-3); background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.cfg-groupnav h4 {
+  margin: 0 0 6px; font-size: .7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ios-muted);
+}
+.cfg-group-btn {
+  display: flex; align-items: center; gap: 6px; width: 100%;
+  padding: 8px 9px; border: 1px solid transparent; border-radius: var(--r-md);
+  background: transparent; color: var(--ios-text); cursor: pointer;
+  font-size: .83rem; font-weight: 600; text-align: left; transition: background .12s, border-color .12s;
+}
+.cfg-group-btn:hover { background: #f1f5f9; }
+.cfg-group-btn.active {
+  background: var(--ios-blue-soft, #eff6ff); border-color: var(--ios-blue);
+  color: var(--ios-blue-strong, #1d4ed8);
+}
+.cfg-group-label { flex: 1; line-height: 1.25; }
+.cfg-group-count {
+  min-width: 22px; padding: 1px 6px; border-radius: 999px;
+  background: #e2e8f0; color: #475569; font-size: .7rem; font-weight: 700; text-align: center;
+}
+.cfg-group-btn.active .cfg-group-count { background: var(--ios-blue); color: #fff; }
+
+.cfg-list { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; }
+.cfg-result-head {
+  padding: var(--sp-3); background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.cfg-result-head h3 {
+  margin: 0 0 4px; font-size: 1.05rem; font-weight: 700; color: var(--ios-text);
+  font-family: Outfit, Manrope, sans-serif;
+}
+.cfg-result-head p { margin: 0; font-size: .84rem; color: var(--ios-muted); }
+.cfg-question { color: var(--ios-text) !important; }
+.cfg-cards { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+/* ── Kartu setting ───────────────────────────────────────────────────────── */
+.cfg-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: var(--sp-3) var(--sp-4); background: #fff;
+  border: 1px solid var(--line); border-left: 3px solid var(--ios-blue);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.cfg-card.dirty { border-left-color: var(--ios-orange); background: #fffdf7; }
+.cfg-card.not-used { border-left-color: #cbd5e1; background: #fbfcfd; }
+
+.cfg-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; }
+.cfg-card-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cfg-card-title h3 {
+  margin: 0; font-size: .98rem; font-weight: 700; color: var(--ios-text);
+  font-family: Outfit, Manrope, sans-serif;
+}
+.cfg-key {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .7rem; color: #64748b; background: #f1f5f9;
+  padding: 1px 5px; border-radius: 4px; width: fit-content;
+}
+.cfg-card-badges { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.cfg-card-badges > span { display: inline-flex; align-items: center; gap: 3px; }
+
+.cfg-value-row {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  padding: 8px 10px; background: #f8fafc; border-radius: var(--r-md); border: 1px solid var(--line);
+}
+.cfg-value-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ios-muted); }
+.cfg-value { font-size: 1.05rem; font-weight: 700; color: var(--ios-text); font-variant-numeric: tabular-nums; }
+
+.cfg-help, .cfg-impact {
+  display: flex; align-items: flex-start; gap: 6px; margin: 0;
+  font-size: .84rem; line-height: 1.45; color: #334155;
+}
+.cfg-help svg, .cfg-impact svg { flex: 0 0 auto; margin-top: 3px; color: var(--ios-blue); }
+.cfg-impact svg { color: var(--ios-orange); }
+
+.cfg-notused-box {
+  display: flex; gap: 8px; padding: 9px 10px; border-radius: var(--r-md);
+  background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; font-size: .82rem;
+}
+.cfg-notused-box p { margin: 2px 0 0; }
+
+.cfg-more-toggle {
+  display: inline-flex; align-items: center; gap: 4px; width: fit-content;
+  padding: 3px 0; border: none; background: none; cursor: pointer;
+  font-size: .78rem; font-weight: 600; color: var(--ios-blue);
+}
+.cfg-more { display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; background: #f8fafc; border-radius: var(--r-md); }
+.cfg-example { margin: 0; font-size: .82rem; color: #334155; }
+.cfg-hint { margin: 0; font-size: .84rem; color: var(--ios-muted); }
+.cfg-hint-sm { margin: 0; font-size: .75rem; color: var(--ios-muted); }
+.cfg-hint-sm code, .cfg-more code {
+  font-family: ui-monospace, monospace; font-size: .7rem; background: #eef2f7;
+  padding: 1px 4px; border-radius: 3px; margin-right: 4px; display: inline-block;
+}
+
+.cfg-sched-box {
+  display: flex; align-items: center; gap: 6px; padding: 7px 10px;
+  background: #fff7ed; border: 1px solid #fed7aa; border-radius: var(--r-md);
+  font-size: .8rem; color: #9a3412;
+}
+
+/* ── Zona edit ───────────────────────────────────────────────────────────── */
+.cfg-edit-zone { display: flex; flex-direction: column; gap: 8px; padding-top: 6px; border-top: 1px dashed var(--line); }
+.cfg-edit-row { display: flex; align-items: flex-start; gap: var(--sp-3); flex-wrap: wrap; }
+.cfg-edit-actions { display: flex; align-items: center; gap: 6px; }
+.cfg-input { max-width: 170px; }
+.cfg-input-wide { max-width: 100%; width: 100%; }
+.cfg-num-wrap { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.cfg-unit { font-size: .8rem; font-weight: 700; color: var(--ios-muted); }
+.cfg-bounds { font-size: .72rem; color: var(--ios-muted); }
+.cfg-select { min-width: 220px; }
+.cfg-table-field { width: 100%; }
+.cfg-json { font-family: ui-monospace, monospace; font-size: .76rem; width: 100%; }
+.cfg-inline-err { display: flex; align-items: center; gap: 4px; margin: 4px 0 0; font-size: .75rem; color: var(--ios-red); }
+.cfg-inline-warn { display: flex; align-items: center; gap: 4px; margin: 4px 0 0; font-size: .75rem; color: #b45309; }
+
+.cfg-switch-row { display: flex; align-items: center; gap: 9px; }
+.cfg-switch {
+  position: relative; width: 46px; height: 26px; border-radius: 999px;
+  border: 1px solid var(--line); background: #e2e8f0; cursor: pointer; padding: 0;
+  transition: background .15s;
+}
+.cfg-switch.on { background: var(--ios-green); border-color: var(--ios-green); }
+.cfg-switch-knob {
+  position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+  border-radius: 50%; background: #fff; box-shadow: var(--shadow-1); transition: transform .15s;
+}
+.cfg-switch.on .cfg-switch-knob { transform: translateX(20px); }
+.cfg-switch-label { font-size: .84rem; font-weight: 600; color: var(--ios-muted); }
+.cfg-switch-label.on { color: #047857; }
+
+.cfg-dirty-box {
+  display: flex; flex-direction: column; gap: 7px; padding: 10px;
+  background: #fff7ed; border: 1px solid #fed7aa; border-radius: var(--r-md);
+}
+.cfg-dirty-line { margin: 0; font-size: .84rem; color: #7c2d12; }
+.cfg-new { color: #9a3412; }
+.cfg-sched-field { display: flex; flex-direction: column; gap: 3px; font-size: .78rem; color: #7c2d12; }
+.cfg-sched-field em { color: var(--ios-muted); font-style: normal; font-size: .72rem; }
+.cfg-readonly { margin: 0; font-size: .78rem; color: var(--ios-muted); font-style: italic; }
+
+.cfg-card-foot { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; padding-top: 6px; border-top: 1px solid var(--line); }
+.cfg-link-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  border: none; background: none; padding: 0; cursor: pointer;
+  font-size: .8rem; font-weight: 600; color: var(--ios-blue);
+}
+.cfg-link-btn:hover { text-decoration: underline; }
+
+/* ── Drawer (Kenapa / Coba dulu / Riwayat) ───────────────────────────────── */
+.cfg-drawer-backdrop {
+  position: fixed; inset: 0; z-index: 1200;
+  background: rgba(15, 23, 42, .45); display: flex; justify-content: flex-end;
+}
+.cfg-drawer {
+  width: min(660px, 100%); height: 100%; background: #fff;
+  display: flex; flex-direction: column; box-shadow: var(--shadow-3);
+  border-left: 1px solid var(--line);
+}
+.cfg-drawer-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3);
+  padding: var(--sp-4); border-bottom: 1px solid var(--line); background: #f8fafc;
+}
+.cfg-drawer-title { display: flex; align-items: flex-start; gap: 10px; }
+.cfg-drawer-title svg { color: var(--ios-blue); margin-top: 2px; }
+.cfg-drawer-title h3 { margin: 0; font-size: 1.05rem; font-weight: 700; font-family: Outfit, Manrope, sans-serif; }
+.cfg-drawer-title p { margin: 2px 0 0; font-size: .82rem; color: var(--ios-muted); }
+.cfg-drawer-body {
+  flex: 1; overflow-y: auto; padding: var(--sp-4);
+  display: flex; flex-direction: column; gap: var(--sp-3);
+}
+.cfg-sub { margin: var(--sp-2) 0 0; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ios-muted); }
+
+.cfg-why-answer {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: var(--sp-3); background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--r-md);
+}
+.cfg-why-value { font-size: 1.3rem; font-weight: 800; color: #1e3a8a; font-variant-numeric: tabular-nums; }
+
+.cfg-layer-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.cfg-layer {
+  padding: 9px 11px; border-radius: var(--r-md); border: 1px solid var(--line); background: #fff;
+}
+.cfg-layer.empty { background: #fbfcfd; }
+.cfg-layer.winner { border-color: var(--ios-green); background: #f0fdf4; }
+.cfg-layer-head { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.cfg-layer-win { display: inline-flex; align-items: center; gap: 3px; font-size: .72rem; font-weight: 800; color: #047857; }
+.cfg-layer-lose { font-size: .72rem; color: var(--ios-muted); }
+.cfg-layer-val { font-size: .95rem; font-weight: 700; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.cfg-layer-note { margin: 2px 0 0; font-size: .78rem; color: var(--ios-muted); }
+.cfg-layer-meta, .cfg-layer-sched { margin: 3px 0 0; font-size: .74rem; color: #475569; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.cfg-scope-id { font-family: ui-monospace, monospace; font-size: .7rem; background: #f1f5f9; padding: 1px 4px; border-radius: 3px; }
+
+.cfg-wiring-box { padding: var(--sp-3); background: #f8fafc; border: 1px solid var(--line); border-radius: var(--r-md); }
+.cfg-wiring-box h4 { margin: 0 0 6px; font-size: .8rem; font-weight: 700; }
+.cfg-wiring-box ul { margin: 0; padding-left: 16px; font-size: .78rem; color: #475569; }
+.cfg-wiring-box code { font-family: ui-monospace, monospace; font-size: .72rem; }
+
+.cfg-check-row { display: flex; align-items: center; gap: 7px; font-size: .82rem; }
+.cfg-sim-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--sp-2); }
+.cfg-sim-field { display: flex; flex-direction: column; gap: 3px; font-size: .78rem; font-weight: 600; color: #334155; }
+.cfg-sim-run { width: fit-content; }
+.cfg-sim-result {
+  display: flex; align-items: center; gap: 8px; padding: var(--sp-3);
+  border-radius: var(--r-md); font-size: .9rem; font-weight: 700; border: 1px solid var(--line);
+}
+.cfg-sim-result.tone-green { background: #f0fdf4; border-color: #86efac; color: #065f46; }
+.cfg-sim-result.tone-orange { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.cfg-sim-result.tone-red { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+.cfg-sim-result.tone-muted { background: #f8fafc; color: #334155; }
+.cfg-sim-steps td { font-size: .82rem; }
+.cfg-row-hyp { background: #fff7ed; }
+.cfg-right { text-align: right; }
+.cfg-nowrap { white-space: nowrap; }
+.cfg-from { color: var(--ios-muted); text-decoration: line-through; }
+.cfg-ml { margin-left: 5px; }
+.cfg-empty {
+  margin: 0; padding: var(--sp-4); text-align: center; font-size: .85rem;
+  color: var(--ios-muted); background: #f8fafc; border: 1px dashed var(--line); border-radius: var(--r-md);
+}
+
+/* ── Kesehatan konfigurasi ───────────────────────────────────────────────── */
+.cfg-health { display: flex; flex-direction: column; gap: var(--sp-3); }
+.cfg-health-verdict {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  padding: var(--sp-4); border-radius: var(--r-lg); border: 1px solid var(--line);
+  background: #fff; box-shadow: var(--shadow-1);
+}
+.cfg-health-verdict.good { background: #f0fdf4; border-color: #86efac; }
+.cfg-health-verdict.bad { background: #fef2f2; border-color: #fecaca; }
+.cfg-health-verdict > div { flex: 1; }
+.cfg-health-verdict h3 { margin: 0 0 3px; font-size: 1rem; font-weight: 700; }
+.cfg-health-verdict p { margin: 0; font-size: .84rem; color: #334155; }
+.cfg-health-verdict svg { margin-top: 2px; }
+.cfg-health-verdict.good svg { color: #047857; }
+.cfg-health-verdict.bad svg { color: var(--ios-red); }
+
+.cfg-health-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--sp-2); }
+.cfg-health-kpi {
+  display: flex; flex-direction: column; gap: 2px; padding: var(--sp-3);
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
+  cursor: pointer; text-align: left; transition: box-shadow .12s, border-color .12s;
+}
+.cfg-health-kpi:hover { box-shadow: var(--shadow-2); }
+.cfg-health-kpi.active { border-color: var(--ios-blue); box-shadow: var(--shadow-2); }
+.cfg-health-kpi-num { font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.cfg-health-kpi-label { font-size: .76rem; font-weight: 600; color: var(--ios-muted); }
+.cfg-health-kpi.tone-green .cfg-health-kpi-num { color: #047857; }
+.cfg-health-kpi.tone-orange .cfg-health-kpi-num { color: #b45309; }
+.cfg-health-kpi.tone-red .cfg-health-kpi-num { color: var(--ios-red); }
+.cfg-health-kpi.tone-muted .cfg-health-kpi-num { color: #64748b; }
+
+.cfg-health-legend { padding: var(--sp-3); background: #f8fafc; border: 1px solid var(--line); border-radius: var(--r-lg); }
+.cfg-health-legend h4 { margin: 0 0 7px; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ios-muted); }
+.cfg-health-legend ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.cfg-health-legend li { display: flex; align-items: flex-start; gap: 8px; font-size: .8rem; color: #334155; }
+.cfg-health-legend li > span:first-child { flex: 0 0 auto; }
+
+.cfg-health-toolbar { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.cfg-health-table td { vertical-align: top; font-size: .82rem; }
+.cfg-consumer-list { display: inline-flex; flex-direction: column; gap: 2px; font-size: .75rem; color: #047857; }
+.cfg-consumer-list code { color: #475569; }
+
+/* ── Daftar Dampak (ImpactPicker) ────────────────────────────────────────── */
+.cfg-impact-intro {
+  padding: var(--sp-3); background: #eff6ff; border: 1px solid #bfdbfe;
+  border-radius: var(--r-md); font-size: .85rem; color: #1e3a8a; margin: 0;
+}
+.cfg-impact-form { display: flex; align-items: flex-end; gap: var(--sp-3); flex-wrap: wrap; }
+.cfg-impact-field { display: flex; flex-direction: column; gap: 3px; font-size: .78rem; font-weight: 600; color: #334155; min-width: 200px; }
+.cfg-impact-toolbar { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.cfg-impact-summary {
+  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
+  padding: var(--sp-3); background: #f8fafc; border: 1px solid var(--line); border-radius: var(--r-md);
+  font-size: .85rem;
+}
+.cfg-impact-table td { font-size: .82rem; }
+.cfg-impact-lines { font-size: .75rem; color: var(--ios-muted); }
+.cfg-impact-picked { background: #f0fdf4; }
+.cfg-impact-apply { width: fit-content; }
+.cfg-chip {
+  display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px;
+  border-radius: 999px; background: #eef2f7; color: #475569; font-size: .72rem; font-weight: 700;
+}
+.cfg-locked-box {
+  display: flex; gap: 8px; padding: var(--sp-3); background: #fffbeb;
+  border: 1px solid #fde68a; border-radius: var(--r-md); color: #92400e; font-size: .82rem;
+}
+.cfg-policy-note { margin: 0; font-size: .78rem; color: var(--ios-muted); }
+.cfg-history-tab { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+.spin { animation: cfg-spin 1s linear infinite; }
+@keyframes cfg-spin { to { transform: rotate(360deg); } }
+
+/* ── Responsif ───────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cfg-body { grid-template-columns: 1fr; }
+  .cfg-groupnav {
+    position: static; flex-direction: row; overflow-x: auto; gap: 6px;
+  }
+  .cfg-groupnav h4 { display: none; }
+  .cfg-group-btn { width: auto; white-space: nowrap; }
+  .cfg-group-btn svg { display: none; }
+}
+@media (max-width: 640px) {
+  .cfg-drawer { width: 100%; }
+  .cfg-edit-row { flex-direction: column; align-items: stretch; }
+  .cfg-input, .cfg-select { max-width: 100%; }
+}
+
+/* ── FASE G-0 · Deep-link: sorotan kartu tujuan ──────────────────────────────
+   Setelah user menekan "Buka di Pusat Pengaturan" dari layar lain, kartu yang
+   dituju harus KETAHUAN — bukan cuma ter-scroll. Sorotan sengaja sementara
+   (4,5 detik di JS) supaya tidak mengganggu setelah terbaca. */
+.cfg-card-focus {
+  border-radius: var(--r-lg);
+  animation: cfg-focus-pulse 8s ease-out 1;
+}
+@keyframes cfg-focus-pulse {
+  0%   { box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.55), 0 0 0 10px rgba(0, 122, 255, 0.14); }
+  80%  { box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.35), 0 0 0 10px rgba(0, 122, 255, 0.07); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfg-card-focus { animation: none; box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.45); }
+}
+
+/* ── FASE G-0 · Kartu "pengaturan ini pindah rumah" ──────────────────────────
+   Menggantikan form konfigurasi lama yang dihapus. Warnanya sengaja tenang
+   (biru informatif, bukan merah peringatan) karena ini bukan error. */
+.cfg-redirect {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  padding: var(--sp-4);
+  border: 1px solid rgba(0, 122, 255, 0.22);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #F5F9FF 0%, #FFFFFF 100%);
+  box-shadow: var(--shadow-1);
+}
+.cfg-redirect.compact { padding: var(--sp-3); gap: var(--sp-2); }
+
+.cfg-redirect-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--ios-blue-soft);
+  color: var(--ios-blue-strong);
+}
+.cfg-redirect.compact .cfg-redirect-icon { width: 28px; height: 28px; border-radius: 8px; }
+
+.cfg-redirect-body { min-width: 0; flex: 1 1 auto; }
+
+.cfg-redirect-title {
+  margin: 0 0 4px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--ios-text);
+  letter-spacing: -0.01em;
+}
+.cfg-redirect.compact .cfg-redirect-title { font-size: 12.5px; }
+
+.cfg-redirect-text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ios-muted-2);
+}
+
+.cfg-redirect-list {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  list-style: none; margin: var(--sp-3) 0 0; padding: 0;
+}
+.cfg-redirect-chip {
+  border: 1px solid rgba(0, 122, 255, 0.28);
+  background: #FFFFFF;
+  color: var(--ios-blue-strong);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+.cfg-redirect-chip:hover { background: var(--ios-blue-soft); transform: translateY(-1px); }
+.cfg-redirect-chip:focus-visible { outline: 2px solid var(--ios-blue); outline-offset: 2px; }
+
+.cfg-redirect-cta { margin-top: var(--sp-3); display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── FASE G-0 · Editor tabel terstruktur (menggantikan JSON mentah) ──────────
+   Bentuk kolom datang dari registry backend (`row_shape` + `columns`) sehingga
+   tabel apa pun bisa diedit baris-per-baris tanpa menulis komponen khusus. */
+.cfg-tbl { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+
+.cfg-tbl-head,
+.cfg-tbl-row { display: grid; gap: 8px; align-items: center; }
+
+.cfg-tbl-head {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ios-muted-2);
+  padding: 0 2px 2px;
+  border-bottom: 1px solid var(--solid-line);
+}
+
+.cfg-tbl-row {
+  padding: 4px 2px;
+  border-radius: 8px;
+}
+.cfg-tbl-row:hover { background: #FAFBFC; }
+
+.cfg-tbl-input,
+.cfg-tbl-select { width: 100%; min-width: 0; font-size: 12px; }
+.cfg-tbl-input { padding: 5px 8px; }
+
+.cfg-tbl-del { width: 28px; height: 28px; color: #C0392B; justify-self: center; }
+.cfg-tbl-del:hover { background: #FDECEA; }
+
+.cfg-tbl-add {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px; font-size: 11.5px; font-weight: 700;
+}
+
+.cfg-empty-sm {
+  padding: 10px 2px; font-size: 11.5px; color: var(--ios-muted-2); text-align: center;
+}
+
+@media (max-width: 720px) {
+  .cfg-tbl-head { display: none; }
+  .cfg-tbl-row {
+    grid-template-columns: 1fr !important;
+    border: 1px solid var(--solid-line);
+    padding: 8px; margin-bottom: 4px;
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "summary": "Iter 111 — M-3 CoA per-PT override + Inter-company Transfer JE. All 17 tests PASSED (7 CoA per-PT, 5 IC transfer JE, 5 regression). Both features work end-to-end: template global vs per-PT override isolation (KSC↔KANDA), auto-post balanced JE on inter-entity transfer approve at-cost (Dr IC-AR/Cr Persediaan @ source, Dr Persediaan/Cr IC-AP @ dest), idempotent (2 JE per pair_id), trial balance balanced both PT, intra-entity/rejected transfers do NOT trigger IC JE. Seed idempotent (45 template accounts stable across sync).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/gl/accounts",
+        "issue": "Total template accounts = 45 (per DEFAULT_COA in gl_service.py), not 49 as stated in review_request. Consistent with code — likely just documentation drift in the request text; no bug. IC-AR (1-1250) and IC-AP (2-1250) ARE present."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_m3_coa_per_pt_and_ic_transfer.py",
+    "/app/test_reports/pytest/iter_111_m3.xml"
+  ],
+  "action_items": [
+    "Optionally update DEFAULT_COA count reference in docs (45 vs 49 discrepancy in review text).",
+    "In gl_service.post_intercompany_transfer(), the update_many() call at lines 741-747 uses a placeholder counterpart_entity_id then overwrites per-row afterwards. The intermediate update_many is dead-write and can be simplified — cosmetic only."
+  ],
+  "critical_code_review_comments": [
+    "gl_service.post_intercompany_transfer(): the update_many at lines 741-747 sets intercompany_counterpart_entity_id via a `dst if True else src` placeholder then immediately overwritten per-row. Redundant; safe to remove and rely on the two per-row update_one calls.",
+    "gl_service.py is 1400+ lines — split into gl_service/, e.g. accounts.py, journal.py, autopost.py, reports.py for maintainability (violates >700 line guideline).",
+    "list_accounts() uses in-memory dedupe by code (O(n) merge) — fine for now (<5k accounts) but consider Mongo aggregation for larger tenants.",
+    "delete_account for override PT does NOT check whether the override was used to post JEs (posting resolves by-code global, so this is intentional and safe — good design)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_m3_coa_per_pt_and_ic_transfer.py (NEW)"
+  ],
+  "success_rate": {"backend": "100% (17/17)", "frontend": "not tested (backend-only scope)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "Ran bash scripts/seed_reset.sh at start; test file creates temporary override accounts (9-KSC-*, 1-1200@KSC, 1-1110@KSC, 1-1100@KANDA) and cleans them up in finally-blocks. Also creates 3 IC transfers (2 approved, 1 rejected) which mutate ownership 1m per test — NOT auto-rolled back; next tester should run seed_reset if strict integrity gate is required.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Test file /app/backend/tests/test_m3_coa_per_pt_and_ic_transfer.py covers CoA per-PT + IC transfer JE. IMPORTANT: pytest must be invoked with REACT_APP_BACKEND_URL env exported (pytest.ini does not auto-load .env). IC transfer tests move ~2m stock KSC→KANDA total per run — run bash scripts/seed_reset.sh before re-running if integrity gate matters. Endpoint for rolls list is /api/inventory/rolls (NOT /api/inventory-rolls).",
+  "rca_of_the_issue": "N/A — no bugs found; both features work as specified."
+}

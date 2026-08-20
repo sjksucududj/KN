@@ -1,0 +1,80 @@
+{
+  "summary": "Completed comprehensive testing of FASE 5 WhatsApp features in Document Center. Backend: 17/17 tests passed (100%). Frontend: All major features working correctly with one minor UI issue (settings modal close button overlay).",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "WhatsAppSettings modal",
+        "issue": "Close button has overlay interception issue - clicking close button times out due to overlay blocking pointer events",
+        "selector": "[data-testid='wa-settings-close']",
+        "fix_priority": "LOW",
+        "workaround": "Can close modal using Escape key or clicking outside modal"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Admin login (admin@kainnusantara.id)",
+    "Backend: GET /deliveries/whatsapp/settings - returns simulate=true, provider=simulated, enabled=true",
+    "Backend: PUT /deliveries/whatsapp/settings - successfully updates settings",
+    "Backend: GET /pdf/doc-types - returns 11 document types",
+    "Backend: GET /pdf/documents/sales_order - returns 9 sales orders",
+    "Backend: GET /pdf/render/{doc_type}/{source_id} - PDF format returns valid PDF (22509B), HTML format returns valid HTML",
+    "Backend: GET /deliveries/whatsapp/recipient/sales_order/{id} - returns phone=6285678901234, mode=customer, name=Fashion Bandung Kencana",
+    "Backend: POST /deliveries/whatsapp/send - returns status=simulated, to=6281234567890 (normalized to 62), message_id generated",
+    "Backend: GET /deliveries/{doc_type}/{source_id} - returns delivery history (3 deliveries)",
+    "Backend: GET /deliveries/whatsapp/rules - returns rules list",
+    "Backend: POST /deliveries/whatsapp/rules - successfully creates rule with rule_id",
+    "Backend: PUT /deliveries/whatsapp/rules/{id} - successfully updates rule (enabled=false)",
+    "Backend: DELETE /deliveries/whatsapp/rules/{id} - successfully deletes rule",
+    "Backend: Auto-send dispatch - SO confirm triggers auto-send with template formatting (caption='Auto: Sales Order SO-0006', auto=true, trigger=confirmed)",
+    "Frontend: Login successful - Dashboard Control Tower visible",
+    "Frontend: Navigate to Document Center - menu item found and clicked",
+    "Frontend: Document Center loaded with data-testid='document-center'",
+    "Frontend: Document table visible with 9 rows (data-testid='dc-table')",
+    "Frontend: Preview modal opens (data-testid='dc-preview-modal')",
+    "Frontend: Preview iframe loaded (data-testid='dc-preview-frame')",
+    "Frontend: Preview modal closes successfully",
+    "Frontend: WhatsApp modal opens (data-testid='wa-modal')",
+    "Frontend: Recipient auto-filled with normalized phone: 6285678901234 (data-testid='wa-to')",
+    "Frontend: Recipient hint visible: 'Terisi otomatis dari pelanggan: Fashion Bandung Kencana' (data-testid='wa-recipient-hint')",
+    "Frontend: Caption field present with value 'Sales Order SO-0007' (data-testid='wa-caption')",
+    "Frontend: Send button enabled (data-testid='wa-send')",
+    "Frontend: WhatsApp history section visible with 3 deliveries (data-testid='wa-history')",
+    "Frontend: WhatsApp modal closes successfully",
+    "Frontend: WhatsApp Settings modal opens (data-testid='wa-settings-modal')",
+    "Frontend: Simulate mode toggle present (data-testid='wa-set-simulate')",
+    "Frontend: Enabled toggle present (data-testid='wa-set-enabled')",
+    "Frontend: Save settings button present (data-testid='wa-set-save')",
+    "Frontend: Rules tab clickable (data-testid='wa-tab-rules')",
+    "Frontend: Rules section visible (data-testid='wa-rules')",
+    "Frontend: Add Rule button clickable (data-testid='wa-rule-add')",
+    "Frontend: Rule form modal opens (data-testid='wa-rule-form')",
+    "Frontend: All 5 rule form fields present (doctype, event, mode, caption, save button)",
+    "Frontend: Rule form closes successfully (Escape key)"
+  ],
+  "test_report_links": [
+    "/app/backend_test_wa.py",
+    "/app/.screenshots/after_login.png",
+    "/app/.screenshots/document_center.png",
+    "/app/.screenshots/preview_modal.png",
+    "/app/.screenshots/wa_modal.png",
+    "/app/.screenshots/wa_settings.png",
+    "/app/.screenshots/wa_rules.png",
+    "/app/.screenshots/wa_rule_form.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (17/17 tests passed)",
+    "frontend": "95% (37/38 tests passed - 1 minor UI issue with modal close button)"
+  },
+  "action_item_for_main_agent": "Fix minor overlay issue: WhatsApp Settings modal close button ([data-testid='wa-settings-close']) has pointer-events interception from parent overlay. Consider adding force click or adjusting z-index/pointer-events CSS. Workaround exists (Escape key), so this is LOW priority.",
+  "updated_files": [
+    "/app/backend_test_wa.py"
+  ],
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "true"
+}

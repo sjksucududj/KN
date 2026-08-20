@@ -1,0 +1,70 @@
+{
+  "summary": "Completed testing Sub-fase 1.9 Faktur Pajak Jual feature. Backend APIs working correctly (10/10 tests passed). Frontend wiring completed successfully with all navigation and UI components in place. However, frontend data loading issue prevents display of seeded data (tax invoices, products, warehouses, orders all showing 0/empty despite backend returning correct data).",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "component": "TaxInvoices / Dashboard / OrdersView",
+        "issue": "Frontend not displaying data from backend APIs - all metrics show 0, tax invoices list empty, orders list empty despite backend returning correct data (7 products, 3 warehouses, 1 tax invoice FKT-00001, 8 orders)",
+        "impact": "CRITICAL - Users cannot see any data in the application",
+        "root_cause": "Likely entity filtering issue or data loading (loadAll) not working correctly. Backend APIs return data successfully but frontend state is not updated",
+        "affected_endpoints": [
+          "GET /api/tax-invoices (returns FKT-00001 but frontend shows empty)",
+          "GET /api/products (returns 7 but dashboard shows 0)",
+          "GET /api/warehouses (returns 3 but dashboard shows 0)",
+          "GET /api/sales-orders (returns 8 but orders page shows 0)"
+        ],
+        "fix_priority": "CRITICAL"
+      }
+    ],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Login with admin@kainnusantara.id succeeds (200 OK)",
+    "Backend: Login with sales@kainnusantara.id succeeds (200 OK)",
+    "Backend: Login with manager@kainnusantara.id succeeds (200 OK)",
+    "Backend: Login with warehouse@kainnusantara.id succeeds (200 OK)",
+    "Backend: GET /api/tax-invoices returns list with FKT-00001",
+    "Backend: FKT-00001 has all required fields (DPP=9500000, PPN=1045000, Total=10545000)",
+    "Backend: GET /api/products returns 7 products",
+    "Backend: GET /api/warehouses returns 3 warehouses",
+    "Backend: GET /api/tax-invoices/{fkt_id}/document returns HTML",
+    "Backend: POST /api/sales-orders/{order_id}/tax-invoice endpoint exists",
+    "Frontend: Login with admin@kainnusantara.id succeeds",
+    "Frontend: Dashboard loads successfully",
+    "Frontend: 'Faktur Pajak' menu item visible in sidebar for admin role",
+    "Frontend: Navigate to Faktur Pajak page successful",
+    "Frontend: SUB-FASE 1.9 header displayed on Faktur Pajak page",
+    "Frontend: 'Faktur Pajak Jual' title displayed",
+    "Frontend: Filter tabs (Semua/Normal/Pengganti/Batal) visible and clickable",
+    "Frontend: Table headers (NO. FAKTUR, NSFP, ORDER, PEMBELI, DPP, PPN, TOTAL, STATUS, AKSI) present",
+    "Frontend: Sales role login successful",
+    "Frontend: 'Faktur Pajak' menu visible for sales role",
+    "Frontend: Manager role login successful",
+    "Frontend: 'Faktur Pajak' menu visible for manager role",
+    "Frontend: All navigation config entries correct (PAGE_META, buildNavigation, role allowlists)",
+    "Frontend: TaxInvoices component imported and rendered in App.js",
+    "Frontend: issueTaxInvoice action passed to OrdersView",
+    "Frontend: OrderDetailPanel has tax invoice section with 'Terbitkan Faktur Pajak' button"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test_tax_invoices.py",
+    "/app/.screenshots/faktur_pajak_page.png",
+    "/app/.screenshots/manager_dashboard.png"
+  ],
+  "action_item_for_main_agent": "CRITICAL: Fix frontend data loading issue. Backend APIs return correct data (7 products, 3 warehouses, 1 tax invoice FKT-00001, 8 orders) but frontend displays 0/empty for all. Investigate: (1) Entity filtering logic - check if 'Semua Entitas' filter is working correctly, (2) loadAll() function in useAppActions hook - verify it's fetching and setting state correctly, (3) Check if data is being filtered out by selectedEntity state. All Sub-fase 1.9 frontend wiring is complete and correct, but users cannot see data until this loading issue is resolved.",
+  "updated_files": [
+    "/app/backend/backend_test_tax_invoices.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (10/10 tests passed)",
+    "frontend_ui": "85% (25/29 tests passed - 4 data display issues)",
+    "integration": "0% (data not loading from backend to frontend)"
+  },
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_test_itself": false
+}

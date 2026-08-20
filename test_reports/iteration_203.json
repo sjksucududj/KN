@@ -1,0 +1,33 @@
+{
+  "summary": "Backend-only regression testing completed for R&D/Designer report endpoints. Main fix verified: GET /api/rnd/sla/board route decorator restored and returning 200 (was 404). All 15 backend tests passed.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "GET /api/rnd/sla/board returns 200 with correct structure (count, items, manager_count, admin_count, worst_days_late)",
+    "GET /api/rnd/sla/board returns 403 for sales role (RBAC working)",
+    "POST /api/rnd/sla/escalate returns 200 (idempotent run successful)",
+    "GET /api/contra-bons returns 3 items for KSC entity (KSC/CB-00001 paid, KSC/CB-00002 scheduled_payment, KSC/CB-00003 submitted)",
+    "GET /api/rnd/reports/designer-kpi?period=30d returns 200 with correct structure",
+    "GET /api/rnd/reports/designer-kpi/trend?months=6&metric=avg_score returns 200 with months/series",
+    "GET /api/rnd/reports/designer-kpi/trend with various parameters (3, 6, 12 months, grade/avg_score metrics)",
+    "GET /api/rnd/reports/designer-kpi/report?designer=Rina%20Kartika&period=all&format=pdf returns 200 application/pdf starting with %PDF",
+    "All R&D report endpoints return 403 for sales role (appraisal-role gate working)",
+    "Export endpoints (xlsx/pdf/csv) all working correctly"
+  ],
+  "test_report_links": ["/app/backend_test.py"],
+  "success_percentage": {
+    "backend": "100% (15/15 tests passed)",
+    "frontend": "N/A (frontend testing skipped as requested)"
+  },
+  "action_item_for_main_agent": "",
+  "updated_files": ["/app/backend_test.py"],
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

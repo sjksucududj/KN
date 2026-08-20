@@ -1,0 +1,35 @@
+{
+  "summary": "Backend testing of supersede-on-approve for POST /api/price-approvals/{id}/approve plus regression on price-approval lifecycle and critical GET endpoints. All 16 pytest cases PASSED against the external REACT_APP_BACKEND_URL. Supersede logic is correct: STANDING approvals get superseded by newer approved STANDING for the same (entity_id, customer_id, product_id) tuple; order-scope approvals are not superseded and don't trigger supersede; scope filtering by customer/product is respected; audit log entry for `price_approval_approved` contains `superseded_count` (0 when nothing superseded, >=1 otherwise).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_price_approvals_supersede.py",
+    "/app/test_reports/pytest/price_approvals_supersede.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "price_approvals.py:327 uses (updated or {}).get('scope', 'standing') != 'order' — correct semantics; if scope field ever becomes missing on legacy docs, they'll be treated as standing (safe default).",
+    "The update_many filter correctly excludes approval_id itself via {'$ne': approval_id} and excludes order-scope via scope: {'$ne':'order'}. Filter is tuple-safe: entity_id + customer_id + product_id.",
+    "Consider adding an index on price_approvals(entity_id, customer_id, product_id, status) to keep supersede update_many fast when the collection grows (currently a full-collection scan).",
+    "Superseded rows keep status='superseded' but the read-side get_effective_special_price only looks for status='approved' — good, superseded rows will be filtered out of /effective automatically.",
+    "audit-logs endpoint returns unpaginated up to 500 items sorted by timestamp desc — tests relied on this window. If the audit_logs collection grows beyond 500 quickly (heavy workflow app), tests searching by (action, entity_id) could miss recent entries. Consider adding query params (action, entity_id, limit) to /api/audit-logs for scalability.",
+    "Minor: 'superseded_at' is set once per update_many call using a single now_iso() — all superseded rows get the same timestamp per batch. Acceptable, but worth documenting."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_price_approvals_supersede.py (new)"
+  ],
+  "success_rate": {"backend": "100% (16/16)", "frontend": "N/A (skipped per request)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (from review request; /app/memory/test_credentials.md not consulted since credentials were explicitly supplied)",
+  "seed_data_creation": "Test-created price_approvals with reason prefix 'TEST_' (not cleaned up; harmless — pra_* docs, no side effects on inventory/GL). Uses existing seeded customers[0..1] and products[0..1].",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "The supersede logic was already implemented and is now covered by /app/backend/tests/test_price_approvals_supersede.py (16 tests, all green). If price-approvals code is edited again, rerun: pytest backend/tests/test_price_approvals_supersede.py -v. Note: tests do NOT clean up created price_approvals — safe because pra_* IDs are non-conflicting but the collection grows. If cleanup is desired, delete via db.price_approvals.delete_many({reason: /^TEST_/}) directly (no delete endpoint for approved docs).",
+  "rca of the issue": "N/A — no issues found. Feature works as specified."
+}

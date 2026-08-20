@@ -1,0 +1,350 @@
+.app-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 4% -2%, rgba(0, 122, 255, 0.10), transparent 38%),
+    radial-gradient(circle at 96% 4%, rgba(52, 199, 89, 0.08), transparent 32%),
+    linear-gradient(180deg, #F7F8FB 0%, #EEF1F6 100%);
+  color: var(--ios-text);
+}
+
+/* === LAYOUT === */
+.layout-grid {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+}
+.layout-grid.collapsed { grid-template-columns: var(--sidebar-w-collapsed) 1fr; }
+
+.app-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+  transition: width 220ms cubic-bezier(.2,.8,.2,1), opacity 180ms ease;
+}
+
+/* Desktop: sembunyikan/tampilkan sidebar penuh (hide/show) */
+@media (min-width: 901px) {
+  .layout-grid.sidebar-hidden { grid-template-columns: 0 1fr; }
+  .layout-grid.sidebar-hidden > .app-sidebar {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    border-right: none;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  min-height: var(--topbar-h);
+}
+.sidebar-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #0B0B0F;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.sidebar-brand-text { display: grid; line-height: 1.1; }
+.sidebar-brand-text .t1 { font-size: 13px; font-weight: 700; }
+.sidebar-brand-text .t2 { font-size: 10.5px; color: var(--ios-muted-2); font-weight: 500; }
+
+.sidebar-nav {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow-y: auto;
+}
+.sidebar-nav-group-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ios-muted-2);
+  padding: 12px 10px 6px;
+}
+
+/* \u2500\u2500\u2500 GROUPED NAVIGATION (KN_14 IA) \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+.sidebar-group {
+  margin-bottom: 1px;
+}
+
+.sidebar-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--ios-muted-2);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: var(--r-md);
+  transition: background 120ms, color 120ms;
+  text-align: left;
+}
+.sidebar-group-header:hover { background: rgba(0,0,0,0.04); color: #3C3C43; }
+.sidebar-group-header.has-active { color: var(--ios-blue-strong); }
+.sidebar-group-header .group-icon { flex-shrink: 0; opacity: 0.75; }
+.sidebar-group-header .group-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar-group-header .chevron { flex-shrink: 0; opacity: 0.6; }
+
+/* EPIC 0 — Grup "Segera Hadir": pemisah visual + header muted (fitur belum live) */
+.sidebar-group.coming-soon-group {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--solid-line, #E2E3E8);
+}
+.sidebar-group.coming-soon-group .sidebar-group-header { opacity: 0.7; }
+
+/* EPIC 0 — Filter bar kompak (opsional): inputs auto-width, tidak full seperti form */
+.filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.filter-bar .field { width: auto; min-width: 130px; }
+
+/* Kotak pencarian terstandar (SalesReturns .search-wrap & SpecialOrders .search-box) */
+.search-wrap, .search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: var(--bg-subtle, #f5f5f7);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text-muted);
+  width: 100%;
+  max-width: 340px;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.search-wrap:focus-within, .search-box:focus-within {
+  border-color: var(--ios-blue);
+  background: #fff;
+}
+.search-wrap svg, .search-box svg { flex-shrink: 0; color: var(--text-muted); }
+.search-wrap input, .search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+}
+.search-wrap input::placeholder, .search-box input::placeholder { color: var(--text-muted); }
+
+
+.sidebar-group-items {
+  padding-left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  animation: slideDown 140ms ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Sub-items (inside groups) */
+.sidebar-sub-item {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 10px 6px 12px;
+  gap: 9px;
+  position: relative;
+}
+.sidebar-sub-item::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 60%;
+  background: var(--line);
+  border-radius: 1px;
+}
+.sidebar-sub-item.active::before { background: var(--ios-blue); }
+.sidebar-sub-item.active { background: rgba(0,122,255,0.10); color: var(--ios-blue-strong); box-shadow: none; font-weight: 600; }
+.sidebar-sub-item.active:hover { background: rgba(0,122,255,0.14); }
+
+/* Coming Soon badge inline */
+.sidebar-sub-item.coming-soon { opacity: 0.55; }
+.sidebar-sub-item.coming-soon:hover { opacity: 0.8; background: rgba(0,0,0,0.03); color: inherit; }
+.cs-badge-inline {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background: rgba(142,142,147,0.15);
+  color: var(--ios-muted-2);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: var(--r-md);
+  border: 0;
+  background: transparent;
+  color: #2A2A30;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 140ms ease, color 140ms ease;
+  width: 100%;
+}
+.sidebar-item:hover { background: rgba(0,122,255,0.06); color: var(--ios-blue-strong); }
+.sidebar-item.active {
+  background: var(--ios-blue);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.20);
+}
+.sidebar-item .label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.sidebar-footer {
+  padding: 10px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 6px;
+}
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--r-md);
+  background: rgba(0,0,0,0.04);
+}
+.user-chip .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--ios-blue); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.user-chip .user-text { display: grid; line-height: 1.15; min-width: 0; }
+.user-chip .name { font-size: 12px; font-weight: 700; }
+.user-chip .role { font-size: 10.5px; color: var(--ios-muted-2); text-transform: capitalize; }
+
+.layout-grid.collapsed .sidebar-brand-text,
+.layout-grid.collapsed .sidebar-nav-group-label,
+.layout-grid.collapsed .sidebar-item .label,
+.layout-grid.collapsed .user-chip .user-text { display: none; }
+.layout-grid.collapsed .sidebar-item { justify-content: center; padding: 8px; }
+.layout-grid.collapsed .sidebar-brand { justify-content: center; padding: 12px 8px; }
+.layout-grid.collapsed .user-chip { justify-content: center; padding: 8px; }
+
+/* Mobile sidebar (drawer) */
+@media (max-width: 900px) {
+  .layout-grid { grid-template-columns: 1fr; }
+  .app-sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    transform: translateX(-100%);
+    transition: transform 240ms cubic-bezier(.2,.8,.2,1);
+    box-shadow: var(--shadow-3);
+  }
+  .app-sidebar.open { transform: translateX(0); }
+  .sidebar-backdrop {
+    display: block;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.32);
+    backdrop-filter: blur(2px);
+    z-index: 25;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* === TOPBAR (slim page header) === */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255,255,255,0.86);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  min-height: var(--topbar-h);
+}
+.topbar .title-block { display: grid; line-height: 1.15; min-width: 0; flex: 1; }
+.topbar .kicker { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ios-blue-strong); }
+/* FASE E-3 — badan usaha aktif di breadcrumb: warna berbeda supaya terbaca
+   sebagai KONTEKS DATA, bukan bagian nama halaman. */
+.topbar .kicker-scope { color: var(--ios-muted); }
+/* EPIC 0 — breadcrumb eksplisit (Beranda › kicker) */
+.topbar .breadcrumb { display: flex; align-items: center; gap: 6px; line-height: 1; }
+.topbar .breadcrumb .crumb-root { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft, #8A8B92); }
+.topbar .breadcrumb .crumb-sep { font-size: 12px; color: var(--text-soft, #B0B1B8); }
+.topbar h1.page-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar .topbar-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.topbar .menu-toggle { display: inline-flex; }
+@media (max-width: 900px) {
+  .topbar .menu-toggle { display: inline-flex; }
+  .topbar { padding: 0 12px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FASE P6 — RUANG AMAN untuk widget mengapung "Bantuan & Panduan" (TourMenu)
+   ─────────────────────────────────────────────────────────────────────────────
+   MASALAH YANG DIPERBAIKI (terukur, bukan dugaan):
+   `components/TourMenu.jsx` dipasang `position: fixed; bottom: 24px; right: 24px;
+   z-index: 50` — jadi ia melayang DI ATAS isi halaman dan tidak pernah bergeser saat
+   digulir. Pada halaman panjang, kontrol paling bawah berakhir TEPAT DI BAWAHNYA.
+   Diukur pada layar Jurnal GL: `document.elementFromPoint()` di titik tengah tombol
+   "Berikutnya" mengembalikan **`BUTTON data-testid="help-tours-button"`** — jadi
+   kliknya benar-benar ditelan widget, bukan sekadar "terlihat berdekatan".
+   Akibatnya agen uji otomatis menyimpulkan **paginasi rusak**, padahal
+   penanganannya baik-baik saja (klik yang di-dispatch langsung ke elemen tetap
+   memindahkan `Hal 1/6` → `Hal 2/6`). Ini kelas bug yang paling mahal: yang gagal
+   bukan fungsinya, melainkan KEMAMPUAN MENEKANNYA — dan tidak ada galat apa pun
+   yang muncul untuk menjelaskannya.
+
+   KENAPA MENYEDIAKAN RUANG, BUKAN MENGECILKAN WIDGET:
+   mengecilkan hanya menyusutkan peluang tabrakan; ia tidak menghapusnya, dan
+   halaman berikutnya yang lebih panjang akan menabraknya lagi. Dengan menambahkan
+   ruang di bawah isi halaman, elemen terakhir SELALU bisa digulir melewati widget —
+   berlaku untuk semua halaman, sekarang dan nanti, tanpa ada yang perlu mengingatnya.
+   Memakai selektor `#main-content` (id) supaya menang atas utilitas `py-*` Tailwind
+   tanpa bergantung pada urutan kelas.
+
+   104px = tinggi tombol (~48px) + jarak bawah (24px) + sisa napas (32px).
+   Widget hanya dirender setelah masuk, jadi layar login tidak terpengaruh. */
+#main-content { padding-bottom: 104px; }

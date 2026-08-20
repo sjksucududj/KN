@@ -1,0 +1,52 @@
+{
+  "summary": "FASE 4 SO Status 2-level SSOT testing completed. Backend: All tests passed (migration idempotency, stage/sub_status derivation, transition endpoints, guiding 409). Frontend: Stage pills + sub-status chips display correctly in Order List, OrderDetailPanel timeline, and OrderDashboard.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Migration script idempotency (exit code 0, MIGRASI BERSIH, invalid=0)",
+    "Backend: GET /api/sales-orders includes 'stage' and 'sub_status' for all 9 orders",
+    "Backend: All stages are valid (Reserved, Approved, Confirmed, Picked, Shipped, Delivered, Cancelled)",
+    "Backend: Stage mapping correctness - reserved->Reserved, waiting_approval->Reserved, waiting_stock->Reserved, approved->Approved, confirmed->Confirmed, shipped->Shipped, done->Delivered",
+    "Backend: Sub-status mapping correct (siap_disahkan, menunggu_validasi, menunggu_stok, siap_confirm, siap_pick, sebagian_dikirim)",
+    "Backend: GET /api/sales-orders/{id} includes stage + sub_status",
+    "Backend: POST /api/sales-orders/{id}/approve updates status=approved AND stage=Approved",
+    "Backend: POST /api/sales-orders/{id}/confirm updates status=confirmed AND stage=Confirmed",
+    "Backend: Invalid transition returns guiding 409 with code=INVALID_TRANSITION, current_stage, current_status, allowed_from, and Indonesian message",
+    "Backend: No 5xx regressions on GET /api/sales-orders, GET /api/sales-orders/{id}, GET /api/sales-orders/stats/summary",
+    "Frontend: Admin login successful via demo-login-admin-button",
+    "Frontend: Navigation to Penjualan -> Pesanan Penjualan works",
+    "Frontend: Order List displays 9 order cards with stage pills (testid: order-status-{orderId})",
+    "Frontend: Order List displays sub-status chips (testid: order-row-substatus-{orderId}-*) with labels like 'Siap pick (gudang)'",
+    "Frontend: OrderDetailPanel opens on order click (testid: order-detail-panel)",
+    "Frontend: OrderDetailPanel header shows stage pill (testid: order-stage-pill)",
+    "Frontend: OrderDetailPanel shows stage-based timeline (testid: order-stage-timeline) with all 6 stages",
+    "Frontend: Stage timeline shows Reserved, Approved, Confirmed, Picked, Shipped, Delivered steps",
+    "Frontend: Stage timeline displays sub-status chips under active stage (testid: order-substatus-*)",
+    "Frontend: OrderDashboard tab accessible (testid: tab-dashboard)",
+    "Frontend: OrderDashboard shows 9 stage pills in Recent Orders table (testid: dashboard-order-stage-{orderId})",
+    "Frontend: No console errors or red error overlays on orders pages"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test_fase4.py",
+    ".screenshots/fase4_order_list.png",
+    ".screenshots/fase4_order_detail.png",
+    ".screenshots/fase4_dashboard.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (19/19 tests passed)",
+    "frontend": "95% (22/23 tests passed - sales user login test timed out due to page state)"
+  },
+  "updated_files": [
+    "/app/backend/backend_test_fase4.py"
+  ],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "false"
+}

@@ -1,0 +1,157 @@
+{
+  "summary": "Completed comprehensive end-to-end testing of R6.5 Scheduler & Notification feature. Backend: 95/95 tests passed (100%). Frontend: All 10 user stories validated successfully with RBAC enforcement working correctly.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: All 4 roles (admin, manager, sales, warehouse) login successfully",
+    "Backend: RBAC correctly enforced - sales/warehouse blocked (403), manager view+run only, admin full access",
+    "Backend: All 7 jobs found (ar_overdue, ap_due, depreciation_due, budget_alert, production_stalled, ops_stalled, event_scan)",
+    "Backend: Job structure complete with all required fields (id, label, schedule_label, next_run, last_run_at, last_status, enabled, link)",
+    "Backend: Timezone correctly set to Asia/Jakarta (WIB)",
+    "Backend: Scheduler running status = true",
+    "Backend: Summary API returns all KPI fields (jobs_total, jobs_enabled, runs_today, failed_today, notifications_today, notifications_unread)",
+    "Backend: Run single job works, returns correct fields (status, created, duration_ms, job_label)",
+    "Backend: Run invalid job returns 404",
+    "Backend: Run all jobs works, returns created and failed counts",
+    "Backend: Runs history API works with correct structure",
+    "Backend: Filter runs by job_id works correctly",
+    "Backend: Settings API returns all required fields (jobs, wa, providers, severities, timezone)",
+    "Backend: WA credentials properly masked (access_token and fonnte_token NOT in response)",
+    "Backend: Settings update validation works (invalid job_id → 400, no changes → 400)",
+    "Backend: WA settings validation enforced (invalid provider → 400, invalid severity → 400, invalid phone → 400)",
+    "Backend: WA provider validation works (meta_cloud without creds → 400, fonnte without token → 400)",
+    "Backend: WA test message works with status 'simulated' (correct for simulation mode)",
+    "Backend: WA test with invalid phone returns 400",
+    "Backend: WA outbox returns items and stats correctly",
+    "Backend: WA outbox item structure complete (id, to, text, status, created_at)",
+    "Backend: WA retry works for valid ID, returns 404 for invalid ID",
+    "Backend: Notifications API returns correct structure (id, title, body, severity, type, created_at, read)",
+    "Backend: Unread count API works",
+    "Backend: Daily idempotency works - running same job twice creates 0 new notifications (correct behavior)",
+    "Frontend: Login page loads with quick login buttons for all 4 roles",
+    "Frontend: Admin can access 'Pengaturan & Master Data' → 'Penjadwal & Notifikasi'",
+    "Frontend: Scheduler view loads with all 4 KPI cards (jobs, runs, notifications, WhatsApp)",
+    "Frontend: Scheduler running state indicator shows 'Scheduler aktif'",
+    "Frontend: All 7 job rows displayed",
+    "Frontend: 'Jalankan Semua' button present and functional",
+    "Frontend: Individual job run buttons work, display success notice",
+    "Frontend: Three tabs work correctly (Job Terjadwal, Riwayat Eksekusi, WhatsApp)",
+    "Frontend: Riwayat Eksekusi tab shows run history (26 records found)",
+    "Frontend: Job filter dropdown works correctly",
+    "Frontend: WhatsApp tab shows settings panel, test button, and outbox table",
+    "Frontend: Notification bell shows badge with unread count (15)",
+    "Frontend: Notification panel opens with notification items (16 found)",
+    "Frontend: Mark read functionality works for individual notifications",
+    "Frontend: Manager can access scheduler view",
+    "Frontend: Manager can see all 7 jobs",
+    "Frontend: Manager can run individual jobs (button enabled)",
+    "Frontend: Manager can run all jobs (button enabled)",
+    "Frontend: Manager CANNOT edit schedules (editor not visible - correct)",
+    "Frontend: Manager CANNOT toggle jobs (toggle disabled - correct)",
+    "Frontend: Manager can access WhatsApp tab",
+    "Frontend: Manager CANNOT save WA settings (button disabled - correct)",
+    "Frontend: Manager CANNOT test WA (button disabled - correct)",
+    "Frontend: Sales CANNOT see 'Pengaturan & Master Data' menu (correct)",
+    "Frontend: Warehouse CANNOT see 'Pengaturan & Master Data' menu (correct)",
+    "Frontend: WIB time format displays correctly (shows '08:00 WIB' not '01:00')",
+    "Frontend: Filter runs by job works (filtered from 26 to 6 records for event_scan)",
+    "Frontend: Filtered runs show only selected job (verified)",
+    "Frontend: Job detail modal opens correctly",
+    "Frontend: Deep link 'Buka modul' button present in job detail modal",
+    "Frontend: All schedule labels show WIB timezone consistently"
+  ],
+  
+  "test_report_links": [
+    "/app/backend_test.py",
+    "/app/backend_test_output.log"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (95/95 tests passed)",
+    "frontend": "100% (all user stories validated)",
+    "rbac": "100% (all 4 roles tested correctly)",
+    "overall": "100%"
+  },
+  
+  "updated_files": [
+    "/app/backend_test.py"
+  ],
+  
+  "action_item_for_main_agent": "",
+  
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  
+  "detailed_validation": {
+    "user_story_1": "✅ PASS - Admin can view 7 job alerts with schedule, next run, last run, status, and on/off toggle",
+    "user_story_2": "✅ PASS - Admin can run individual jobs and 'Jalankan Semua', notifications created, run history updated",
+    "user_story_3": "✅ PASS - Admin can change job schedule (hour/minute or interval) and enable/disable jobs, changes reflected immediately",
+    "user_story_4": "✅ PASS - Admin can view run history with status, trigger, notification count, duration, and filter by job",
+    "user_story_5": "✅ PASS - Admin can configure WhatsApp channel (provider, severity, PIC number), test send works, outbox shows full message content with retry button",
+    "user_story_6": "✅ PASS - Manager can VIEW and RUN jobs, but CANNOT configure (schedule editor absent/disabled, toggle disabled, WA save/test disabled)",
+    "user_story_7": "✅ PASS - Sales and Warehouse have NO access to Scheduler & Notification (menu not visible, API returns 403)",
+    "user_story_8": "✅ PASS - All users see notification bell with badge, notification list, mark read (single & all), click navigates to related module",
+    "user_story_9": "✅ PASS - All times in Scheduler view displayed in WIB timezone (Asia/Jakarta) - consistent with 'Harian 08:00 WIB' labels",
+    "user_story_10": "✅ PASS - Running job repeatedly on same day does NOT duplicate notifications (idempotency verified - second run created 0 notifications)"
+  },
+  
+  "regression_checks": {
+    "console_errors": "✅ No console errors detected",
+    "red_screen": "✅ No red error screens",
+    "navigation": "✅ All navigation working correctly",
+    "other_views": "✅ Dashboard and other views load normally"
+  },
+  
+  "recent_changes_validated": {
+    "wib_time_format": "✅ VERIFIED - Shows '08:00 WIB' correctly (not '01:00')",
+    "filter_runs_per_job": "✅ VERIFIED - Filter dropdown works, correctly filters from 26 to 6 records",
+    "deep_link_job_detail": "✅ VERIFIED - 'Buka modul' button present in job detail modal",
+    "manager_nav_access": "✅ VERIFIED - Manager can access settings-hub and scheduler tab",
+    "schedule_label_no_duplicates": "✅ VERIFIED - Schedule labels display correctly without duplication"
+  },
+  
+  "whatsapp_simulation_mode": {
+    "status": "✅ WORKING AS DESIGNED",
+    "note": "WhatsApp is in SIMULATION mode as requested by user. Messages show status 'simulated' and are recorded in outbox WITHOUT being sent to network. This is CORRECT behavior, not a bug."
+  },
+  
+  "daily_idempotency": {
+    "status": "✅ WORKING AS DESIGNED",
+    "note": "Running the same job twice on the same day creates 0 new notifications on second run. This is CORRECT behavior (intentional daily idempotency), not a bug."
+  },
+  
+  "screenshots": [
+    ".screenshots/01_login_page.png",
+    ".screenshots/02_dashboard.png",
+    ".screenshots/03_scheduler_view.png",
+    ".screenshots/04_after_run_job.png",
+    ".screenshots/05_runs_tab.png",
+    ".screenshots/06_wa_tab.png",
+    ".screenshots/07_notification_panel.png",
+    ".screenshots/08_manager_scheduler.png",
+    ".screenshots/09_manager_wa_tab.png",
+    ".screenshots/10_sales_no_access.png",
+    ".screenshots/11_warehouse_no_access.png",
+    ".screenshots/12_wib_time_format.png",
+    ".screenshots/13_filtered_runs.png",
+    ".screenshots/14_job_detail_modal.png"
+  ],
+  
+  "testing_notes": {
+    "backend_poc_results": "Main agent already ran POC test (test_r6_5_scheduler_poc.py) with 67 PASS / 0 FAIL",
+    "data_integrity": "Main agent verified data integrity with 142 PASS / 0 FAIL",
+    "gate_checks": "Main agent verified 12/12 gates GREEN (scripts/gate.sh)",
+    "frontend_build": "Frontend uses static build from /app/frontend/build (no hot reload)",
+    "testing_approach": "Focused on end-to-end user story validation and recent changes mentioned in agent context"
+  }
+}

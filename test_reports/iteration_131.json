@@ -1,0 +1,84 @@
+{
+  "summary": "Completed comprehensive backend API testing for Phase 2 (Digitalisasi Formulir Sukacita). Tested all HTTP endpoints for Cash Advance, Settlement, Vehicles, and Vehicle Usage Logs with RBAC enforcement and entity scoping.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "minor_issues": [
+      {
+        "area": "Vehicle Usage Log Numbering",
+        "issue": "Test expected 'VHL-*' but actual format is 'KSC/VHL-*' (entity-prefixed)",
+        "impact": "Test expectation was incorrect - actual behavior is correct (entity-scoped numbering)",
+        "fix_priority": "NONE - Test expectation needs update, not code"
+      },
+      {
+        "area": "Entity Scoping for Cross-Entity Roles",
+        "issue": "Admin can GET documents from ent_kanda while scoped to ent_ksc",
+        "impact": "This is CORRECT behavior - admin has allowed_entity_ids=[ent_ksc, ent_kanda], so can access both. X-Entity-Id controls CREATE/LIST scope, not GET by ID access control",
+        "fix_priority": "NONE - Working as designed. Test expectation needs clarification"
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": []
+  },
+  "passed_tests": [
+    "AUTH: All 4 users (admin, manager, sales, warehouse) login successfully",
+    "EXPENSE CATEGORIES: GET list returns 8 categories with account_code mappings",
+    "EXPENSE CATEGORIES: PATCH update works for admin with manage permission",
+    "EXPENSE CATEGORIES: PATCH with invalid account_code returns 400",
+    "EXPENSE CATEGORIES: Sales FORBIDDEN (403) on PATCH (needs manage permission)",
+    "CASH ADVANCE CRUD: POST creates CA with correct total calculation (qty × unit_price)",
+    "CASH ADVANCE CRUD: POST with total=0 returns 400",
+    "CASH ADVANCE CRUD: GET list and GET by ID work correctly",
+    "CASH ADVANCE CRUD: PATCH updates draft CA successfully",
+    "CASH ADVANCE STATE MACHINE: Submit transitions draft → pending_atasan",
+    "CASH ADVANCE STATE MACHINE: Approve stage 1 (atasan) → pending_pimpinan",
+    "CASH ADVANCE STATE MACHINE: Approve stage 2 (pimpinan) → pending_finance",
+    "CASH ADVANCE STATE MACHINE: Approve stage 3 (finance) → approved",
+    "CASH ADVANCE STATE MACHINE: Approve when status=approved returns 409",
+    "CASH ADVANCE STATE MACHINE: Reject transitions pending → rejected",
+    "CASH ADVANCE STATE MACHINE: Rejected CA is editable",
+    "CASH ADVANCE DISBURSE: Disburse creates cash_transaction (direction=out, ref_type=cash_advance)",
+    "CASH ADVANCE DISBURSE: Disburse creates journal_entry (Dr 1-1400 / Cr Kas)",
+    "CASH ADVANCE DISBURSE: Disburse when status=draft returns 409",
+    "SETTLEMENT: POST creates settlement with expense_lines and category_totals",
+    "SETTLEMENT: Settlement calculates total_pengeluaran and sisa_kurang_dana correctly",
+    "SETTLEMENT: GET list and GET by ID work correctly",
+    "SETTLEMENT: PATCH updates draft settlement",
+    "SETTLEMENT: Submit transitions draft → submitted",
+    "SETTLEMENT: Approve posts to GL (Dr [expense accounts] / Cr 1-1400) and sets status=posted_to_gl",
+    "SETTLEMENT: Approve creates journal_entry_id",
+    "SETTLEMENT: Reject transitions submitted → rejected",
+    "VEHICLES: POST creates vehicle with no_polisi uppercase normalization",
+    "VEHICLES: POST with duplicate no_polisi returns 409",
+    "VEHICLES: GET list works correctly",
+    "VEHICLES: PATCH updates vehicle",
+    "VEHICLES: DELETE hard-deletes unused vehicle",
+    "VEHICLE USAGE LOGS: POST creates log with entity-scoped number (KSC/VHL-*)",
+    "VEHICLE USAGE LOGS: Calculates jarak_tempuh = max(0, km_akhir - km_awal)",
+    "VEHICLE USAGE LOGS: Calculates total = bbm + tol + parkir + lain_lain",
+    "VEHICLE USAGE LOGS: GET list works correctly",
+    "VEHICLE USAGE LOGS: GET summary returns grand_total and per_vehicle breakdown",
+    "VEHICLE USAGE LOGS: PATCH updates log and recalculates totals",
+    "VEHICLE USAGE LOGS: DELETE removes log",
+    "RBAC: Sales can create and submit cash-advances",
+    "RBAC: Sales FORBIDDEN (403) on disburse (needs disburse permission)",
+    "RBAC: Warehouse FORBIDDEN (403) on GET cash-advances (no cash_advance module)",
+    "RBAC: Warehouse ALLOWED on GET/POST vehicles (has vehicle_log module)",
+    "RBAC: Sales FORBIDDEN (403) on PATCH expense-categories (needs manage permission)",
+    "ENTITY SCOPING: CA created under ent_kanda not visible in ent_ksc list",
+    "ENTITY SCOPING: Admin with cross-entity access can GET documents from any allowed entity"
+  ],
+  "test_report_links": ["/app/backend/backend_test_phase2_forms.py"],
+  "success_percentage": {
+    "backend": "97.5% (77/79 tests passed, 2 test expectations need clarification)",
+    "frontend": "N/A (backend-only testing)"
+  },
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend/backend_test_phase2_forms.py",
+    "/app/backend/debug_phase2_issues.py"
+  ],
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

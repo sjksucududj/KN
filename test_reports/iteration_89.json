@@ -1,0 +1,77 @@
+{
+  "summary": "Completed comprehensive re-verification testing of FASE H6 (HR Analytics Dashboard / BI SDM) after environment restore. Backend APIs 100% functional with correct RBAC. Frontend dashboard renders all 6 KPI cards, charts, and period filter works correctly. Regression testing on H5 features and core modules confirms all previously-shipped functionality remains intact. One frontend navigation issue identified for manager role (backend access works, but nav item not visible).",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Navigation - BI SDM (Manager)",
+        "issue": "Manager role cannot see 'BI SDM' nav item in ANALITIK (BI) group, despite having backend access (GET /hr/analytics/summary returns 200). Backend RBAC is correct (manager has hr.view permission), but frontend navigation filtering is incorrect.",
+        "affected_selectors": ["[data-testid='nav-cs-bi-hrd']"],
+        "fix_priority": "HIGH",
+        "reproduction": "Login as manager -> expand ANALITIK (BI) group -> BI SDM item not visible (but should be, as roles: ['admin', 'manager'] in navigationConfig.js line 319)",
+        "workaround": "Manager can access via direct URL navigation if needed, backend API works correctly"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "component": "HR Analytics Dashboard",
+        "issue": "Default period shows 2026-08 (no data, 0% attendance) instead of 2026-06 (latest period with data). Period filter works correctly when manually changed.",
+        "affected_selectors": ["[data-testid='hr-analytics-period']"],
+        "fix_priority": "LOW",
+        "note": "Same issue as iteration_88. Backend default period logic uses latest payroll period, but 2026-07 run exists which causes frontend to default to 2026-08. Not critical as period filter works."
+      }
+    ]
+  },
+  "passed_tests": [
+    "Backend: Admin GET /hr/analytics/summary (200) - all keys present, data correct (headcount=6, attendance=100%, punctuality=56.2%, payroll gross=45.45M/net=42.59M, BPJS=6.26M, PPh21=1.14M)",
+    "Backend: Manager GET /hr/analytics/summary (200) - manager has hr.view permission",
+    "Backend: Sales GET /hr/analytics/summary (403) - correctly blocked",
+    "Backend: Period filter 2026-06 returns correct data (attendance 100%, punctuality 56.2%)",
+    "Backend: Period filter 2026-07 returns correct data (overtime 4.5 hours / 2 pengajuan)",
+    "Backend: Payroll_trend returns 6 months data (2026-01 to 2026-06)",
+    "Backend: Overtime_trend returns 6 months data with correct structure",
+    "Frontend US1: Admin login and navigation to BI SDM successful",
+    "Frontend US1: All 6 KPI cards render (kpi-headcount, kpi-attendance-rate, kpi-punctuality, kpi-payroll-net, kpi-bpjs, kpi-pph21)",
+    "Frontend US1: All charts render (4 recharts containers: Headcount per Departemen, Komposisi Tipe Pekerja, Distribusi Kehadiran, Tren Biaya Gaji, Tren Lembur)",
+    "Frontend US1: Statutory & Turnover panel renders with correct data",
+    "Frontend US1: No blocking 'SEGERA HADIR' overlay on dashboard content",
+    "Frontend US2: Period filter switches to 2026-06 successfully",
+    "Frontend US2: Data updates correctly when period changes (attendance 0% -> 100%, punctuality 0% -> 56.2%)",
+    "Frontend US2: Distribusi Kehadiran chart shows 18 records for 2026-06",
+    "Frontend US2: Tren Lembur shows correct message for 2026-06 (no overtime approved)",
+    "Frontend US5: Sales user does NOT see ANALITIK (BI) group (correct RBAC)",
+    "Frontend US5: Sales user cannot access BI SDM nav item (correct RBAC)",
+    "Regression: Control Tower dashboard loads without errors",
+    "Regression H5: KPI Design loads and displays data (6 KPI entries, auto-score computed)",
+    "Regression H5: Design Gallery loads and shows seeded motifs (Tenun Ikat Sumba, Batik Parang Klasik)",
+    "Regression CORE: HR Karyawan list loads (7 employees displayed)",
+    "Regression CORE: Slip Gaji list loads (12 payslips for periods 2026-06 and 2026-08)"
+  ],
+  "test_report_links": [
+    "/app/backend_test.py",
+    "/app/.screenshots/h6-us1-admin-initial.png",
+    "/app/.screenshots/h6-us2-period-change.png",
+    "/app/.screenshots/h6-us3-manager-verified.png",
+    "/app/.screenshots/h6-us5-sales-rbac.png",
+    "/app/.screenshots/regression-control-tower.png",
+    "/app/.screenshots/regression-h5-kpi.png",
+    "/app/.screenshots/regression-h5-gallery.png",
+    "/app/.screenshots/regression-core-karyawan.png",
+    "/app/.screenshots/regression-core-payslip.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (6/6 H6 tests passed, all RBAC correct)",
+    "frontend": "90% (US1, US2, US5 fully working; US3 has nav visibility issue but backend access works; US4 backend RBAC verified)",
+    "regression": "100% (H5 features + core modules all working)"
+  },
+  "updated_files": [
+    "/app/backend_test.py"
+  ],
+  "action_item_for_main_agent": "Fix frontend navigation for manager role: BI SDM nav item (cs-bi-hrd) not visible in ANALITIK (BI) group for manager despite correct roles configuration in navigationConfig.js (line 319: roles: ['admin', 'manager']). Backend RBAC is correct (manager GET /hr/analytics/summary returns 200). Issue is in frontend navigation rendering/filtering logic. Check buildNavGroups() function or App.js navigation rendering for manager role.",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_test_itself": false
+}

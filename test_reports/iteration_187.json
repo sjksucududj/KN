@@ -1,0 +1,123 @@
+{
+  "summary": "FASE G-9 (Pusat Kasus Keuangan) end-to-end testing completed. Backend POC shows 116/116 PASS. Backend API testing shows 23/23 PASS. Frontend UI testing shows all major features working correctly with 5 summary cards, case type chips, filters, case table, detail panel, wizard playbook, and create modal all functional.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend POC: 116/116 tests passed with 0 failures",
+    "Backend API: 23/23 tests passed - Authentication (3/3), Playbooks & Policy (4/4), List & Filters (4/4), Scan (1/1), CRUD operations (4/4), Cross-entity isolation (2/2), Guards & Validation (2/2), Document trace (1/1), RBAC (2/2)",
+    "Frontend UI: Login & navigation successful",
+    "US1 - Inbox: 5 summary cards displayed correctly (Open: 2, Overdue: 1, Money: Rp 5.881.200, Resolved: 1)",
+    "US1 - Case type chips: 4 chips found and functional",
+    "US1 - Filters: Status, type, and overdue filters working correctly",
+    "US1 - Case table: 6 case rows displayed with demo data (3 demo cases + test cases)",
+    "US1 - Case detail panel: Opens correctly when clicking case row",
+    "US2 - Wizard playbook: Modal opens with playbook steps and 2 action cards",
+    "US4 - Scan button: Functional and triggers scan operation",
+    "US10 - Create new case: Modal opens correctly",
+    "US11 - Cross-entity isolation: 403 errors correctly returned for unauthorized access",
+    "US3 - Guards: Validation errors correctly returned for missing reason_code and evidence",
+    "US7 - Document trace: API returns 200 for resolved cases",
+    "RBAC: Sales can view stats and cases list (view-only access confirmed)"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/test_g9_case_poc.py",
+    "/app/test_g9_backend_api.py",
+    ".screenshots/g9_view.png",
+    ".screenshots/g9_detail.png",
+    ".screenshots/g9_wizard.png",
+    ".screenshots/g9_create.png"
+  ],
+  
+  "success_percentage": {
+    "backend_poc": "100% (116/116)",
+    "backend_api": "100% (23/23)",
+    "frontend_ui": "95% (all major features working, minor regression test incomplete)"
+  },
+  
+  "updated_files": [],
+  
+  "action_item_for_main_agent": "",
+  
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "false",
+  
+  "detailed_findings": {
+    "us1_inbox": {
+      "status": "PASS",
+      "details": "5 summary cards displayed (Open, Overdue, Money at stake, Oldest case, Resolved). Case type chips working. Filters (status, type, overdue) functional. Case table shows 6 rows. Filter count displays correctly."
+    },
+    "us2_wizard_playbook": {
+      "status": "PASS",
+      "details": "Wizard modal opens successfully. Playbook steps displayed. Action cards (2 found) with 'Yang lahir' descriptions. Dynamic fields based on action.needs working."
+    },
+    "us3_guards": {
+      "status": "PASS",
+      "details": "Validation working: 400 error for missing reason_code with message mentioning 'alasan'. 400 error for missing evidence with message mentioning 'bukti'."
+    },
+    "us4_auto_scan": {
+      "status": "PASS",
+      "details": "POST /finance-cases/scan returns 200. Idempotent behavior confirmed (skipped count increases on second run). Scan button in UI functional."
+    },
+    "us5_approval_threshold": {
+      "status": "PASS",
+      "details": "Policy API returns SLA: 24h, Approval threshold: Rp 5,000,000, Approver role: manager."
+    },
+    "us6_sla_escalation": {
+      "status": "PASS",
+      "details": "Overdue cases marked correctly (1 overdue case found). Filter 'Hanya yang terlambat' works."
+    },
+    "us7_document_trace": {
+      "status": "PASS",
+      "details": "GET /documents/trace/finance_case/{id} returns 200 for resolved cases."
+    },
+    "us8_deep_link_g8": {
+      "status": "NOT_TESTED",
+      "details": "Deep-link from Bank Reconciliation → Holding Funds tab not tested in this iteration. Requires navigation to G-8 screen."
+    },
+    "us9_configuration": {
+      "status": "PASS",
+      "details": "Policy API returns all required configuration keys: sla_hours, approval_above, approver_role, etc."
+    },
+    "us10_other_actions": {
+      "status": "PASS",
+      "details": "Create case: 200 OK. Assign: 200 OK. Add note: 200 OK. Reject: 200 OK. All CRUD operations working."
+    },
+    "us11_cross_entity_isolation": {
+      "status": "PASS",
+      "details": "403 error correctly returned when accessing case from different entity. Admin with X-Entity-Id: all can access all cases."
+    },
+    "regression": {
+      "status": "PARTIAL",
+      "details": "Pusat Kasus Keuangan screen loads without errors. Other finance screens (Kas & Bank, Umur Piutang) navigation attempted but not fully verified in this iteration."
+    }
+  },
+  
+  "demo_data_verification": {
+    "expected_cases": "3 demo cases (KSC/CASE-00001 dana tak dikenal TERLAMBAT, KSC/CASE-00002 biaya bank SELESAI, KSC/CASE-00003 rekening pribadi karyawan SEDANG DITANGANI)",
+    "actual_cases": "6 cases found (3 demo + 3 test cases created during testing)",
+    "note": "Demo data present and accessible. Test cases were created during API testing."
+  },
+  
+  "notes": [
+    "Backend POC (test_g9_case_poc.py) shows 116 PASS / 0 FAIL - comprehensive backend testing already done by main agent",
+    "All 11 playbooks confirmed available via API",
+    "12 reason labels available (expected >= 9)",
+    "Data-testid attributes present on all major UI elements for robust testing",
+    "UI is in Bahasa Indonesia as required",
+    "No technical IDs (ent_*, fcs_*) visible to users - INV-UI-02 compliance confirmed",
+    "Frontend served from static build - any changes require rebuild_frontend.sh",
+    "All labels and messages in Bahasa Indonesia",
+    "No console errors detected during UI testing"
+  ]
+}

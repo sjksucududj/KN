@@ -1,0 +1,64 @@
+/* === Login screen (slim, centered) === */
+.login-screen {
+  min-height: 100vh;
+  display: grid; place-items: center;
+  padding: 24px;
+}
+.login-card {
+  width: 100%;
+  max-width: 880px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow-3);
+  backdrop-filter: blur(28px);
+  overflow: hidden;
+}
+.login-left { padding: 28px 32px; }
+.login-right { padding: 28px 32px; background: #FAFBFD; border-left: 1px solid var(--line); }
+.login-brand-mark { width: 40px; height: 40px; border-radius: 12px; background: #0B0B0F; color: #fff; display: grid; place-items: center; }
+.login-title { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; margin-top: 14px; }
+.login-sub { font-size: 13px; color: var(--ios-muted); margin-top: 8px; max-width: 320px; }
+.login-form-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.login-form-sub { font-size: 12px; color: var(--ios-muted-2); margin-bottom: 14px; }
+@media (max-width: 640px) {
+  .login-card { grid-template-columns: 1fr; }
+  .login-right { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* Skip to main link (a11y) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  background: var(--ios-blue);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 100;
+  transition: top 160ms ease;
+}
+.skip-link:focus { top: 8px; outline: none; box-shadow: 0 0 0 3px rgba(0,122,255,0.40); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .nav-button:hover, .primary-button:hover, .secondary-button:hover, .danger-button:hover, .icon-button:hover, .product-card:hover, .interactive-card:hover, .metric-card:hover { transform: none; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  .app-shell { background: #fff; }
+  .app-sidebar, .topbar { display: none !important; }
+  .layout-grid { grid-template-columns: 1fr !important; }
+}

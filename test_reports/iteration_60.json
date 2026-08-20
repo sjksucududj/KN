@@ -1,0 +1,40 @@
+{
+  "summary": "Completed frontend re-verification after SpecialOrderDetail.jsx refactor (527→365 lines). All refactored components render correctly, F-3 MTO workflow (Buat SKU → Konversi SO) works end-to-end, permissions enforced, and Returns/Credit Note flow fully functional.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Login works for manager and sales via demo buttons",
+    "Special Order list loads with SORD-260618-0002 visible",
+    "Special Order detail view loads with data-testid='special-order-detail-view'",
+    "REFACTORED SpecialOrderInfoPanels component renders all panels: Custom Item Details (description, specifications table, quantity, target price, total amount, expected delivery), Customer Info, Status Timeline",
+    "As MANAGER: 'Buat SKU Produk' button visible and functional - creates SKU (MTO-260618-0002), SKU chip appears with data-testid='special-order-linked-sku'",
+    "After SKU creation: 'Konversi ke Sales Order' button appears with data-testid='special-order-convert-btn'",
+    "Konversi workflow: converts to SO (KANDA/SO-00009), SO chip appears with data-testid='special-order-linked-so', buttons disappear (idempotent)",
+    "As SALES: all manager/admin-only buttons correctly hidden (create-sku, convert, approve, reject) - permission check PASSED",
+    "Returns view loads with data-testid='sales-returns-view'",
+    "Returns table includes 'Nota Kredit' column",
+    "Create Return form loads with data-testid='create-return-form'",
+    "Return type select includes all required options: Retur, Barang Sisa (BS), Penggantian, Komplain (keluhan kualitas), Garansi (klaim jaminan)",
+    "Created return with 'Garansi' type (SRET-00003)",
+    "ReturnTypeBadge renders 'Garansi' correctly with teal badge (badge-teal)",
+    "Approved return generates Credit Note: chip appears (data-testid='return-credit-note-chip'), section renders (data-testid='return-credit-note-section') with CN-00001",
+    "Credit Note details displayed: number (data-testid='credit-note-number'), gross amount (data-testid='credit-note-gross')",
+    "Returns list shows CN badge (data-testid='return-cn-{id}') for approved returns with credit notes"
+  ],
+  "test_report_links": [],
+  "action_item_for_main_agent": "",
+  "updated_files": [],
+  "success_percentage": {
+    "frontend": "100% (17/17 tests passed)",
+    "backend": "N/A (backend testing skipped as requested - iteration_58 already validated 16/16 pass)"
+  },
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

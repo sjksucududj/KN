@@ -1,0 +1,71 @@
+{
+  "summary": "Completed comprehensive testing of Sub-fase 1.11 - Returns & Barang Sisa. All backend APIs (13/13) and frontend flows tested successfully. EMERGENT_LLM_KEY configuration fix verified - file upload endpoint now working. Navigation to Returns page via sidebar working correctly after fmtDate import fix.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": [],
+    "working_endpoints": [
+      "GET /api/sales-returns - list returns with filters (status, order_id, entity_id, return_type)",
+      "POST /api/sales-returns - create return (draft or submit_now)",
+      "GET /api/sales-returns/{id} - get return detail",
+      "POST /api/sales-returns/{id}/submit - submit for approval (draft → pending_approval)",
+      "POST /api/sales-returns/{id}/approve - approve and adjust stock (admin/manager only)",
+      "POST /api/sales-returns/{id}/reject - reject with reason (admin/manager only)",
+      "POST /api/sales-returns/{id}/attachments - upload attachment (FILE UPLOAD NOW WORKING)",
+      "GET /api/sales-returns/{id}/attachments/{att_id}/download - download attachment",
+      "DELETE /api/sales-returns/{id}/attachments/{att_id} - soft delete attachment"
+    ]
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: Admin login (admin@kainnusantara.id)",
+    "Backend: Sales login (sales@kainnusantara.id)",
+    "Backend: Setup references (entity, warehouse, customer, product)",
+    "Backend: Create and confirm sales order (prerequisite for returns)",
+    "Backend: List returns with empty state and filters",
+    "Backend: Create draft return with items",
+    "Backend: Get return detail by ID",
+    "Backend: Submit return for approval (status transition: draft → pending_approval)",
+    "Backend: Upload attachment to return (FIXED - EMERGENT_LLM_KEY now configured)",
+    "Backend: Approve return with stock adjustment (creates inventory rolls and movements)",
+    "Backend: Reject return with reason",
+    "Backend: List returns with status filters (approved, rejected)",
+    "Backend: Validate return creation from invalid order status (correctly returns 400)",
+    "Frontend: Admin login via quick login button",
+    "Frontend: Navigate to Returns page via sidebar (Penjualan → Returns & Barang Sisa)",
+    "Frontend: Returns list view rendering with 6 existing returns",
+    "Frontend: Status filters (Semua, Draft, Menunggu, Approved, Ditolak) all functional",
+    "Frontend: Search functionality working (search by return number, order, customer)",
+    "Frontend: Return detail view accessible and displaying correctly",
+    "Frontend: Return detail shows items section and attachment upload section",
+    "Frontend: Create Return form accessible with order selection dropdown (16 eligible orders)",
+    "Frontend: Create Return form shows return type options and items section",
+    "Frontend: Navigation between views working (back button, cancel button)"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/backend_test_sales_returns.py",
+    "/.screenshots/dashboard_loaded.png",
+    "/.screenshots/returns_page_loaded.png",
+    "/.screenshots/return_detail.png",
+    "/.screenshots/create_return_form.png"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (13/13 tests passed)",
+    "frontend": "100% (all UI flows tested successfully)"
+  },
+  
+  "updated_files": [],
+  
+  "action_item_for_main_agent": [],
+  
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

@@ -1,0 +1,91 @@
+{
+  "summary": "FASE T Frontend Testing - Iteration 2 (Continuation of iteration_232). Successfully verified that Process Stages master (Tahapan Proses) is implemented and contains all required stages including Screen (pembuatan kasa). Wizard opens and product selection works. Old SPK documents load but contain NaN values. Regression tests passed for 3 old screens.",
+  
+  "backend_issues": {},
+  
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "MakloonWizard / ProductSelect",
+        "issue": "Product selection modal doesn't close automatically after product selection, blocking subsequent clicks",
+        "selector": "[data-testid='product-select-modal']",
+        "impact": "Prevents completing wizard flow in automated tests - requires force click or manual modal dismissal",
+        "fix_priority": "MEDIUM",
+        "workaround": "Manual testing or improved modal close handling"
+      }
+    ],
+    "integration_issues": [
+      {
+        "flow": "Old SPK Display (MKO-00001, MKO-00004)",
+        "issue": "NaN values detected in page content when viewing old SPK details",
+        "affected_documents": ["MKO-00001", "MKO-00004"],
+        "impact": "May indicate calculation or display issues with legacy data",
+        "fix_priority": "MEDIUM",
+        "note": "SPKs still display core data (estimates, inputs) correctly - NaN may be in non-critical fields or false positive"
+      },
+      {
+        "flow": "Orders and Purchasing views",
+        "issue": "NaN values detected in page content",
+        "affected_screens": ["?view=orders", "?view=purchasing"],
+        "impact": "Minor - screens load and function, no error boundaries",
+        "fix_priority": "LOW"
+      }
+    ],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Login successful (admin@kainnusantara.id)",
+    "Entity selection works (KSC selected)",
+    "T-US1 Part 2 (VERIFIED via Entity Masters): Process Stages master (Tahapan Proses) exists and is populated",
+    "T-US1 Part 2: All required stages present in master: Tenun, Rajut, PFP, PFD, Celup, Screen, Printing",
+    "T-US1 Part 2: Screen (pembuatan kasa) stage EXISTS in master with correct configuration",
+    "T-US1 Part 2: Screen stage configured as 'Tidak — hanya jasa' (doesn't change fabric - service only)",
+    "T-US1 Part 2: Screen stage configured as 'Ya — dikerjakan mitra' (requires partner)",
+    "T-US1 Part 2: Screen stage material_flow = 'Boleh dua-duanya' (either - chosen per step)",
+    "Makloon wizard opens successfully",
+    "Product selector opens and displays products",
+    "Product search works (Grey search returns results)",
+    "Product selection works (Kain Grey Katun GREY-KTN-001 selectable)",
+    "Quantity input works (25 entered successfully)",
+    "T-US3 Partial: MKO-00001 found and opens (displays '109' estimate and '30 kg' input)",
+    "T-US3 Partial: MKO-00004 found and opens (displays '38' estimate and '40 yard' input)",
+    "T-US3: No error boundaries in old SPK details",
+    "T-US3: No undefined values in old SPK details",
+    "Regression: Orders view (?view=orders) loads without error boundary",
+    "Regression: Purchase Orders view (?view=purchasing) loads without error boundary",
+    "Regression: Inventory Board (?view=inventory-board) loads without error boundary",
+    "Regression: No entity IDs (ent_ksc/ent_kanda) visible in any screen",
+    "Regression: Inventory Board displays data correctly",
+    "UI: All labels in Bahasa Indonesia",
+    "UI: No browser native dialogs (alert/confirm/prompt) observed",
+    "Entity Masters view loads correctly",
+    "Entity Masters: Tahapan Proses master type selectable and displays table",
+    "Entity Masters: Process stages table shows 10 stages (benang, tenun, rajut, pfp, pfd, celup, screen, printing, proofing, inspect)"
+  ],
+  
+  "test_report_links": [
+    ".screenshots/after-login.png",
+    ".screenshots/makloon-orders-view.png",
+    ".screenshots/wizard-opened.png",
+    ".screenshots/t-us1-stage-options.png",
+    ".screenshots/t-us3-mko-00001-detail.png",
+    ".screenshots/t-us3-mko-00004-detail.png",
+    ".screenshots/regression-orders.png",
+    ".screenshots/regression-purchasing.png",
+    ".screenshots/regression-inventory-board.png",
+    ".screenshots/entity-masters-process-stages.png"
+  ],
+  
+  "action_item_for_main_agent": "FASE T Frontend - Mostly Verified:\n\n✅ COMPLETED:\n1. T-US1 Part 2: VERIFIED - Process Stages (Tahapan Proses) master is implemented and contains all required stages including Screen (pembuatan kasa) with correct configuration (doesn't change fabric, requires partner, material flow configurable)\n2. Regression: All 3 old screens (orders, purchasing, inventory-board) load without error boundaries or visible entity IDs\n3. Wizard functionality: Opens successfully, product selection works\n\n⚠ NEEDS ATTENTION:\n1. T-US2 (HIGH): Screen stage SPK creation - Could not complete full wizard flow due to modal overlay issues in automated testing. RECOMMENDATION: Manual testing to create SPK with Screen stage and verify: (a) qty out = qty in (25=25), (b) partner warning if not selected but SPK still saves, (c) service cost can be entered\n2. T-US3 (MEDIUM): NaN values detected in old SPK details (MKO-00001, MKO-00004) - investigate source of NaN (may be in non-critical fields or false positive from text like 'management'). Core data (estimates, inputs) displays correctly.\n3. Modal Close (MEDIUM): Product selection modal doesn't auto-close after selection, blocking automated wizard completion\n4. NaN in lists (LOW): Orders and Purchasing views show NaN in page content but remain functional\n\n🧹 CLEANUP:\nNo test data created - all testing used existing seed data (MKO-00001, MKO-00004, Grey product)\n\nNote: Backend POC already proven (63 PASS/0 FAIL per iteration_232)",
+  
+  "updated_files": [],
+  
+  "success_percentage": {
+    "backend": "100% (already proven by POC - 63 PASS/0 FAIL)",
+    "frontend": "75% (T-US1 Part 2 verified via Entity Masters, T-US3 partial, Regression passed, T-US2 needs manual testing)"
+  },
+  
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "true"
+}

@@ -1,0 +1,55 @@
+{
+  "summary": "FASE E-4 Testing Complete: Warehouse Scoping (E4.1) & Entity-specific Pricing (E4.7). Backend: 45/45 tests passed. Frontend: Entity switcher and read-only banner working (FASE E-3 regression). Warehouse Master and Pricelist views require menu navigation verification.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Warehouse Master View & Pricelist View navigation",
+        "issue": "Direct URL navigation to /warehouses and /pricelist routes did not load the views. May require navigation through menu structure instead of direct URL access.",
+        "affected_routes": ["/warehouses", "/pricelist"],
+        "fix_priority": "LOW",
+        "note": "Backend APIs all working correctly (45/45 tests passed). Issue is only with frontend route access during automated testing. Manual verification recommended."
+      }
+    ],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend E4.1.1-2: Warehouse visibility per entity (sales KSC sees KSC warehouse, not Kanda; sales Kanda sees Kanda warehouse, not KSC; shared warehouses visible to both)",
+    "Backend E4.1.2: scope=all permission (admin can use, sales gets 403)",
+    "Backend E4.1.3-4: Warehouse write guards (403 with guidance when using dedicated warehouse of other entity; shared warehouse accessible)",
+    "Backend E4.1.5: Dedication guard (cannot make warehouse dedicated if it has stock from other entities; 409 with details; succeeds when stock owners included; Surabaya restored to shared)",
+    "Backend E4.1.6: New warehouse defaults to dedicated mode for active entity",
+    "Backend E4.7.8-9: Price isolation per entity (Kanda uses entity price, KSC uses global; effective prices differ; grid includes three price columns + source)",
+    "Backend E4.7.10-12: Price lifecycle (set price, second price auto-closes first, latest wins, scheduled price doesn't affect current, revert to global, history preserved)",
+    "Backend E4.7.13: Price chain in customer quotes (Kanda quote uses entity price, KSC quote uses global for product without override, quote includes price breakdown)",
+    "Backend E4.7.14: CSV export/import (export includes entity prices, import applies 1 row, Indonesian number format parsed correctly, row without price skipped, unknown SKU reported)",
+    "Backend: Data cleanup successful (1 warehouse, 4 entity_prices, 1 cycle_count_session removed)",
+    "Frontend: Entity switcher visible and working (shows 'Semua Entitas' mode)",
+    "Frontend: Read-only banner visible in 'Semua Entitas' mode (FASE E-3 regression working)"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/backend_test_e4.py"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (45/45 tests passed)",
+    "frontend": "Partial (entity switcher working, views require menu navigation verification)"
+  },
+  
+  "updated_files": [
+    "/app/backend/backend_test_e4.py"
+  ],
+  
+  "action_item_for_main_agent": "Backend E4.1 & E4.7 fully functional (45/45 tests passed). Frontend views (WarehouseMasterView, PricelistView) exist and have correct data-testid attributes based on code review, but automated testing could not access them via direct URL navigation. Recommend: (1) Verify menu navigation paths to these views, (2) Manual verification of frontend features, or (3) Update routing configuration if direct URL access is intended. All backend APIs working correctly, data cleanliness maintained (test data cleaned up successfully).",
+  
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "true"
+}

@@ -1,0 +1,984 @@
+{
+  "total": 122,
+  "ok": 67,
+  "failed": 55,
+  "timeouts": 0,
+  "results": [
+    {
+      "file": "backend/backend_test.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "===========================================\n  HASIL: 2 PASS | 1 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - Create SO with backorder failed: 409 {\"detail\":{\"code\":\"MIXED_LOT_CONFIRMATION_REQUIRED\",\"message\":\"Pesanan akan dipenuhi dari beberapa lot berbeda. Konfirmasi diperlukan.\",\"mixed_items\":[{\"product_id\":\"prod_lurik_classic\",\"product_name\"\n"
+    },
+    {
+      "file": "backend/backend_test_18.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "l dispatch failed: 409 {\"detail\":\"Roll commit untuk order tak cukup dikirim (tersedia 0 dari 15.0).\"}\n\n======================================================================\n  HASIL: 4 PASS | 1 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - Partial dispatch failed: 409 {\"detail\":\"Roll commit untuk order tak cukup dikirim (tersedia 0 dari 15.0).\"}\n"
+    },
+    {
+      "file": "backend/backend_test_bi_finance.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "al Balance...\n\ud83d\udd0d Trial balance: debit=96913000.0, credit=96913000.0, balanced=True\n\u2705 Regression: Trial Balance - PASSED\n\n================================================================================\nSUMMARY: 9/10 tests passed\n================================================================================\n\n\u274c FAILED TESTS:\n  - BI Year 2026 (with seed data): July 2026 should have operational data\n"
+    },
+    {
+      "file": "backend/backend_test_crm_enforcements.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "Sales incentive scheme created successfully\n\u2705 PASSED - Create sales incentive (admin)\n\ud83d\udd0d Testing Sales incentive forbidden (sales role)...\n\ud83d\udd0d Sales incentives correctly forbidden for sales role\n\u2705 PASSED - Sales incentive forbidden (sales role)\n\ud83d\udd0d ============================================================\n\ud83d\udd0d Tests completed: 15/16 passed\n\ud83d\udd0d ============================================================\n"
+    },
+    {
+      "file": "backend/backend_test_depth1.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "===============================================================\n\n\u274c FAILED TESTS:\n   - Test 1A.3 exception: 0\n   - Approve PRET-00001 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.approve\"}\n   - Submit PRET-00002 failed: 403 {\"detail\":\"Permission ditolak: purchase_return.update\"}\n   - Test 1B.3 exception: 0\n   - Test 1B.5 exception: 0\n   - No PO with outstanding found for payment test\n"
+    },
+    {
+      "file": "backend/backend_test_depth3_enhancements.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "   \u2705 Price deviation NOT triggered (correct)\n\n================================================================================\n\ud83d\udcca DEPTH #3 ENHANCEMENTS TEST SUMMARY\n================================================================================\nTotal tests run: 14\nTests passed: 14\nTests failed: 0\nSuccess rate: 100.0%\n================================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_dyelot.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "Customer created with enforce_single_dye_lot=True\n  \u2705 [PASS] Customer lot_policy=strict_single persisted\n  \u2705 [PASS] Customer PATCH lot_policy works\n  \u2705 [PASS] preview-lots: dye_lot_strict=True for enforce_single_dye_lot customer\n\n======================================================================\n  SUMMARY: 15 PASS | 0 FAIL\n======================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_epic7b_bank.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "sales@kainnusantara.id\n\n=== TEST: List Bank Accounts (Admin) ===\n  \u274c [FAIL] GET /api/bank-accounts returned 403, expected 200\n\n\u274c CRITICAL: List accounts failed. Cannot proceed.\n\n============================================================\nRESULTS: \u2705 PASS 3 | \u274c FAIL 1\n============================================================\n\n\u274c FAILED TESTS:\n  - GET /api/bank-accounts returned 403, expected 200\n"
+    },
+    {
+      "file": "backend/backend_test_f0a_entity_context.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 3.3,
+      "tail": "============================================\n  \u2705 PASS: Protected endpoint /home/admin returns 200 for admin\n      Got status: 200\n  \u2705 PASS: Protected endpoint /sales-orders returns 200 for admin\n      Got status: 200\n\n======================================================================\nTEST SUMMARY: 41/42 passed, 1/42 failed\n======================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_f3_mto_rma.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "iled: 403 {\"detail\":\"Permission ditolak: order.approve\"}\n  \u2022 Convert to SO failed: 400 {\"detail\":\"Konversi hanya untuk special order yang sudah disetujui (confirmed/in_production/ready).\"}\n  \u2022 Get SO failed: 404\n  \u2022 Get SO failed: 404\n  \u2022 Get SO failed: 404\n  \u2022 Entity scoping failed: special order leaked to other entity list\n\n======================================================================\n\n"
+    },
+    {
+      "file": "backend/backend_test_fase4.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.7,
+      "tail": "   PASSED (status: 200)\n\u2139\ufe0f Test #17: GET sales-orders/stats/summary (no 5xx)\n\u2705   PASSED (status: 200)\n\n======================================================================\nTEST SUMMARY - FASE 4\n======================================================================\nTotal Tests: 17\n\u2705 Passed: 19\n\u274c Failed: 0\nSuccess Rate: 111.8%\n======================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_fase_b.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": " in code)\n  \u2705 Putaway does NOT directly modify inventory_balances\n  \u2705 inventory_balances is a derived projection (SSOT maintained)\n\n================================================================================\nTEST SUMMARY\n================================================================================\nTotal tests run: 9\nTests passed: 9\nTests failed: 0\nSuccess rate: 100.0%\n\n\ud83c\udf89 ALL TESTS PASSED!\n"
+    },
+    {
+      "file": "backend/backend_test_h1.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "========================================\nTotal Tests: 28\n\u2705 Passed: 27\n\u274c Failed: 1\nSuccess Rate: 96.4%\n\n======================================================================\nFAILURES:\n======================================================================\n1. GET hr/shifts as SALES (should 200 - view only): Expected 200, got 403\n======================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_landed_cost.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "us: 200\n   Voucher LCV-00001: status=paid, financials.outstanding=0.0\n\n======================================================================\n\ud83d\udcca LANDED COST TEST SUMMARY\n======================================================================\nTotal Tests: 10\n\u2705 Passed: 10\n\u274c Failed: 0\nSuccess Rate: 100.0%\n======================================================================\n\n   \ud83e\uddf9 Cleaned up test data\n"
+    },
+    {
+      "file": "backend/backend_test_po_timeline_approval.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "ression\n\n\ud83d\udd0d Testing GET /api/purchase-orders (list)...\n\u2705 Status 200 - PASSED\n\n================================================================================\n\ud83d\udcca TESTS SUMMARY: 11/14 passed\n================================================================================\n\n\u274c FAILED TESTS:\n   - \u274c Expected 200, got 404 - FAILED\n   - \u274c Expected 200, got 404 - FAILED\n   - \u274c Expected 200, got 404 - FAILED\n"
+    },
+    {
+      "file": "backend/backend_test_qc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.9,
+      "tail": "ITY GATE  (DB=test_database  API=http://localhost:8001)\u001b[0m\n\u001b[1m\u001b[96m================================================================\u001b[0m\n\n\u001b[96m\u001b[1mL0 \u2014 Self-check: gate vs ENTITY_REGISTRY (anti self-drift)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m 56 koleksi kanonik konsisten dengan ENTITY_REGISTRY\n\n\u001b[96m\u001b[1mL1/L2 \u2014 Rekonsiliasi koleksi Seed\u2194App (butuh DB clean-seed)\u001b[0m\n  \u001b[92m[PASS]\u001b[0m users: 'users' berisi 7 do\n"
+    },
+    {
+      "file": "backend/backend_test_qc_4point.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "= Test 11: Validation - Invalid point_value ===\n\u274c FAIL: Invalid point_value\n   Reason: No roll_id available\n\n=== Test 12: Permission Test - Sales User ===\n\u274c FAIL: Sales permission\n   Reason: No roll_id available\n\n======================================================================\nTEST SUMMARY: 3 PASSED | 9 FAILED | 12 TOTAL\n======================================================================\n"
+    },
+    {
+      "file": "backend/backend_test_sales_returns.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "================\n\ud83e\uddea SALES RETURNS API TEST \u2014 Sub-fase 1.11\n======================================================================\n\n\ud83d\udccb SETUP\n  \u2705 [PASS] Login admin@kainnusantara.id\n  \u2705 [PASS] Login sales@kainnusantara.id\n  \u2705 [PASS] Setup references: entity=ent_ksc, warehouse=wh_jakar, customer=cust_tok, product=prod_bat\n  \u274c [FAIL] Confirm SO failed: 403 {\"detail\":\"Permission ditolak: order.confirm\"}\n"
+    },
+    {
+      "file": "backend/backend_test_tax_invoices.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "le: sales)\n\n\ud83d\udd10 Testing login: manager@kainnusantara.id\n  \u2705 [PASS] Login manager@kainnusantara.id (role: manager)\n\n\ud83d\udd10 Testing login: warehouse@kainnusantara.id\n  \u2705 [PASS] Login warehouse@kainnusantara.id (role: warehouse)\n\n======================================================================\nTEST SUMMARY\n======================================================================\n\u2705 PASSED: 10\n\u274c FAILED: 0\n"
+    },
+    {
+      "file": "backend/fase3_purchasing_test.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.3,
+      "tail": "saction voided: status=void\n   \u2705 Void successful\n\n================================================================================\n\ud83d\udcca FASE 3 PURCHASING TEST SUMMARY\n================================================================================\nTotal tests run: 39\nTests passed: 39\nTests failed: 0\nSuccess rate: 100.0%\n================================================================================\n"
+    },
+    {
+      "file": "backend/hr_analytics_test.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "2: Period switch back to 2026-06 successful\n  \u2705 [PASS] US2: Attendance rate 2026-06 = 100.0% (full data returns)\n\n======================================================================\n  HASIL: 12 PASS | 2 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n   - US2: Expected period '2026-08', got '2026-06'\n   - US2: Expected attendance rate 0%, got 100.0%\n"
+    },
+    {
+      "file": "backend/test_f3_aftersales_smoke.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.4,
+      "tail": "[OK] returnable SO SO-0007 status=confirmed entity=ent_ksc items=2\n[OK] trial balance before: balanced=True debit=279369250.0\n[OK] return created SRET-00003 type=komplain status=pending_approval\n[OK] return approved status=approved cn=None cn_amount=None\nTraceback (most recent call last):\n  File \"/app/backend/test_f3_aftersales_smoke.py\", line 96, in <module>\n    main()\n  File \"/app/backend/test_f3_aftersales_smoke.py\", line 69, in main\n    assert ret2.get(\"credit_note_number\"), \"NO credit note generated after approve\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: NO credit note generated after approve\n"
+    },
+    {
+      "file": "backend/test_f3_smoke.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": " linked_product_id=prod_8141efd6e0e8 sku=MTO-260704-0005\n[OK] product exists in catalog: True sku=MTO-260704-0005 price=200000.0\n[OK] create-sku idempotent \u2192 same product prod_8141efd6e0e8\n[OK] converted \u2192 SO KSC/SO-00013 status=waiting_stock source_so=sord_1fc360dd988a\n[OK] re-convert blocked: status=400 detail=Special order sudah dikonversi ke SO KSC/SO-00013\n\n=== ALL F3 SMOKE CHECKS PASSED ===\n"
+    },
+    {
+      "file": "backend/test_rfid_comprehensive.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "sing snapshots\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f RFID COMPREHENSIVE TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 28\n\u2705 Passed: 26\n\u274c Failed: 2\n\u274c \nFailed Tests:\n\u274c   - Get Inventory Summary (before)\n\u274c   - Get Inventory Summary (after)\n\u2705 \nSuccess Rate: 92.9%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend/test_roll_ssot.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 3.6,
+      "tail": "SSED: 64 checks, 0 FAIL\n  \u2139\ufe0f  \n=== Regression: Inter-company transfer ===\n  \u2705 [PASS] Regression: Created inter-company transfer TRF-00002\n  \u2705 [PASS] Regression: Inter-company transfer approved and completed\n\n======================================================================\n  \u2705 PASSED: 26\n  \u274c FAILED: 0\n======================================================================\n\n\u2705 All tests passed!\n"
+    },
+    {
+      "file": "backend/tests/test_f0b_entity_scoping.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 3.2,
+      "tail": "........................................................................ [ 79%]\n...................                                                      [100%]\n91 passed in 2.59s\n"
+    },
+    {
+      "file": "backend/tests/test_f0cdef_multientity.py",
+      "mode": "pytest",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.8,
+      "tail": "eader_ent_kanda[/inventory/rolls]\nFAILED backend/tests/test_f0cdef_multientity.py::TestF0C_OperationalIsolation::test_header_ent_kanda[/inventory/balances]\nFAILED backend/tests/test_f0cdef_multientity.py::TestF0C_OperationalIsolation::test_header_ent_kanda[/inventory/movements]\nFAILED backend/tests/test_f0cdef_multientity.py::TestF0E_PKPPerEntity::test_so_ksc_kena_ppn\n4 failed, 60 passed in 1.41s\n"
+    },
+    {
+      "file": "backend/tests/test_f1a_pricelist.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.8,
+      "tail": "................                                                         [100%]\n16 passed in 1.42s\n"
+    },
+    {
+      "file": "backend/tests/test_f1b_product_templates.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 2.1,
+      "tail": "....................                                                     [100%]\n20 passed in 1.32s\n"
+    },
+    {
+      "file": "backend/tests/test_f2_stock_buckets.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 2.6,
+      "tail": "....................                                                     [100%]\n20 passed in 2.25s\n"
+    },
+    {
+      "file": "backend/tests/test_gelombang1_gl_integrity.py",
+      "mode": "pytest",
+      "rc": 1,
+      "timeout": false,
+      "dur": 5.4,
+      "tail": " abs(501557500.0)\n\nbackend/tests/test_gelombang1_gl_integrity.py:304: AssertionError\n=========================== short test summary info ============================\nFAILED backend/tests/test_gelombang1_gl_integrity.py::TestFlow3_VendorBill_GL::test_d_verify_gl_posted\nFAILED backend/tests/test_gelombang1_gl_integrity.py::TestFlow4_Reconciliation::test_a_recon_endpoint\n2 failed, 16 passed in 4.84s\n"
+    },
+    {
+      "file": "backend/tests/test_gelombang3_auth_ppn12.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 3.5,
+      "tail": ".............                                                            [100%]\n13 passed in 2.79s\n"
+    },
+    {
+      "file": "backend/tests/test_m3_auto_elim_consolidation.py",
+      "mode": "pytest",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "lim_create_untouched_by_sync\nERROR backend/tests/test_m3_auto_elim_consolidation.py::TestManualElimRegression::test_delete_manual_elim\nERROR backend/tests/test_m3_auto_elim_consolidation.py::TestManualElimRegression::test_list_eliminations_endpoint\nERROR backend/tests/test_m3_auto_elim_consolidation.py::TestManualElimRegression::test_create_unbalanced_still_accepted_but_flagged\n10 errors in 0.33s\n"
+    },
+    {
+      "file": "backend/tests/test_m3_coa_per_pt_and_ic_transfer.py",
+      "mode": "pytest",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "end/tests/test_m3_coa_per_pt_and_ic_transfer.py::TestRegression::test_gl_journal_ok\nERROR backend/tests/test_m3_coa_per_pt_and_ic_transfer.py::TestRegression::test_dashboard_ok\nERROR backend/tests/test_m3_coa_per_pt_and_ic_transfer.py::TestRegression::test_sales_orders_ok\nERROR backend/tests/test_m3_coa_per_pt_and_ic_transfer.py::TestRegression::test_seed_default_coa_idempotent\n17 errors in 0.55s\n"
+    },
+    {
+      "file": "backend/tests/test_price_approval_supersede_notification.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": ".............                                                            [100%]\n13 passed in 0.90s\n"
+    },
+    {
+      "file": "backend/tests/test_price_approvals_supersede.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "................                                                         [100%]\n16 passed in 0.80s\n"
+    },
+    {
+      "file": "backend/tests/test_uom_1_13.py",
+      "mode": "pytest",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "========== warnings summary ===============================\n../root/.venv/lib/python3.11/site-packages/starlette/formparsers.py:12\n  /root/.venv/lib/python3.11/site-packages/starlette/formparsers.py:12: PendingDeprecationWarning: Please use `import python_multipart` instead.\n    import multipart\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n12 passed, 1 warning in 0.27s\n"
+    },
+    {
+      "file": "backend_blanket_test.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "200)\n\u2705   Blanket correctly excluded from standard PO list\n\u2705   Call-off correctly appears in standard PO list\n\n======================================================================\nTEST SUMMARY\n======================================================================\nTotal Tests: 15\nPassed: 15 \u2705\nFailed: 0 \u274c\n\nSuccess Rate: 100.0%\n======================================================================\n\n"
+    },
+    {
+      "file": "backend_closing_test.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "   Journals: 18, Balanced: True\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 15\n\u2705 Passed: 13\n\u274c Failed: 2\n\u274c \nFailed Tests:\n\u274c   - Close August 2026\n\u274c   - Close Year 2026 (should fail due to overlap)\n\u2705 \nSuccess Rate: 86.7%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_rfq_test.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.7,
+      "tail": "L] Sales view failed: 403\n  \u2705 [PASS] Sales cannot create RFQ (403/401)\n  \u2139\ufe0f  Cleaning up test data...\n  \u2705 [PASS] Test data cleaned up\n\n======================================================================\n  BACKEND TEST SUMMARY: 72 PASS | 2 FAIL\n======================================================================\n\n\u274c FAILED TESTS:\n  - PO number starts with PO- FAILED\n  - Sales view failed: 403\n\n"
+    },
+    {
+      "file": "backend_test.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "S ===\n\u2139\ufe0f Testing: GL Journal Entries\n\u2705 PASSED - GL Journal Entries (Status: 200)\n\u2705   Journal Entries: 19 entries returned\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 13\n\u2705 Passed: 13\n\u2139\ufe0f Failed: 0\n\u2705 \nSuccess Rate: 100.0%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_test_autofulfill.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "y check due to flow failures\n\n======================================================================\n  AUTO-FULFILL TEST SUMMARY\n======================================================================\n  Passed: 2\n  Failed: 1\n\n  \u274c FAILED TESTS:\n     1. SO status should be waiting_stock, got reserved\n\n  \u274c AUTO-FULFILL FLOW FAILED\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_backorder.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "  BACKEND TEST SUMMARY - Sub-fase 1.6 Backorder Lifecycle\n======================================================================\n  Total Tests: 15\n  Passed: 26\n  Failed: 2\n  Success Rate: 173.3%\n\n  \u274c FAILED TESTS:\n     1. SO status should be waiting_stock, got reserved\n     2. Failed to create waiting_stock SO for release test\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_consolidation.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "g: CRM Leads Board (regression)\n\u2705 PASSED - CRM Leads Board (regression) (Status: 200)\n\u26a0\ufe0f   CRM Leads structure unexpected\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 15\n\u2705 Passed: 15\n\u2139\ufe0f Failed: 0\n\u2705 \nSuccess Rate: 100.0%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_test_crm.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "==================\nRESULTS: 31 PASS / 4 FAIL\n======================================================================\n\nFailed tests:\n  \u274c Sales reassign access control failed: expected 403, got no response\n  \u274c Commission basis unexpected: per_sku_collection\n  \u274c Sales leaderboard access control failed: expected 403, got no response\n  \u274c Sales target access control failed: expected 403, got no response\n"
+    },
+    {
+      "file": "backend_test_crm_omnichannel.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": " - Get Sales Users (regression) (Status: 200)\n\u2705   Retrieved 3 sales users\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 19\n\u2705 Passed: 18\n\u274c Failed: 1\n\u274c \nFailed Tests:\n\u274c   - Create Lead (missing name)\n\u2705 \nSuccess Rate: 94.7%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_test_depth2_pr.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "r Suggestions - Structure\n\u2705 Reorder Suggestions - Logic\n\n=== REORDER CREATE PR TESTS ===\n\u2705 Reorder Create PR\n\n=== SPECIAL ORDER \u2192 PR BRIDGE TESTS ===\n\u2705 Special Order Create PR\n\u2705 Special Order Create PR - Link\n\n================================================================================\nRESULTS: 24/24 tests passed\n================================================================================\n"
+    },
+    {
+      "file": "backend_test_epic7c.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": " \u2705 PASS: Manager GET /gl/trial-balance returns 200\n  \u2705 PASS: Sales GET /gl/accounts returns 403\n  \u2705 PASS: Sales GET /gl/trial-balance returns 403\n  \u2705 PASS: Sales POST /gl/journal returns 403\n  \u2705 PASS: Warehouse GET /gl/accounts returns 403\n\n============================================================\n  TOTAL: 52 | PASSED: 51 | FAILED: 1\n============================================================\n"
+    },
+    {
+      "file": "backend_test_f0e.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "=================================================\nTEST SUMMARY\n======================================================================\nTotal tests run: 39\nTests passed: 38\nTests failed: 1\nSuccess rate: 97.4%\n\n\u274c FAILED TESTS:\n\n  1. Journal entries for ent_ksc\n     Expected: 200\n     Actual: 404\n     Endpoint: gl/journal-entries\n\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_fase0.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.6,
+      "tail": "\ud83d\udd0d Testing Regression: Purchase Orders...\n   Verify api/purchase-orders still works\n\u2705 Passed - Status: 200\n\n======================================================================\n\ud83d\udcca FASE 0 TEST SUMMARY\n======================================================================\nTotal Tests: 39\nPassed: 39\nFailed: 0\nSuccess Rate: 100.0%\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_fase1b.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "ager\n\n\ud83d\udd0d Testing Login as sales...\n   Login with sales@kainnusantara.id\n\u2705 Passed - Status: 200\n   Token stored for sales\n\n================================================================================\nTEST: Sales Order with Discounts + Payment Term + PPN Calculation\n================================================================================\n\n\ud83d\udd0d Testing Get Customers...\n\u2705 Passed - Status: 200\nck (most recent call last):\n  File \"/app/backend_test_fase1b.py\", line 793, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/app/backend_test_fase1b.py\", line 789, in main\n    success = tester.run_all_tests()\n              ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/backend_test_fase1b.py\", line 764, in run_all_tests\n    self.test_sales_order_with_discounts_and_tax()\n  File \"/app/backend_test_fase1b.py\", line 106, in test_sales_order_with_discounts_and_tax\n    address = customer.get('addresses', [{}])[0]\n              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^\nIndexError: list index out of range\n"
+    },
+    {
+      "file": "backend_test_fase3.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.4,
+      "tail": "images.unsplash.com/photo-1761516659766-c092d4b1209d...\n\ud83d\udd0d   \u2022 BTK-MEGA-002: https://images.unsplash.com/photo-1761516659491-bf9a672d64c1...\n\ud83d\udd0d   \u2022 BTK-MEGA-003: https://images.unsplash.com/photo-1761515315375-1315503bb3ce...\n\ud83d\udd0d \n======================================================================\n\u2705 SUMMARY: 4/4 tests passed\n\ud83d\udd0d ======================================================================\n\n"
+    },
+    {
+      "file": "backend_test_fase3_purchasing.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "annot test over-tolerance\n\n======================================================================\n\ud83d\udcca TEST SUMMARY\n======================================================================\nTests Run: 40\nTests Passed: 39\nTests Failed: 1\nSuccess Rate: 97.5%\n\n\u274c FAILED TESTS:\n   - Sales GET POs (should be 200)\n     Expected: 200, Got: 403\n     Response: {\"detail\":\"Permission ditolak: purchase_order.view\"}\n"
+    },
+    {
+      "file": "backend_test_gelombang3.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": " 779,371,250\n\u2705   Balanced: True\n\u2705   \u2713 Trial balance is BALANCED - COGS integrity maintained\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY - GELOMBANG 3 (F-7, F-8, F-9)\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 13\n\u2705 Passed: 13\n\u2139\ufe0f Failed: 0\n\u2705 \nSuccess Rate: 100.0%\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_test_h2.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "ying visit appears in today's list as 'done'...\n\u2705   Visit found in today's list with status 'done' \u2713\n\n======================================================================\nTEST SUMMARY - FASE H2\n======================================================================\nTotal Tests: 18\n\u2705 Passed: 18\n\u274c Failed: 0\nSuccess Rate: 100.0%\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_h5.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "hould be 200)\n\u2705   PASSED (status: 200)\n\u2139\ufe0f Test #27: Manager GET /design-gallery (should be 200)\n\u2705   PASSED (status: 200)\n\u2139\ufe0f Test #28: Manager GET /admin/integrations (should be 403)\n\u2705   PASSED (status: 403)\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f BACKEND TESTS COMPLETE\n\u2139\ufe0f Total: 28 | Passed: 28 | Failed: 0\n\u2139\ufe0f ============================================================\n"
+    },
+    {
+      "file": "backend_test_interco.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "er:approve)\n\u2705 Passed - Status: 403\n\n\ud83d\udd0d Testing Cancel Transfer...\n   Cancel transfer trn_0196007842f8\n\u2705 Passed - Status: 200\n\n================================================================================\nTEST RESULTS\n================================================================================\nTests run: 36\nTests passed: 36\nTests failed: 0\n\nSuccess rate: 100.0%\n\n\u2705 BACKEND TESTS PASSED (\u226580%)\n"
+    },
+    {
+      "file": "backend_test_phase05.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "======================================================================\n\ud83d\udcca TEST SUMMARY - PHASE 0.5\n======================================================================\nTotal Tests: 12\nPassed: 11\nFailed: 1\nSuccess Rate: 91.7%\n\n\u274c FAILED TESTS:\n  - Get dashboard summary: Expected 200, got 404\n    Response: {\"detail\":\"Not Found\"}\n======================================================================\n"
+    },
+    {
+      "file": "backend_test_sales_revamp.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "=====================================================\nTotal Tests: 7\n\u2705 Passed: 11\n\u274c Failed: 1\nSuccess Rate: 157.1%\n\n======================================================================\nFAILURES:\n======================================================================\n1. POST sales-orders (with roll mode): Expected 200, got 422\n======================================================================\n"
+    },
+    {
+      "file": "forensic/fa_ar_ap.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "items=0\n  baseline GL Hutang(2-1100) net=-555,000.00  TB_balanced=True(diff=0.0)\n\n  [AP1] create vendor-bill(submit_now, ordered match) -> 400 {\"detail\":\"Minimal 1 item untuk ditagih.\"}\n\n================ 2b RESULT ================\n   \u274c [AR-RECON] ent_ksc AR GL 86913000.0 != subledger 23171100.0\n   \u274c [AR-RECON] ent_kanda AR GL 9500000.0 != subledger 0.0\n  [i] RUN seed_reset.sh to restore baseline.\n"
+    },
+    {
+      "file": "forensic/fa_costing.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "compute for all 42 (product\u00d7entity) combos\n\n########## 1b INVENTORY SUBLEDGER vs GL 1-1300 (Persediaan) ##########\n  [INFO] ent_kanda: roll-subledger=16,956,000.00  GL(1-1300)=18,271,782.60  diff=-1,315,782.60\n  [INFO] ent_ksc: roll-subledger=697,890,250.00  GL(1-1300)=675,538,967.40  diff=22,351,282.60\n  (note: seed GL may be sparse \u2014 diff flagged INFO, not necessarily a bug; recorded for owner)\n"
+    },
+    {
+      "file": "forensic/fa_e2e.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "-1300)=0.0 \u0394HPP(5-1000)=0.0 (expect Persediaan\u2191, HPP\u2193)\n\n================ 2a RESULT ================\n  \u274c 5 invariant violation(s):\n     [P3] create-SO: 1 baris SSOT drift\n     [P3] confirm(reserve): 1 baris SSOT drift\n     [P3] invoice+GL: 1 baris SSOT drift\n     [P6] invoice: PPN(Cr) 0 != order ppn 203500.0\n     [P3] return+restock: 1 baris SSOT drift\n\n  [i] RUN seed_reset.sh to restore baseline.\n"
+    },
+    {
+      "file": "forensic/fa_fuzz.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "] /suppliers case#2 -> 200 :: {\"name\": \"x\", \"id\": \"../../etc/passwd\"}\n    [REVIEW] /gl/journal case#2 -> 200 :: {\"date\": \"2026-07-01\", \"description\": \"\\ud83d\\udd25\\ud835\\udd4f\\u0000\\u202e\\u202\n    [REVIEW] /cash-transactions case#1 -> 200 :: {\"type\": \"invalid\", \"amount\": 100}\n    [REVIEW] /cash-transactions case#2 -> 200 :: {\"amount\": 100}\n\n  [i] run seed_reset.sh to clean any accidental creates.\n"
+    },
+    {
+      "file": "forensic/fa_idor.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "at-jalan  (shipment_surat_jalan) touches ['sales_orders', 'shipments'] w/o entity guard\n  [MED ] READ_NO_XSCOPE   GET    /suppliers/{supplier_id}/price-list  (list_supplier_price_list) touches ['suppliers'] w/o entity guard\n\n  COUNTS:\n   HIGH WRITE_NO_XSCOPE  63\n   MED  READ_NO_XSCOPE   12\n\n########## MONEY PRECISION & TIMEZONE STATIC SCAN ##########\n  naive datetime.now()/utcnow() occurrences: 0\n"
+    },
+    {
+      "file": "forensic/fa_idor_confirm.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.8,
+      "tail": "e (200)\n    LEAK  POST /wms/tasks/outbound-from-order/so_001 (409)\n    LEAK  POST /inbound/tasks/wms_3b2c21fb2fcd/complete (400)\n    LEAK  POST /inbound/tasks/wms_3b2c21fb2fcd/qc-decision (400)\n    LEAK  POST /inbound/tasks/wms_3b2c21fb2fcd/escalate (200)\n    LEAK  POST /inbound/rolls/roll_ad09f8e8bdfd/inspect (200)\n\n  [i] test users removed. RUN seed_reset.sh to restore any mutated ent_ksc docs.\n"
+    },
+    {
+      "file": "forensic/fa_nplus1.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "0     29.5ms  /reports/stock-aging                       6 items\n  200      8.8ms  /vendor-bills/payables/summary             obj\n  200     37.3ms  /finance/bi?year=2026                      obj\n  200     10.0ms  /wms/tasks                                 36 items\n  200      8.3ms  /ar/aging                                  obj\n  200     10.2ms  /gl/journal                                31 items\n"
+    },
+    {
+      "file": "forensic/fa_race.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "01', 'KSC/FORENSICSEQ-00002', 'KSC/FORENSICSEQ-00003']...['KSC/FORENSICSEQ-00040']\n\n########## D2 HTTP DOUBLE-SUBMIT (status-guarded idempotency) ##########\n  concurrent approve x6 on PO po_010: statuses=[200, 200, 403, 403, 403, 403]\n  [HIGH] 2 concurrent approvals returned 200 (double-advance risk).\n  journal_entries for PO before=0 after=0\n  [SKIP] no 'approved' SO for confirm idempotency test\n"
+    },
+    {
+      "file": "forensic/fa_runtime.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.3,
+      "tail": "r-bills -> 403 (blocked)\n  [OK  ] warehouse GET /finance/income-statement -> 403 (blocked)\n  [.. ] warehouse POST /gl/entries -> 404 (expected [403]; not a leak)\n  [OK  ] sales GET /tax/summary?entity_id=ent_ksc -> 403 (blocked)\n\n\n================ SUMMARY (findings by category) ================\nF-A: 1 findings (1 HIGH+)\nF-B: 5 findings (1 HIGH+)\nF-C: 1 findings (1 HIGH+)\nTOTAL runtime findings: 7\n"
+    },
+    {
+      "file": "forensic/fa_session.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "warded-For (dikontrol klien). Rotasi XFF \u2192 counter selalu reset, 429 tak pernah muncul walau 10x gagal untuk email sama.\n\n===== 2c SUMMARY =====\n  MED: cookie TANPA Secure flag (bisa terkirim via HTTP; app disajikan via HTTPS ingress)\n  HIGH: session kedaluwarsa MASIH diterima\n  MED: BRUTE-FORCE LOCKOUT DAPAT DI-BYPASS: identifier lockout memakai X-Forwarded-For (dikontrol klien). R\n  findings: 3\n"
+    },
+    {
+      "file": "forensic/fa_static.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "x_invoices.py          GET    /tax-invoices/{fkt_id}/document  (faktur_document)\n[LOW ] IDOR_GET_BY_ID transfers.py             GET    /transfers/{transfer_id}  (get_transfer_detail)\n[LOW ] IDOR_GET_BY_ID vendor_bills.py          GET    /purchase-orders/{po_id}/billing-context  (po_billing_context)\n\n===== COUNTS =====\n  MED  MUT_NO_PERM      17\n  MED  NO_AUTH          6\n  LOW  IDOR_GET_BY_ID   32\n"
+    },
+    {
+      "file": "forensic/fa_sweep.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.8,
+      "tail": "TITY     sales GET /api/customers/{}/credit-status [customers cust_moda_surabaya ent_kanda] -> 200 (cross-entity data)\n  [OK  ] /api/ar/aging/{} -> 403\n  [OK  ] /api/suppliers/{}/scorecard -> 403\n  [OK  ] /api/suppliers/{}/price-list -> 403\n\n  --- IDOR tested=13 leaks=4 skipped=12 ---\n\n================ STAGE-2 SUMMARY ================\n  HIGH IDOR_XENTITY     4\n  MED  UNAUTH_GET       5\n  TOTAL: 9\n"
+    },
+    {
+      "file": "forensic/fa_write_idor.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "tion w/o require_permission (uses current_user+role_satisfies etc): 5\n     POST   /hr/visits/{visit_id}/check-out (visit_check_out)\n     POST   /purchase-orders/{po_id}/approve (approve_purchase_order)\n     POST   /purchase-orders/{po_id}/reject (reject_purchase_order)\n     POST   /vendor-bills/{bill_id}/approve (approve_vendor_bill)\n     POST   /vendor-bills/{bill_id}/reject (reject_vendor_bill)\n"
+    },
+    {
+      "file": "scripts/audit_endpoint_sweep.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 8.4,
+      "tail": "interactions\n  /api/finance/consolidation/eliminations\n  /api/inbound/qc/tasks/{task_id}/rolls\n  /api/input-tax-invoices\n  /api/landed-costs\n  /api/product-templates\n  /api/rfqs\n  /api/sales-orders/frequent-products\n  /api/stock/holds\n  /api/stock/wip\n  /api/tax/pph-records\n\n=== SKIPPED (param tak bisa di-resolve) ===\n  /api/documents/relations/{doc_type}/{doc_id}\n  /api/gl/accounts/{code}/ledger\n"
+    },
+    {
+      "file": "scripts/health_check.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 2.0,
+      "tail": " /api/audit-logs                          \u001b[92m500 items\u001b[0m\n  \u001b[92m[PASS]\u001b[0m /api/reports/summary                     \u001b[92mOK\u001b[0m\n\n\u001b[1m============================================================\u001b[0m\n  \u001b[92mPASS\u001b[0m 24  |  \u001b[93mWARN\u001b[0m 0  |  \u001b[91mFAIL\u001b[0m 0\n\u001b[1m============================================================\u001b[0m\n\u001b[92m\u001b[1m\n  SISTEM SEHAT \u2014 semua endpoint responsif dengan data.\n\u001b[0m\n"
+    },
+    {
+      "file": "scripts/poc_hrd.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "PASS] Parse CSV -> 3 baris kehadiran (2 emp x hari)  -> 3 rec\n  [PASS] Agregasi multi-punch benar (in=07:58, out=17:30, 4 punch)  -> in=07:58:00 out=17:30:00 punch=4\n  [PASS] Idempotent: jalankan 2x -> jumlah doc stabil (3)  -> run1=3 run2=3\n\n================================================================\n  RESULT: 20 PASS / 1 FAIL\n================================================================\n"
+    },
+    {
+      "file": "scripts/poc_hrd_h1.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "nce/me (sales) 200  -> http 200\n  [PASS] Clock-in (dalam fence) \u2192 hadir/telat  -> status=hadir\n  [FAIL] Clock-out \u2192 work_min>0  -> work_min=0\n\n=== 8. RBAC (sales tak boleh kelola absensi) ===\n  [PASS] Sales POST /hr/shifts \u2192 403  -> http 403\n\n================================================================\n  RESULT: 17 PASS / 1 FAIL\n================================================================\n"
+    },
+    {
+      "file": "scripts/poc_sales_revamp.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "siliasi\n  \u2713 POST preview-roll-reconcile 200 (array)\n  \u2713 opsi round_up ada & total >= target\n  \u2713 opsi round_down ada & total <= target\n  \u2713 round_up == \u03a33 roll\n  \u2713 round_down == \u03a32 roll\n  \u2713 opsi exact_cut ada & total == target\n  \u2713 exact_cut roll_lines = 3 (2 utuh + 1 potong)\n  \u2713 baris cut take_qty < panjang roll penuh\n  \u2713 POST SO dgn opsi cut 200\n  \u2713 SO qty (cut) == target\n\nRESULT: 35 PASS / 0 FAIL\n"
+    },
+    {
+      "file": "scripts/ui_smoke.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.2,
+      "tail": "[SKIP] Playwright tidak tersedia: No module named 'playwright'\nJalankan dengan: /opt/plugins-venv/bin/python scripts/ui_smoke.py\n"
+    },
+    {
+      "file": "scripts/ux_audit.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.2,
+      "tail": "\n\u001b[1m\u001b[96mKN3 \u2014 UX BASELINE AUDIT (199 file)\u001b[0m\n\n\n\u001b[1m============================================================\u001b[0m\n  \u001b[91mERROR 0\u001b[0m  |  \u001b[93mWARN 0\u001b[0m  (di 199 file)\n\u001b[1m============================================================\u001b[0m\n\n  \u001b[92m\u001b[1mTidak ada pelanggaran ERROR baseline UX.\u001b[0m\n\n"
+    },
+    {
+      "file": "test_ar_aging_backend.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "mer ID returns 404 (got 404)\n\n[5] RBAC Tests\n  \u2705 [PASS] Manager can access /api/ar/aging (got 200)\n  \u2705 [PASS] Sales gets 403 on /api/ar/aging (got 403)\n\n[6] Entity Filter Test\n  \u2705 [PASS] Entity filter total (545382624.0) <= global total (546122624.0)\n\n============================================================\nRESULTS: PASS 29 | FAIL 0\n============================================================\n"
+    },
+    {
+      "file": "test_audit_fixes_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "pokok tersedia)\n\n=== P3-7 \u2014 deteksi metode konsisten (collection worklist) ===\n  [PASS] /collection-reminders 200 (200)\n  [PASS] tak ada order NON_AR di worklist ([])\n\n=== P1-2 \u2014 AR receipt seed lintas >=3 sales ===\n  [PASS] AR seed tersebar ke >=3 sales (3)\n\n========================================================\n  HASIL: PASS 27 | FAIL 0\n========================================================\n"
+    },
+    {
+      "file": "test_blanket_po_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "  [PASS] over-call nilai \u2192 reason blanket_overcall\n\n\u2500\u2500 Case 10 \u2014 close kontrak manual \u2500\u2500\n  [PASS] close-contract \u2192 200\n  [PASS] status jadi closed\n  [PASS] call-off saat closed \u2192 400 (5.a)\n\n\u2500\u2500 Case 11 \u2014 pemisahan list \u2500\u2500\n  [PASS] blanket TIDAK di list PO standar\n  [PASS] call_off MUNCUL di list PO standar\n  [PASS] blanket muncul di list blanket\n\n  (sandbox dibersihkan)\n\n  RESULT: 44 PASS / 0 FAIL\n"
+    },
+    {
+      "file": "test_catch_weight_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": " setelah scan 200kg, task siap complete (qc_check/put_away)\n  [PASS] complete GR catch-weight (2 roll, total 200kg)\n  [PASS] 2 roll terbuat\n  [PASS] \u03a3 weight_kg roll = 200 kg\n  [PASS] \u03a3 length roll = 490 m (290 aktual + 200 turunan)\n  [PASS] roll-1 weight_kg=120 & length=290 (catch-weight aktual)\n  [PASS] PO received_qty = 200 (kg, satuan order)\n  (sandbox dibersihkan)\n\n  RESULT: 28 PASS / 0 FAIL\n"
+    },
+    {
+      "file": "test_crm_enforce_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "k\n  [PASS] _in_period bulan lain tidak cocok\n  [PASS] KPI tahun >= kuartal >= bulan (penjualan)\n  [PASS] komisi kuartal terhitung (achievement+rate)\n  [PASS] GET /sales/commission-history -> 4 periode kronologis\n  [PASS] history tiap baris punya total_incentive\n  [PASS] history kuartal -> 3 periode\n\n\u2500\u2500 Cleanup \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  (bersih)\n\n  RESULT: 20 PASS / 1 FAIL\n\n"
+    },
+    {
+      "file": "test_crm_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 2.0,
+      "tail": "it-override decision (manager) -> approved\n  [PASS] POST /sales-targets (manager) -> 200\n  [FAIL] POST /sales-targets (sales) -> 403 200\n  [PASS] GET /sales/leaderboard (manager) -> list dgn rank\n  [FAIL] GET /sales/leaderboard (sales) -> 403 200\n  [PASS] GET /sales-users -> >= 3 sales\n\n\u2500\u2500 Cleanup sandbox \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  (sandbox dibersihkan)\n\n  RESULT: 32 PASS / 8 FAIL\n\n(trapped) error reading bcrypt version\nTraceback (most recent call last):\n  File \"/root/.venv/lib/python3.11/site-packages/passlib/handlers/bcrypt.py\", line 620, in _load_backend_mixin\n    version = _bcrypt.__about__.__version__\n              ^^^^^^^^^^^^^^^^^\nAttributeError: module 'bcrypt' has no attribute '__about__'\n"
+    },
+    {
+      "file": "test_depth3_settings_notifications.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "\n   \u2705 Threshold correctly updated to 10\n\n================================================================================\nTEST SUMMARY\n================================================================================\nTests run: 14\nTests passed: 13\nTests failed: 1\n\n\u274c Failed tests:\n  - Get supplier price lists: Expected 200, got 404 (api/suppliers/sup_5ec8afad3629/price-lists)\n\n\ud83d\udcca Success rate: 92.9%\n"
+    },
+    {
+      "file": "test_dyelot_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "rict=False\n  \u2139     B(strict): reserved=60.0 backorder=40.0 strict=True\n  \u2705 [PASS] Customer A (tanpa flag): reserved 100, backorder 0 (lintas dye_lot OK)\n  \u2705 [PASS] Customer B (enforce_single_dye_lot): reserved 60 (1 dye_lot), backorder 40 \u2705\n\n================================================================\n  SUMMARY: 14 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_epic1_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "PASS] sales GET /home/admin -> ditolak (403)\n\n[5] /home/manager\n  [PASS] GET /home/manager (manager) -> 200\n  [PASS] payload punya 'leaderboard'\n  [PASS] payload punya 'totals'\n  [PASS] payload punya 'target'\n  [PASS] payload punya 'approvals_pending'\n\n============================================================\nRESULT: 45 PASS / 0 FAIL\n============================================================\n"
+    },
+    {
+      "file": "test_epic2_categories_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.3,
+      "tail": "d -> 200 (soft inactive)\n  [PASS] deleted is inactive\n\n[5] Delete guard: in-use category blocked\n  [PASS] delete in-use 'Batik' -> 409\n\n[6] New-order snapshot: SO line gets product.category\n  [PASS] new SO line snapshots category == product.category\n\n============================================================\n  RESULT: 14 PASS / 1 FAIL\n============================================================\n"
+    },
+    {
+      "file": "test_epic3_costing_ar_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": " order outstanding reduced by payment (71053875.0 -> 42632275.0)\n  [PASS] order payment_status = partial\n  [PASS] over-allocation -> 400\n  [PASS] sales GET /ar-receipts -> 200\n  [PASS] warehouse create receipt -> 403\n  [PASS] receipt appears in list\n\n============================================================\n  RESULT: 16 PASS / 1 FAIL\n============================================================\n"
+    },
+    {
+      "file": "test_epic4_incentive_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "[B] strategy toggle -> achievement_tiered (arsip) still works\n  [PASS] admin set strategy=achievement_tiered -> 200\n  [PASS] engine switched to achievement_tiered\n  [PASS] tiered result has applied_rate + achievement_pct\n  [PASS] reverted to per_sku\n\n============================================================\n  RESULT: 18 PASS / 1 FAIL\n============================================================\n"
+    },
+    {
+      "file": "test_epic5_pos_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "  [PASS] ada reorder_total_qty\n  [PASS] data produk terkini disertakan\n  [PASS] terurut desc by frekuensi [1, 1]\n\n=== edge & RBAC ===\n  [PASS] customer tanpa order \u2192 [] kosong\n  [PASS] tanpa customer_id \u2192 200 (graceful, bukan 422)\n  [PASS] warehouse (punya order:view) \u2192 200\n\n================================================\n  HASIL: PASS 10 | FAIL 0\n================================================\n"
+    },
+    {
+      "file": "test_epic6_relations_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "imaan (1)\n  [PASS] GRN node deep-link -> operations\n  [PASS] PO anchor deep-link -> purchasing\n\n=== RBAC & edge ===\n  [PASS] sales -> purchase_order relations = 403\n  [PASS] sales -> sales_order relations = 200\n  [PASS] doc_type invalid = 400\n  [PASS] id tidak dikenal = 404\n\n================================================\n  HASIL: PASS 22 | FAIL 0\n================================================\n"
+    },
+    {
+      "file": "test_epic7a_ar_aging_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "et/days_late\n  [PASS] \u03a3item.outstanding == ringkasan (377510900.0 vs 377510900.0)\n\n=== RBAC & edge ===\n  [PASS] manager -> /ar/aging 200\n  [PASS] sales -> /ar/aging 403\n  [PASS] customer tak dikenal -> 404\n  [PASS] filter entitas <= total global (507891724.0 <= 508631724.0)\n\n================================================\n  HASIL: PASS 22 | FAIL 0\n================================================\n"
+    },
+    {
+      "file": "test_epic7b_bank_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "nce termasuk txn terekonsiliasi (1250000.0)\n  [PASS] reconcile=false OK\n\n=== PATCH + RBAC + edge ===\n  [PASS] PATCH update/deactivate OK\n  [PASS] manager -> list 200\n  [PASS] sales -> list 403\n  [PASS] ledger akun tak dikenal -> 404\n  [PASS] reconcile txn tak dikenal -> 404\n\n================================================\n  HASIL: PASS 22 | FAIL 1\n================================================\n"
+    },
+    {
+      "file": "test_epic7c_gl_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": " filter source=cash_transaction benar\n  [PASS] manager akses trial-balance OK\n\n=== RBAC (sales & warehouse ditolak) ===\n  [PASS] sales GET /gl/accounts 403\n  [PASS] sales GET /gl/trial-balance 403\n  [PASS] sales POST jurnal 403\n  [PASS] warehouse GET /gl/accounts 403\n\n======================================================\n  PASS 43  |  FAIL 1\n======================================================\n"
+    },
+    {
+      "file": "test_f0a_entity_identity_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": " enrich 'coa_template'\n  [PASS] entitas punya field enrich 'incentive_payer'\n  [PASS] entitas punya field enrich 'numbering_scheme'\n  [PASS] incentive_payer = sales_entity (Model 1)\n  [PASS] KSC is_pkp True (default_tax_mode=ppn)\n  [PASS] Kanda is_pkp False (non_ppn)\n\n======================================================\n  PASS 26  |  FAIL 1\n======================================================\n"
+    },
+    {
+      "file": "test_f2b_backend.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "================================\nTotal Tests: 18\n\u2705 Passed: 16\n\u274c Failed: 2\nSuccess Rate: 88.9%\n\n\u274c FAILURES:\n  1. F2b: GET /api/stock/pending-so (admin with X-Entity-Id: all): SO-0009 not found in pending SO board\n  2. F2b: GET /api/stock/atp?product_id=prod_batik_mega&owner_entity_id=ent_ksc: PO-00009 not found in incoming list\n======================================================================\n"
+    },
+    {
+      "file": "test_f2b_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "ng_demand list terisi\n      pending_total=1039.0 atp_now=-909.0 atp_horizon=1241.0\n\n[4] Delivery hold (hold_type='delivery')\n  [PASS] POST /stock/hold delivery 200\n  [PASS] ref.hold_type == delivery\n  [PASS] delivery hold di papan + hold_type\n\n[5] Cleanup\n  [PASS] release delivery hold 200\n  [PASS] Pending SO uji terhapus (state bersih)\n\n================ F2b POC: PASS 17 | FAIL 2 ================\n"
+    },
+    {
+      "file": "test_f5_approval_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "le': 'manager', 'status': 'pending', 'reason': 'Nilai order Rp54.623.100 memerlukan persetujuan.', 'requested_by': 'Ayu Permatasari', 'requested_by_id': 'user_sales_01', 'requested_at': '2026-07-04T22:56:50.851952+00:00', 'decided_by': None, 'decided_by_id': None, 'decided_at': None, 'decision_notes': '', 'evidence': [], 'ref_id': None, 'amount': 54623100.0}]\n\n=== SUMMARY: 19/22 PASS, 3 FAIL ===\n\n"
+    },
+    {
+      "file": "test_f6_entity_tax_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.3,
+      "tail": "tax_mode = ppn\n  [PASS] SO entitas non-PPN -> 200\n  [PASS] entitas non-PPN: PPN = 0 & is_pkp False\n  [PASS] tax_mode = non_ppn\n  [PASS] SO PKP + tax_override=non_ppn -> 200\n  [PASS] override: PPN dipaksa 0 walau entitas PKP\n  [PASS] rekening entitas PKP ada (own)\n  [PASS] rekening grup 'all' terlihat lintas-entitas\n  [PASS] rekening ter-scope beda per entitas\n\n=== SUMMARY: 20/21 PASS, 1 FAIL ===\n\n"
+    },
+    {
+      "file": "test_input_tax_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": " \u2705 [PASS] Net 90.000 \u2192 KURANG BAYAR (setor)\n  \u2139  TEST F: Cancel \u2192 bill eligible lagi + NSFP reusable\n  \u2705 [PASS] Cancel \u2192 status cancelled\n  \u2705 [PASS] Bill kembali eligible setelah cancel\n  \u2705 [PASS] NSFP lama bisa dipakai ulang setelah cancel\n\n================================================================\n  SUMMARY: 19 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_landed_cost_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": " Idempotent \u2014 approve ulang\n  \u2705 [PASS] Approve ulang ditolak \u2192 409 (idempotent, HPP tidak dobel)\n  \u2139  TEST G: Bayar voucher (kas keluar)\n  \u2705 [PASS] Pay \u2192 status paid\n  \u2705 [PASS] cash_transaction(out, ref_type=landed_cost, 1.000.000) tercatat\n\n================================================================\n  SUMMARY: 17 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_multilevel_approval_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "proved\n  \u2139  TEST F: PO 1000m \u00d7 185rb = 185jt \u2192 chain 1 level (manager)\n  \u2705 [PASS] chain 1 level [manager]\n  \u2705 [PASS] Manager approve \u2192 langsung approved (1 level)\n  \u2139  TEST G: reject di level berjalan \u2192 rejected\n  \u2705 [PASS] Reject \u2192 rejected\n\n================================================================\n  SUMMARY: 11 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_number_series_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "LISION\n  [PASS] FIX: next_doc_number menghasilkan PO-00013 (AMAN, max+1)\n  [PASS] FIX: PO-00013 belum ada \u2192 TIDAK collision\n  [PASS] Berurutan: setelah insert PO-00013, next == PO-00014\n  [PASS] Koleksi kosong \u2192 PO-00001\n  [PASS] Lebar campur: max(9,10)+1 \u2192 PO-00011 (bukan PO-00010)\n  [PASS] Prefix terisolasi: PO- \u2192 PO-00003\n  [PASS] Prefix terisolasi: TRF- \u2192 TRF-00006\n\n  RESULT: 12 PASS / 0 FAIL\n"
+    },
+    {
+      "file": "test_po_amendment.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.8,
+      "tail": "d_qty updated to 150\n\u2139\ufe0f \n=== Cleaning up test data ===\n\u2139\ufe0f Cleaned up 6 POs and 6 products\n\u2139\ufe0f \n======================================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ======================================================================\n\u2139\ufe0f Total Tests: 29\n\u2705 Passed: 29\n\u2139\ufe0f Failed: 0\n\u2139\ufe0f \nSuccess Rate: 100.0%\n\u2139\ufe0f ======================================================================\n\n"
+    },
+    {
+      "file": "test_po_amendment_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.2,
+      "tail": "\n\n\u2500\u2500 Case E \u2014 guard partial receiving \u2500\u2500\n  [PASS] E1: qty 30 < received 80 \u2192 400\n  [PASS] E2: hapus item ber-penerimaan \u2192 400\n  [PASS] E3: ganti gudang saat ada receipt \u2192 400\n  [PASS] E4: naikkan qty 300 \u2265 received 80 \u2192 200\n  [PASS] E4: received_qty lama (80) dipertahankan\n\n\u2500\u2500 Case F \u2014 status terminal ditolak \u2500\u2500\n  [PASS] amend PO cancelled \u2192 400\n  (sandbox dibersihkan)\n\n  RESULT: 33 PASS / 0 FAIL\n"
+    },
+    {
+      "file": "test_price_approvals_backend.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.5,
+      "tail": "s: 200)\n\u26a0\ufe0f WARNING: has_special=False, price=0 (expected 157250.0)\n\u2139\ufe0f Testing: List Price Approvals\n\u2705 PASSED - List Price Approvals (Status: 200)\n\u2705 Found approval pra_8acfe776d484 in list\n\u2139\ufe0f \n============================================================\n\u2139\ufe0f TEST SUMMARY\n\u2139\ufe0f ============================================================\n\u2139\ufe0f Total Tests: 8\n\u2705 Passed: 8\n\u274c Failed: 0\n\u2139\ufe0f \nSuccess Rate: 100.0%\n"
+    },
+    {
+      "file": "test_qc_inspection_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "rue\n  \u2705 [PASS] Field standar GSM/lebar tersedia\n  \u2139  TEST E: point_value invalid (5) \u2192 400\n  \u2705 [PASS] point_value=5 \u2192 400\n  \u2139  TEST F: ubah a_max=5 \u2192 10 poin jadi B; lalu restore\n  \u2705 [PASS] Thresholds configurable (10 poin \u2192 B saat a_max=5)\n\n================================================================\n  SUMMARY: 13 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_rfid_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.4,
+      "tail": "ocations has state field \u2014 states={'drift', 'unseen', 'tracked'}\n  \u2705 SSOT: inventory_balances unchanged after RFID ops \u2014 2982.5 vs 2982.5\n  \u2705 SSOT: roll remaining unchanged after RFID ops \u2014 4887.0 vs 4887.0\n  \u2705 retire tag\n  \u2705 untagged-rolls shows retired roll \u2014 untagged=7\n  \u2705 re-encode roll \u2014 status=200\n\n=== RESULT: 22 passed, 2 failed ===\nFAILED: ['gate available \u2192 RED', 'gate quarantine \u2192 RED']\n"
+    },
+    {
+      "file": "test_rfq_poc.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.0,
+      "tail": "\u2192 2 PO (split A & B)\n  \u2139  TEST F: RFQ dari PR approved \u2192 award full \u2192 PR converted\n  \u2705 [PASS] RFQ dari PR menarik 1 item\n  \u2705 [PASS] Award \u2192 PR jadi 'converted' + po_id terisi\n  \u2139  TEST G: Award ulang RFQ-1 \u2192 409\n  \u2705 [PASS] Award ulang \u2192 409\n\n================================================================\n  SUMMARY: 15 PASS | 0 FAIL\n================================================================\n"
+    },
+    {
+      "file": "test_vendor_bill_backend.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "================\nVENDOR BILL + 3-WAY MATCHING BACKEND TEST\n======================================================================\n\n== 1. Authentication ==\n  \u2705 Login admin\n  \u2705 Login manager\n  \u2705 Login sales\n\n== 2. Get Purchase Orders ==\n  \u2705 GET /purchase-orders 200\n  \u274c PO-00001 exists (fully received, non-PKP) \n  \u2705 PO-00003 exists (partially received, PKP)\n\n\u274c Required POs not found. Cannot proceed.\n"
+    },
+    {
+      "file": "test_vendor_bill_poc.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": "== Auth ==\n  \u2705 login admin/manager/sales\n  \u274c PO-00001 + PO-00003 exist \n\n== billing-context ==\nTraceback (most recent call last):\n  File \"/app/test_vendor_bill_poc.py\", line 138, in <module>\n    main()\n  File \"/app/test_vendor_bill_poc.py\", line 35, in main\n    ctx = requests.get(f\"{BASE}/purchase-orders/{po1['id']}/billing-context\", headers=H(admin)).json()\n                                                 ~~~^^^^^^\nTypeError: 'NoneType' object is not subscriptable\n"
+    },
+    {
+      "file": "tests/backend_test_catch_weight.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "lls created with weight_kg\n\u2705 Verify PO received_qty updated\n\n--- REGRESSION TESTS ---\n\u2705 Regression: PO unit='meter'\n\n============================================================\nBACKEND CATCH-WEIGHT TEST SUMMARY\n============================================================\nTests Run: 9\nTests Passed: 9\nTests Failed: 0\nSuccess Rate: 100.0%\n============================================================\n"
+    },
+    {
+      "file": "tests/backend_test_special_orders.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 1.1,
+      "tail": "SED: Invalid status transition\n\ud83d\udd0d Testing: Sales cannot approve orders\n\u2705 PASSED: Sales cannot approve orders\n\n======================================================================\n\ud83d\udcca TEST SUMMARY\n======================================================================\nTotal Tests: 17\nPassed: 17 \u2705\nFailed: 0 \u274c\nSuccess Rate: 100.0%\n======================================================================\n\n"
+    },
+    {
+      "file": "tests/fase5_poc.py",
+      "mode": "direct",
+      "rc": 2,
+      "timeout": false,
+      "dur": 0.9,
+      "tail": " 409 code=APPROVAL_PENDING\n  [PASS] 6. ADMIN queue menampilkan entri pending \u2014 queue size=9\n  [PASS] 6b. Admin approve special_price \u2192 harga item BERUBAH \u2014 new_price=129500.0 expected=129500.0\n  [PASS] 6c. Invarian total_amount = \u03a3(price\u00d7qty) \u2014 total_amount=647500.0\n  [PASS] 7. SO#1 naik ke stage Approved setelah SEMUA approval approved \u2014 stage=Approved status=approved\n\n=== RESULT: 13/14 PASS ===\n"
+    },
+    {
+      "file": "tests/test_allocation_policy_17.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.6,
+      "tail": "=50 \nPASS - R2 two lots used (FEFO order) \nPASS - allow_mixed no confirmation \nPASS - allow_mixed still mixed \nPASS - strict_single single mode \nPASS - strict_single reserved==30 \nPASS - strict_single backorder==20 \nPASS - strict_single no confirmation \nPASS - partial reserved==30 \nPASS - partial backorder==20 \nPASS - fewest_splits picks big roll first \n\n=== ALLOCATION POLICY 1.7 \u2014 19/19 PASS ===\n"
+    },
+    {
+      "file": "tests/test_pegging_17.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 1.5,
+      "tail": "armark customer \u2192 200 \nPASS - earmarked_for.type==customer \nPASS - earmarked_for.name terisi \nPASS - /pegging/rolls memuat roll \nPASS - earmark order \u2192 200 \nPASS - earmark non-available \u2192 409 \nPASS - unearmark \u2192 200 \nPASS - roll tak lagi di list pegging \nPASS - anti-rebutan: roll dikecualikan utk customer lain \nFAIL - roll disertakan utk customer pemegang peg :: \n\n=== PEGGING 1.7 \u2014 10/11 PASS ===\n"
+    },
+    {
+      "file": "tests/test_shipment_18.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "'}], 'is_partial': True, 'status': 'dispatched', 'created_by': 'Budi Santoso', 'created_at': '2026-07-04T22:57:09.654971+00:00'}}\nPASS - task \u2192 partially_shipped \nPASS - SO \u2192 partially_shipped \nPASS - SO \u2192 shipped (semua terkirim) \nPASS - ada >=2 shipment (parsial + sisa) \nPASS - surat jalan per-shipment \u2192 200 HTML \nPASS - mark-delivered \u2192 200 \nPASS - SO \u2192 done \n\n=== SHIPMENT 1.8 \u2014 19/20 PASS ===\n"
+    },
+    {
+      "file": "tests/test_tax_invoice_19.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 0.7,
+      "tail": "mpan \nPASS - pengganti \u2192 200 \nPASS - status pengganti \nPASS - pengganti.replaces_id == original \nPASS - original ditandai replaced_by_id \nPASS - cancel pengganti \u2192 200 \nPASS - pengganti status batal \nPASS - original replaced_by_id dilepas \nPASS - list by order (>=2: normal + pengganti batal) \nPASS - entitas non-PKP \u2192 ditolak 400 (skip: tak ada SO ent_kanda) \n\n=== FAKTUR PAJAK 1.9 \u2014 20/21 PASS ===\n"
+    },
+    {
+      "file": "vendor_bill_gl_comprehensive_test.py",
+      "mode": "direct",
+      "rc": 1,
+      "timeout": false,
+      "dur": 2.5,
+      "tail": "' status: po_006\n\u2139\ufe0f \n=== RECEIVING GOODS FOR PO po_006 ===\n\u2139\ufe0f Creating GR with 1 items\n\u274c GR creation failed: 405 - {\"detail\":\"Method Not Allowed\"}\n\u26a0\ufe0f \n\u26a0\ufe0f  Goods receipt may have failed, but continuing...\n\u2139\ufe0f \n=== CREATING VENDOR BILL FOR PO po_006 ===\n\u26a0\ufe0f No billable quantity (billable_qty=0.0)\n\u26a0\ufe0f This might mean goods haven't been received yet\n\u274c \n\u274c Cannot proceed: Failed to create/post vendor bill\n"
+    },
+    {
+      "file": "vendor_bill_gl_test.py",
+      "mode": "direct",
+      "rc": 0,
+      "timeout": false,
+      "dur": 0.4,
+      "tail": "\u2139\ufe0f \n================================================================================\n\u2139\ufe0f TEST SUMMARY - VENDOR BILL GL POSTING\n\u2139\ufe0f ================================================================================\n\u2705 \u2705\u2705\u2705 ALL TESTS PASSED\n\u2705 The bug fix is WORKING: gl_service import is present and GL journals are created\n\u2139\ufe0f ================================================================================\n"
+    }
+  ]
+}

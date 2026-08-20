@@ -1,0 +1,74 @@
+{
+  "summary": "Completed comprehensive testing of PDF Template Designer (Fase 3) - all backend APIs and frontend UI features working correctly. Tested template configuration, branding management, live preview, and PDF rendering with RBAC verification.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: Login (admin + sales users)",
+    "Backend: GET /api/pdf/doc-types returns 11 document types including sales_order",
+    "Backend: GET /api/pdf/sample/sales_order?entity_id=ent_ksc returns sample document (so_001)",
+    "Backend: GET /api/pdf/templates/sales_order returns config and defaults",
+    "Backend: PUT /api/pdf/templates/sales_order saves config with title_override and watermark",
+    "Backend: GET /api/pdf/templates/sales_order verifies config persistence",
+    "Backend: GET /api/pdf/branding/ent_ksc returns branding object",
+    "Backend: PUT /api/pdf/branding/ent_ksc saves branding (company_name, address, phone, npwp, logo_b64)",
+    "Backend: GET /api/pdf/branding/ent_ksc verifies branding persistence",
+    "Backend: POST /api/pdf/preview returns HTML with config overrides (title_override + watermark)",
+    "Backend: GET /api/pdf/render/sales_order/so_001?format=pdf returns PDF starting with %PDF",
+    "Backend: GET /api/pdf/render/sales_order/so_001?format=html returns HTML",
+    "Backend: Resolver fix verified - HTML does NOT contain 'recipient_name' string (no leak)",
+    "Backend: Resolver fix verified - HTML contains formatted address (Jl./Jakarta)",
+    "Backend: RBAC - sales user gets 403 on GET /api/pdf/templates/sales_order (no pdf_template:view)",
+    "Backend: RBAC - sales user gets 403 on GET /api/pdf/branding/ent_ksc (no pdf_template:view)",
+    "Backend: RBAC - sales user gets 403 on POST /api/pdf/preview (no pdf_template:view)",
+    "Backend: RBAC - sales user gets 200 on GET /api/pdf/render (has document:print permission)",
+    "Frontend: Login as admin (admin@kainnusantara.id/demo12345) successful",
+    "Frontend: Navigation to 'Pengaturan & Master Data' → 'Template PDF' tab working",
+    "Frontend: PDF Template Designer container renders (data-testid='pdf-template-designer')",
+    "Frontend: Doc-type select found (data-testid='pdf-doctype-select')",
+    "Frontend: Entity select found (data-testid='pdf-entity-select')",
+    "Frontend: Preview iframe found (data-testid='pdf-preview-frame')",
+    "Frontend: PDF Editor found (data-testid='pdf-editor')",
+    "Frontend: All 6 editor tabs accessible (layout, kop, typografi, field, ttd, footer)",
+    "Frontend: Layout tab - title override field accepts input ('UJI PREVIEW FRONTEND')",
+    "Frontend: Live preview updates after config changes (debounced ~1.5s)",
+    "Frontend: Preview shows updated title 'UJI PREVIEW FRONTEND' in document header",
+    "Frontend: Footer tab - watermark field accepts input ('DRAFT TEST')",
+    "Frontend: Save Template button (data-testid='pdf-save-template') clickable",
+    "Frontend: Save Template success message appears ('Template tersimpan.')",
+    "Frontend: Kop Surat tab - branding fields editable (company_name, address, phone, npwp)",
+    "Frontend: Save Branding button (data-testid='pdf-brand-save') clickable",
+    "Frontend: Save Branding success message appears ('Branding tersimpan.')",
+    "Frontend: Preview updates after branding save (company name shows 'PT Uji Coba - FRONTEND TEST')",
+    "Frontend: Download PDF button (data-testid='pdf-download') clickable",
+    "Frontend: PDF download successful (filename: sales_order-SO-0001.pdf)",
+    "Frontend: No JavaScript errors or console errors during testing",
+    "Frontend: No error messages displayed on UI during all operations"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test_pdf_fase3.py",
+    "/root/.emergent/automation_output/20260719_200523/console_20260719_200523.log",
+    ".screenshots/pdf-designer-initial.png",
+    ".screenshots/pdf-after-title-change.png",
+    ".screenshots/pdf-after-watermark.png",
+    ".screenshots/pdf-after-branding.png",
+    ".screenshots/pdf-designer-final.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (18/18 tests passed)",
+    "frontend": "100% (all features working)",
+    "overall": "100%"
+  },
+  "updated_files": [
+    "/app/backend/backend_test_pdf_fase3.py"
+  ],
+  "action_item_for_main_agent": "",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

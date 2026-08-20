@@ -1,0 +1,89 @@
+{
+  "summary": "FASE G-1 'Fondasi Amandemen' - Comprehensive regression testing of Settings Hub deep-linking (race condition fix), Approval Center with amendment tab, Sales Order integration, Notification Center, and amendment flow. Backend fully healthy with all 5 amendment gates (INV-AMD-01 to 05) operational. Frontend testing partially completed with critical deep-link regression PASSED.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "component": "Settings Hub Deep-Link Path (c)",
+        "issue": "When opening Settings Hub normally (without deep-link), the active group remains 'Koreksi & Amandemen Dokumen' instead of showing the first group. This suggests the race condition fix may have introduced a state persistence issue.",
+        "selector": ".cfg-group-btn.active",
+        "fix_priority": "MEDIUM",
+        "test_status": "NEEDS_VERIFICATION",
+        "note": "Path (a) works correctly - deep-link from amd-open-policy-config lands on correct group. Path (c) needs further investigation to confirm if this is expected behavior or a bug."
+      },
+      {
+        "component": "Frontend Session Management",
+        "issue": "Session expires quickly during testing, requiring re-login. This interrupted comprehensive UI testing.",
+        "affected_flows": ["Sales Order detail testing", "Amendment flow testing", "Notification Center testing"],
+        "fix_priority": "LOW",
+        "note": "Not a functional bug, but impacts testing efficiency"
+      }
+    ],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: All 24 amendment API tests passed (100% success rate)",
+    "Backend: GET /api/amendment-reasons returns 6 reasons with required fields",
+    "Backend: PUT /api/amendment-reasons (admin) - 200 OK",
+    "Backend: PUT /api/amendment-reasons (manager) correctly forbidden - 403",
+    "Backend: POST /api/amendments/preview calculates impact correctly",
+    "Backend: Preview contains impact, method, policy, requires_approval fields",
+    "Backend: Preview rejects invalid field, invalid product_id, order_discount_percent > 100",
+    "Backend: Propose without reason fails with 400",
+    "Backend: Warehouse cannot propose amendments - 403",
+    "Backend: GET /api/amendments returns list with payload field hidden",
+    "Backend: GET /api/amendments/stats/summary returns total, pending_approval, applied",
+    "Backend: GET /api/amendments/{id} returns detail with payload hidden",
+    "Backend: GET /api/amendments/doc/sales_order/{id} returns amendments and notes",
+    "Backend Regression: GET /api/sales-orders - 200 (8 orders)",
+    "Backend Regression: GET /api/purchase-orders - 200 (12 POs)",
+    "Backend Regression: GET /api/notifications - 200 (10 notifications)",
+    "Backend Regression: GET /api/config/registry - 200 (14 groups)",
+    "Backend Regression: GET /api/config/effective?group=amandemen - 200 (7 amendment settings)",
+    "Backend Regression: GET /api/approvals/queue - 200 (1 approval)",
+    "Frontend: Login as admin successful",
+    "Frontend: Settings Hub Deep-Link Path (a) - PASSED: Correctly landed on 'Koreksi & Amandemen Dokumen' group when clicking amd-open-policy-config from Sales Orders > Koreksi & Amandemen tab",
+    "Frontend: Approval Center - All 7 tabs present and working (Semua, Sales Order, Amandemen, Pembelian, Harga Khusus, Retur, Cycle Count)",
+    "Frontend: Navigation to Pesanan & Retur successful",
+    "Frontend: 'Koreksi & Amandemen' tab found and clickable"
+  ],
+  
+  "test_report_links": [
+    "/app/backend_test.py",
+    "/app/.screenshots/01_after_login.png",
+    "/app/.screenshots/02_deeplink_path_a.png",
+    "/app/.screenshots/03_deeplink_path_c.png",
+    "/app/.screenshots/04_approval_center.png"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (24/24 tests passed)",
+    "frontend": "75% (Phase 1 completed: deep-link path a, approval center. Phase 2 incomplete due to session expiry: sales order detail, notification center, full amendment flow, negative testing)"
+  },
+  
+  "updated_files": [],
+  
+  "action_item_for_main_agent": {
+    "priority_1_verification": "Settings Hub Deep-Link Path (c): Verify if keeping the previous deep-link group active when opening Settings Hub normally is INTENDED behavior or a bug. The race condition fix (functional setState) works for path (a), but path (c) may need additional logic to reset to first group when no deep-link is present.",
+    
+    "priority_2_incomplete_testing": "Complete frontend testing for: (1) Sales Order regression - verify detail panel, timeline, action buttons, and 'Koreksi & Amandemen' panel visibility; (2) Notification Center - verify 'Amandemen dokumen' filter type and inline 'Setujui' buttons for PO; (3) Full amendment flow - test complete flow from SO-0008 or Reserved order: open modal, select 'Koreksi harga', change price, verify impact preview, submit, verify result and trail; (4) Negative testing - verify disabled discount per-line shows error and keeps submit button disabled.",
+    
+    "priority_3_session_management": "Consider extending session timeout for admin users during testing to prevent interruptions. Current session expires too quickly for comprehensive UI testing.",
+    
+    "verification_needed": [
+      "Path (c) behavior: Is it correct that Settings Hub remembers the last deep-link group, or should it always show the first group when opened normally?",
+      "Amendment trail panel visibility: Confirm if it's always visible or conditionally shown based on order status/amendment count",
+      "Notification Center amendment filter: Verify if 'Amandemen dokumen' appears in filter dropdown only when amendment notifications exist"
+    ]
+  },
+  
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "true"
+}

@@ -1,0 +1,48 @@
+{
+  "summary": "PS-20 (D-14) E2E Testing Complete - Matriks Persetujuan Divisi Mengikat. Backend 15/15 PASS (100%). Frontend all critical UI elements verified and working. RBAC properly enforced.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Backend: GET /api/approvals/matrix (manager 200, sales/warehouse 403, 4 stages with levels)",
+    "Backend: GET /api/approvals/my-queue (manager 200, filtering, RBAC 403 for sales/warehouse)",
+    "Backend: GET /api/approvals/matrix-log (audit trail with violations filter)",
+    "Backend: design_acc enforcement (sales 403, SoD 403 with Indonesian message, admin 200)",
+    "Backend: purchase_request enforcement (warehouse 403, manager 200)",
+    "Backend: po_custom 2-level approval (Manager L1 -> Admin L2 -> confirmed)",
+    "Backend: Retroactivity switch (new_only exempts old documents)",
+    "Backend: Regression (all existing endpoints work)",
+    "Frontend: Manager login and navigation to Pusat Persetujuan",
+    "Frontend: 'Persetujuan Saya' tab visible and clickable (2nd tab)",
+    "Frontend: my-approvals-view with enforcement banner showing correct config",
+    "Frontend: 4 stage cards (design_acc:1, sample_acc:3, po_custom:1, purchase_request:2)",
+    "Frontend: Queue table with 7 items, summary '7 menunggu · 4 bisa Anda putuskan'",
+    "Frontend: Stage filtering works (click card -> 'Tampilkan semua' -> clear)",
+    "Frontend: Blocked rows (3) with SoD reasons in Indonesian",
+    "Frontend: Approve/reject buttons (4 each) present",
+    "Frontend: Audit log with 33 entries",
+    "Frontend: RBAC - Sales cannot see 'Persetujuan Saya' tab",
+    "Frontend: RBAC - Sales cannot access /my-approvals directly"
+  ],
+  "test_report_links": [
+    "/app/backend_test_ps20.py",
+    ".screenshots/ps20_my_approvals_manager.png",
+    ".screenshots/ps20_rbac_sales.png"
+  ],
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend_test_ps20.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (15/15 tests passed)",
+    "frontend": "100% (all critical UI elements verified)"
+  },
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false
+}

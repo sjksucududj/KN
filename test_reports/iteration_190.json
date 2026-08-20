@@ -1,0 +1,25 @@
+{
+  "summary": "FASE G-6 (Transaksi Antar Entitas) backend fully verified. 13/13 pytest cases pass: login, meta, summary, create dokumen kembar (pair_id, seller+buyer, subtotal 500000 + PPN 11% = 555000), fixed_price tanpa kontrak ditolak 400, siklus ship→receive→invoice, interco_accounts INV-IC-02 (receivable=payable=555000), GL posting balanced double-book (seller: Dr 1-1250=555000, Cr 4-1000=500000, Cr 2-1200=55000, plus HPP Dr 5-1000/Cr 1-1300; buyer: Dr 1-1300=500000, Dr 1-1500=55000, Cr 2-1250=555000), INV-IC-05 PPN keluaran==PPN masukan, partial settlement (200k → status tetap invoiced, settled_amount=200000, outstanding 355000), full settlement (sisa 355k → status 'settled' pada kedua sisi, outstanding 0), list settlements.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_interco_g6.py",
+    "/app/test_reports/pytest/iter_190_interco_g6.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "GET /api/gl/journal defaults to active_entity_id scope; caller wanting cross-entity view must pass entity_id=all. Not a bug, but worth documenting for UI dev of ledger antar-PT layar.",
+    "interco_service.create() posts GL when submit_now=True (bypassing confirm() approval-threshold check). If large-value approval is required, submit_now should either be blocked at high value or route through confirm() to enforce approval_threshold_rupiah. Currently role-check only fires di path draft→confirm.",
+    "config antar_entitas.settlement_reminder_days references consumer services/interco_service.py:balance_reminders which is not implemented (hanya aging_days & reminder_active dihitung inline di list_accounts). Not blocking, but misalignment with registry."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_interco_g6.py (new)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "N/A (skipped per request)"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 — from /app/memory/test_credentials.md",
+  "seed_data_creation": "None (used existing ent_ksc, ent_kanda entities + prod_batik_mega product). Cleanup step in fixture drops interco_transactions/accounts/settlements + journal_entries for interco source_types.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Test file /app/backend/tests/test_interco_g6.py is idempotent — cleans interco collections before running. GL journal endpoint requires entity_id=all query param for cross-entity views. ent_ksc default_tax_mode='ppn' (PKP), ent_kanda default_tax_mode='non_ppn'. PPN 11% applies when seller is PKP under ppn_mode=ikut_pkp (default).",
+  "rca of the issue": "N/A — no defects found; two initial test failures were test-script issues (wrong endpoint path /api/gl/entries → /api/gl/journal, and missing entity_id=all for cross-entity scope). Both fixed in test file; backend behaviour correct."
+}

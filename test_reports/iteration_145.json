@@ -1,0 +1,104 @@
+{
+  "summary": "R0 Return Policy Engine testing completed. Backend: 100% pass (16/16 tests). All R0 endpoints working correctly: Supplier return policy (embedded with origin_type, country, custom_fields), Sales return policy CRUD (global/category/customer scope), Eligibility check with policy resolution, Policy snapshot in sales returns, Auth validation. Frontend: Login successful, UI components present but navigation to specific R0 pages requires manual verification due to config-driven hub structure.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: API Health Check",
+    "Backend: Auth - Login with admin@kainnusantara.id",
+    "Backend: Auth - All R0 endpoints reject unauthorized requests (401/403)",
+    "Backend: Supplier - Create with Return Policy (origin=import, country=China, custom_fields OK)",
+    "Backend: Supplier - Get Return Policy (recommend_regrade_local=True for import+non-returnable)",
+    "Backend: Supplier - Update Return Policy (refund_modes normalized to canonical values)",
+    "Backend: Sales Policy - Create Global (scope=global, window_days=30)",
+    "Backend: Sales Policy - Create Category (scope=category, scope_ref=Kain)",
+    "Backend: Sales Policy - List (bare array, 8 policies returned)",
+    "Backend: Sales Policy - Get Detail by ID",
+    "Backend: Sales Policy - Update (window_days=60, restocking_fee_pct=15.0, enforce_window=True)",
+    "Backend: Sales Policy - Delete (Soft deactivate, status=inactive, hidden from list)",
+    "Backend: Validation - Category scope with empty scope_ref correctly rejected (400)",
+    "Backend: Validation - Invalid scope correctly rejected (400)",
+    "Backend: Eligibility - Check returns all required fields (eligible, within_window, deadline, days_remaining, window_days, require_inspection, policy snapshot, warnings)",
+    "Backend: Sales Return - Policy Snapshot attached correctly (policy_snapshot, return_deadline, policy_eligibility)",
+    "Frontend: Login successful with admin credentials",
+    "Frontend: Dashboard loads correctly after login",
+    "Frontend: Sidebar navigation visible with PENJUALAN and PEMBELIAN groups"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/r0_return_policy_test.py"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (16/16 tests passed)",
+    "frontend": "Partial - Login and basic UI verified, full navigation requires manual testing due to config-driven hub structure"
+  },
+  
+  "updated_files": [
+    "/app/backend/r0_return_policy_test.py"
+  ],
+  
+  "action_item_for_main_agent": "",
+  
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  
+  "detailed_notes": {
+    "backend_test_coverage": {
+      "supplier_return_policy": {
+        "create_with_nested_policy": "✅ PASS - All fields persisted correctly including origin_type=import, country=China, custom_fields (min_defect_rate, inspection_location)",
+        "get_effective_policy": "✅ PASS - Returns recommend_regrade_local=true for import + returnable_to_supplier=false",
+        "update_policy": "✅ PASS - refund_modes normalized to canonical values (cash, ap_credit, none)",
+        "extensible_custom_fields": "✅ PASS - Custom fields stored and retrieved correctly"
+      },
+      "sales_return_policy_crud": {
+        "create_global": "✅ PASS - Global scope policy created with all fields",
+        "create_category": "✅ PASS - Category scope policy created with scope_ref=Kain",
+        "list": "✅ PASS - Returns bare array (not wrapped in object)",
+        "get_detail": "✅ PASS - Returns policy by ID",
+        "update": "✅ PASS - Fields updated correctly with normalization",
+        "delete_soft": "✅ PASS - Status set to inactive, hidden from list without include_inactive"
+      },
+      "validation": {
+        "category_empty_scope_ref": "✅ PASS - Returns 400 when scope=category and scope_ref is empty",
+        "invalid_scope": "✅ PASS - Returns 400 when scope is not in (global, category, customer)"
+      },
+      "eligibility": {
+        "check_endpoint": "✅ PASS - Returns all required fields: eligible, within_window, deadline, days_remaining, window_days, require_inspection, policy (snapshot), warnings",
+        "policy_resolution": "✅ PASS - Resolves policy correctly (found 'Retur Standar 30 Hari' for test order)",
+        "deadline_calculation": "✅ PASS - Deadline calculated correctly based on order date + window_days"
+      },
+      "sales_return_creation": {
+        "policy_snapshot": "✅ PASS - policy_snapshot attached with policy name and fields",
+        "return_deadline": "✅ PASS - return_deadline calculated and attached",
+        "policy_eligibility": "✅ PASS - policy_eligibility object attached with eligible flag"
+      },
+      "auth": {
+        "rejection_without_token": "✅ PASS - All 3 R0 endpoints (/sales-return-policies, /sales-return-policies/eligibility, /suppliers/{id}/return-policy) reject unauthorized requests with 401/403"
+      }
+    },
+    "frontend_observations": {
+      "login": "✅ Login successful with admin@kainnusantara.id / demo12345",
+      "dashboard": "✅ Dashboard (Control Tower) loads correctly",
+      "sidebar": "✅ Sidebar visible with PENJUALAN and PEMBELIAN groups",
+      "navigation": "⚠ Config-driven hub navigation requires manual verification - automated test could not navigate to specific R0 pages (Kebijakan Retur, Pemasok) due to dynamic hub structure",
+      "seeded_data": "✅ Found 'Batik' text on page, indicating seeded policies are present"
+    },
+    "test_environment": {
+      "backend_url": "https://inventory-refund.preview.emergentagent.com/api",
+      "frontend_url": "https://inventory-refund.preview.emergentagent.com",
+      "test_user": "admin@kainnusantara.id",
+      "test_date": "2026-07-23",
+      "frontend_build": "PREBUILT STATIC (no hot reload)"
+    }
+  }
+}

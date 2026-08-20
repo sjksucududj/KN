@@ -1,0 +1,55 @@
+{
+  "summary": "RE-TEST: Special Price Request shortcut from checkout - tested ADMIN approve path, SALES role restrictions, validation, and persistence. Core functionality working correctly with 1 minor UI issue (notice not appearing after submission).",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "CheckoutDrawer / RequestSpecialPriceModal",
+        "issue": "Notice (cart-item-sp-notice-<productId>) does NOT appear after clicking 'Setujui & Terapkan' or 'Ajukan untuk Approval'. Expected to show 'diterapkan/disetujui' or 'menunggu persetujuan' message.",
+        "selector": "[data-testid^='cart-item-sp-notice-']",
+        "fix_priority": "LOW",
+        "workaround": "Special price badge DOES appear correctly showing the approved price, so users can still see the result. Only the temporary notice message is missing."
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "✅ Login as admin and sales roles",
+    "✅ Navigation to POS (expand PENJUALAN group, click nav-sales)",
+    "✅ Add product to cart flow (ProductQuickView modal, roll rounding)",
+    "✅ Checkout step 1 (customer & address selection)",
+    "✅ Checkout step 2 shows 'Minta Harga Khusus' button when NO approved special price exists",
+    "✅ Modal opens with all required fields (rsp-price, rsp-minqty, rsp-validuntil, rsp-reason)",
+    "✅ ADMIN role: 'Setujui & Terapkan' button (rsp-approve) present and functional",
+    "✅ ADMIN role: 'Ajukan untuk Approval' button (rsp-request) present",
+    "✅ SALES role: 'Setujui & Terapkan' button NOT present (correct role restriction)",
+    "✅ SALES role: 'Ajukan untuk Approval' button present with warning message",
+    "✅ Special price badge appears with correct format: 'Harga khusus Rp 150.000' + struck-through normal price",
+    "✅ Validation: price = 0 shows error 'Harga khusus harus lebih dari 0.'",
+    "✅ Validation: price >= normal price shows error 'Harga khusus harus lebih rendah dari harga normal.'",
+    "✅ Persistence: Approved special prices appear in 'Pusat Persetujuan' -> 'Approval Harga' tab",
+    "✅ Persistence: Both 'Disetujui' and 'Menunggu' statuses visible in approval list",
+    "✅ Approval details shown correctly: customer, product, prices, discount %, requester, approver"
+  ],
+  "test_report_links": [
+    ".screenshots/checkout_step2_before_special_price.png",
+    ".screenshots/special_price_modal_admin.png",
+    ".screenshots/checkout_step2_after_approval.png",
+    ".screenshots/test3_modal_sales.png",
+    ".screenshots/test4a_price_zero.png",
+    ".screenshots/test4b_price_high.png",
+    ".screenshots/test5_approval_harga_tab.png"
+  ],
+  "success_percentage": {
+    "backend": "100% (verified by main agent)",
+    "frontend": "95% (8/9 features working, 1 minor UI notice issue)"
+  },
+  "action_item_for_main_agent": "MINOR FIX: The notice message (cart-item-sp-notice-<productId>) is not appearing after submitting special price request/approval. Check the onSubmitted callback in RequestSpecialPriceModal (line 528-531 in CheckoutDrawer.jsx) and ensure setSpNotice is being called correctly. The special price badge IS working correctly, so this is a low-priority UI feedback issue.",
+  "updated_files": [],
+  "should_call_test_agent_after_fix": "false",
+  "should_main_agent_test_itself": "true"
+}

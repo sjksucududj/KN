@@ -1,0 +1,164 @@
+{
+  "summary": "Completed comprehensive testing of Special Order (OD) feature - Sub-fase 1.12. Backend APIs: 100% pass rate (17/17 tests). Fixed 2 permission bugs. Frontend: Page loads correctly with all UI components, but has session validation error when loading order list.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "fixed_bugs": [
+      {
+        "file": "/app/backend/routers/special_orders.py",
+        "issue": "Permission check inconsistency - used 'order.edit' instead of 'order.update'",
+        "line": 346,
+        "fix": "Changed require_permission(request, 'order', 'edit') to require_permission(request, 'order', 'update')",
+        "impact": "PATCH endpoint was returning 403 for all users",
+        "fix_priority": "FIXED"
+      },
+      {
+        "file": "/app/backend/routers/special_orders.py",
+        "issue": "Permission check inconsistency - used 'order.manage' (non-existent) instead of 'order.update'",
+        "line": 321,
+        "fix": "Changed require_permission(request, 'order', 'manage') to require_permission(request, 'order', 'update')",
+        "impact": "Status transition endpoint was returning 403 for manager role",
+        "fix_priority": "FIXED"
+      }
+    ],
+    "design_considerations": [
+      {
+        "item": "Delete permission for draft orders",
+        "current_behavior": "Only admin role can delete (soft delete/cancel) draft special orders",
+        "consideration": "Sales users might need ability to cancel their own draft orders. Currently requires admin intervention.",
+        "recommendation": "Consider adding 'delete' permission to sales role for order module, or create separate 'cancel_own' permission"
+      }
+    ]
+  },
+  
+  "frontend_issues": {
+    "critical_bugs": [
+      {
+        "component": "SpecialOrders.jsx",
+        "issue": "Session validation error when loading special orders list",
+        "error_message": "Gagal memuat special orders: Session tidak valid",
+        "impact": "Users cannot see the list of special orders, though page loads correctly",
+        "affected_endpoints": ["GET /api/special-orders"],
+        "fix_priority": "HIGH",
+        "possible_causes": [
+          "Token not being passed correctly in Authorization header",
+          "Token expiring before request completes",
+          "CORS or authentication middleware issue"
+        ]
+      }
+    ],
+    "ui_bugs": [],
+    "integration_issues": [
+      {
+        "flow": "Special Orders list loading",
+        "issue": "Frontend shows 'Session tidak valid' error when calling GET /api/special-orders",
+        "backend_status": "Backend API works correctly (tested via backend_test.py with 100% success)",
+        "frontend_behavior": "Error displayed in red banner, empty state shown",
+        "affected_selectors": [".notice-bar.danger"]
+      }
+    ],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: Authentication for all roles (admin, sales, manager)",
+    "Backend: List special orders with filters",
+    "Backend: Create special order below threshold (< 10M IDR) - status: draft",
+    "Backend: Create special order above threshold (> 10M IDR) - status: pending_approval",
+    "Backend: Get special order detail by ID",
+    "Backend: List with status filter (pending_approval)",
+    "Backend: Update draft order (PATCH) - notes and expected_delivery",
+    "Backend: Approve special order (manager role)",
+    "Backend: Status transition: confirmed → in_production",
+    "Backend: Status transition: in_production → ready",
+    "Backend: Status transition: ready → shipped",
+    "Backend: Status transition: shipped → done",
+    "Backend: Reject special order with reason",
+    "Backend: Delete draft order (soft delete to cancelled)",
+    "Backend: Invalid status transition returns 400 error",
+    "Backend: Sales role cannot approve orders (403 forbidden)",
+    "Backend: Approval threshold logic (10 million IDR)",
+    "Frontend: Navigation to Special Orders page via sidebar",
+    "Frontend: Page loads with correct title and subtitle",
+    "Frontend: Empty state displays correctly",
+    "Frontend: Create button visible and clickable",
+    "Frontend: Search box present",
+    "Frontend: Status filter tabs present (Semua/Draft/Menunggu Approval/etc)",
+    "Frontend: UI components render without JavaScript errors"
+  ],
+  
+  "test_report_links": [
+    "/app/tests/backend_test_special_orders.py"
+  ],
+  
+  "success_percentage": {
+    "backend": "100% (17/17 tests passed)",
+    "frontend_ui": "90% (UI loads correctly, 1 critical session error)",
+    "integration": "50% (Backend works, frontend has session issue)"
+  },
+  
+  "updated_files": [
+    "/app/backend/routers/special_orders.py",
+    "/app/tests/backend_test_special_orders.py"
+  ],
+  
+  "action_item_for_main_agent": {
+    "critical": [
+      {
+        "priority": "HIGH",
+        "item": "Fix session validation error in Special Orders list loading",
+        "details": "Frontend shows 'Gagal memuat special orders: Session tidak valid' when calling GET /api/special-orders. Backend API works correctly (verified via direct testing). Issue is in frontend token handling or authentication flow.",
+        "files_to_check": [
+          "/app/frontend/src/features/sales/SpecialOrders.jsx (line 67-85, loadOrders function)",
+          "Frontend authentication/token storage mechanism",
+          "Axios interceptors or API client configuration"
+        ],
+        "suggested_fix": "Verify token is being retrieved from localStorage and passed in Authorization header. Check if token format is correct (Bearer <token>). Ensure token hasn't expired."
+      }
+    ],
+    "medium": [
+      {
+        "priority": "MEDIUM",
+        "item": "Consider permission design for draft order deletion",
+        "details": "Currently only admin can delete draft orders. Sales users might need ability to cancel their own drafts.",
+        "suggested_fix": "Either add 'delete' permission to sales role in permissions_config.py, or implement 'cancel_own' permission logic"
+      }
+    ],
+    "low": []
+  },
+  
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_test_itself": false,
+  
+  "detailed_test_results": {
+    "backend_api_tests": {
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "test_file": "/app/tests/backend_test_special_orders.py",
+      "test_categories": {
+        "authentication": "✅ PASS",
+        "crud_operations": "✅ PASS (create, read, update, delete)",
+        "approval_workflow": "✅ PASS (approve, reject, threshold logic)",
+        "status_transitions": "✅ PASS (all 5 transitions tested)",
+        "permissions": "✅ PASS (role-based access control)",
+        "error_handling": "✅ PASS (invalid transitions, unauthorized access)"
+      }
+    },
+    "frontend_tests": {
+      "navigation": "✅ PASS - Can navigate to Special Orders page",
+      "page_load": "✅ PASS - Page renders with correct components",
+      "ui_components": "✅ PASS - All buttons, inputs, filters present",
+      "data_loading": "❌ FAIL - Session validation error prevents list loading",
+      "form_interaction": "⚠️  UNTESTED - Could not test due to session issue",
+      "create_flow": "⚠️  UNTESTED - Could not complete due to session issue",
+      "approval_flow": "⚠️  UNTESTED - Could not test due to session issue"
+    }
+  },
+  
+  "testing_notes": {
+    "backend": "All backend APIs tested successfully with 100% pass rate. Fixed 2 permission bugs during testing. Approval threshold (10M IDR), status transitions, and role-based permissions all working correctly.",
+    "frontend": "Frontend UI loads and renders correctly. Navigation works. However, there's a critical session validation error when loading the special orders list. This prevents full end-to-end testing of create/approve/status transition flows. Backend APIs work correctly when tested directly, so issue is in frontend token handling.",
+    "environment": "Testing performed on https://po-pdf-sender.preview.emergentagent.com. Backend running on port 8001, frontend on port 3000. All services running via supervisor."
+  }
+}

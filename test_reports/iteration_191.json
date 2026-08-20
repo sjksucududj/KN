@@ -1,0 +1,69 @@
+{
+  "summary": "Completed comprehensive testing of FASE G-6 (Transaksi Antar Entitas). Backend: 13/14 tests passed. Frontend: All UI components and flows working correctly. Detail Panel displays journals, eliminations, warehouse tasks, and timeline. Konsolidasi Grup sync-g6 button working with proper notifications.",
+  
+  "backend_issues": {
+    "critical_bugs": [],
+    "minor_bugs": [
+      {
+        "endpoint": "POST /api/consolidation/sync-g6",
+        "issue": "Does not enforce authentication - returns 200 instead of 401/403 when called without auth token",
+        "impact": "Security issue - endpoint should require accounting.manage permission",
+        "fix_priority": "MEDIUM"
+      }
+    ],
+    "flaky_endpoints": []
+  },
+  
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  
+  "passed_tests": [
+    "Backend: GET /api/interco/transactions/{id}/journal for received transaction - returns seller, buyer, cogs, receipt journals with balanced entries",
+    "Backend: GET /api/interco/transactions/{id}/journal for draft transaction - returns seller=null, buyer=null (not error)",
+    "Backend: POST /api/consolidation/sync-g6 is idempotent (second call created=0)",
+    "Backend: POST /api/interco/transactions/{id}/warehouse-task on draft returns 400 with confirmation message",
+    "Backend: POST /api/supplier-contracts with contract_type='internal' creates partner_kind='entity'",
+    "Backend: All regression endpoints return 200 (summary, transactions, accounts, settlements, meta, contracts)",
+    "UI: Login and navigation to Antar Entitas page works",
+    "UI: All 4 KPI cards present (Total Piutang, Total Utang, Dokumen Terbuka, Pasangan PT Aktif)",
+    "UI: All 3 tabs present (Daftar Transaksi, Saldo Antar-PT, Settlement)",
+    "UI: All 3 action buttons present (Kontrak Internal, Buat Settlement, Transaksi Baru)",
+    "UI: Transactions table displays 6 rows with Physical Goods column",
+    "UI: Detail Panel opens and displays seller/buyer columns",
+    "UI: Detail Panel shows proper empty messages for draft transactions",
+    "UI: Detail Panel displays warehouse tasks, eliminations, and timeline sections",
+    "UI: Konsolidasi Grup - Eliminasi tab displays sync-g6 and sync-pairs buttons",
+    "UI: Sync-g6 button works and displays notification with sync results",
+    "UI: G-6 count badge shows '2 otomatis dari transaksi antar-PT'",
+    "UI: 2 AUTO G-6 badges displayed on elimination entries",
+    "UI: All labels in Bahasa Indonesia (no English technical terms visible)"
+  ],
+  
+  "test_report_links": [
+    "/app/backend/backend_test_g6.py"
+  ],
+  
+  "success_percentage": {
+    "backend": "93% (13/14 tests passed)",
+    "frontend": "100% (all UI components and flows working)"
+  },
+  
+  "updated_files": [
+    "/app/backend/backend_test_g6.py"
+  ],
+  
+  "action_item_for_main_agent": "1. Fix authentication enforcement on POST /api/consolidation/sync-g6 endpoint (should require accounting.manage permission and return 401/403 without auth). 2. Consider adding more confirmed transactions to demo data for testing warehouse task creation and cancellation flows.",
+  
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": true,
+  
+  "notes": {
+    "demo_data": "Demo data contains 6 interco transactions: 1 received (KSC/IC-00001 with completed warehouse task TRF-00004), 1 draft (KSC/IC-00003), no confirmed transactions found",
+    "g6_eliminations": "2 automatic G-6 eliminations found in Konsolidasi Grup, both marked as AUTO G-6 and balanced",
+    "journal_verification": "Received transaction journals verified: seller/buyer journals balanced, buyer uses 1-1310 (Persediaan Dalam Perjalanan), receipt journal uses 1-1300 and 1-1310, warehouse task has je_intercompany.posted=false",
+    "untested_flows": "Could not test: warehouse task creation on confirmed transaction, cancel with reason on confirmed transaction, receive without warehouse task (no confirmed transactions in demo data)"
+  }
+}

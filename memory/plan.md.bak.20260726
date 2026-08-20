@@ -1,0 +1,631 @@
+# Development Plan — Fase D (Makloon Rantai Proses) → Fase E (Sourcing Berbasis Kontrak)
+
+## 1) Objectives
+- Lanjutkan development repo `pandekomangyogaswastika-dot/kn26072026` setelah **Fase A/B/C terverifikasi selesai** (gate & invarian hijau).
+- Implement **Fase D**: wizard makloon multi-step/multi-mitra + estimasi berbasis GSM auditable + mesin tarif configurable (basis bebas + formula custom) + HPP berjenjang + selisih & klaim (approval manager/admin) + notifikasi eskalasi.
+- Implement **Fase E**: `supplier_contracts` (purchase & makloon) + `supplier_items` + PR fulfillment_mode `purchase|makloon` + PO referensi kontrak + UI penerimaan menampilkan nama supplier.
+
+## 2) Implementation Steps
+
+### Phase 1 — POC Core Fase D (isolated, wajib hijau sebelum wiring UI besar)   ✅ **SELESAI**
+> Bukti (verifikasi ulang 2026-07-26): `python backend/test_fase_d_makloon_poc.py` → **PASS 69 / FAIL 0** (self-cleanup).
+
+**User stories (POC scope)**
+1. As purchasing/admin, saya bisa membuat **kontrak makloon** dengan `tariff_basis` fleksibel + **formula custom** + toleransi susut per mitra.
+2. As planner/manager, saya bisa membuat **order makloon ≥3 step & ≥2 mitra**; sistem menolak bila output step N ≠ input step N+1.
+3. As warehouse, saya bisa issue & receive per step dengan **jejak konversi unit** tersimpan (doc→base) untuk kasus kg/m/yard/pick.
+4. As manager, saya melihat **HPP berjenjang** per step & HPP final terhitung konsisten.
+5. As manager/admin, bila selisih di luar toleransi, sistem membuat **klaim** dan butuh approval; aksi klaim bisa **potong bon / ganti rugi / terima**.
+6. As QC/sales, lot genealogy Fase C tetap utuh untuk output makloon (traceability & recall).
+
+**Deliverables**
+- `backend/test_fase_d_makloon_poc.py` (single script) membuktikan end-to-end via HTTP:
+  - Create `supplier_contracts` (contract_type=`makloon`) berisi:
+    - `tariff_basis`, `rate`, `currency`, `screen_repeat_fee` (printing), `formula` (opsional), `tolerance_pct`, `shrinkage_rules[]` per process_type.
+  - Create Makloon Order chain 3 langkah (tenun→pre_treatment→printing) dengan 2 mitra.
+  - Forecast step berbasis GSM+lebar+susut (tampilkan angka antara); override yield wajib `reason` tercatat audit.
+  - Issue step 1 (dari stock) & receive step 1/2/3; konversi unit tercatat.
+  - Variance dihitung; bila > tolerance ⇒ claim dibuat status `pending_approval`.
+  - Approval manager/admin (reuse approval engine) → jalankan 3 aksi klaim:
+    1) `deduct_vendor_bill` (potong bon): vendor_bill jasa berkurang + GL sesuai.
+    2) `charge_vendor` (ganti rugi): buat AR claim / journal + GL.
+    3) `accept_writeoff`: write-off dengan catatan + GL.
+  - Assert lot genealogy: output lot punya parent_lot dari input.
+  - RBAC: warehouse bisa issue/receive; sales hanya view.
+
+**Evidence**
+```bash
+cd /app
+python seed_realistic.py
+python backend/test_fase_d_makloon_poc.py
+```
+
+**Checkpoint**
+- POC: PASS 100% (no flaky). Jika gagal: perbaiki dulu, jangan lanjut Phase 2.
+
+---
+
+### Phase 2 — Fase D V1 App Development (backend + frontend + invarian + gate)   ✅ **SELESAI**
+> Bukti: backend (`supplier_contracts`, `contract_service`, `makloon_claim_service`,
+> `makloon_calc_service`, extend `makloon_order_service`) + frontend (`MakloonWizard`,
+> `MakloonStepEditor`, `MakloonClaimsView`, `MakloonClaimPanel`, `ContractsView`,
+> `ContractFormModal`, `MakloonPolicyModal`) ter-build & tampil benar di preview.
+> `INV-MKO-01…06` hijau · `scripts/gate.sh` SEMUA HIJAU · `check_nav_map` PASS.
+
+**User stories (V1 UX)**
+1. As purchasing, saya bisa membuat **Order Makloon Wizard** multi-step: pilih input awal → tambah langkah → preview forecast & biaya → simpan.
+2. As warehouse, saya bisa menjalankan **Issue per step** dan melihat qty WIP-at-vendor per step.
+3. As warehouse, saya bisa **Receive per step** dengan input roll output + lot manual + konversi unit; sistem memvalidasi total roll = qty output.
+4. As manager, saya bisa melihat **costing per step** (material/service/aux/byproduct) + HPP final + audit trail.
+5. As manager/admin, saya bisa memproses **klaim selisih** via layar approval: pilih aksi, lihat dampak (vendor bill/GL), approve/reject.
+6. As operations, klaim yang melewati toleransi memicu **alert eskalasi** (R6.6) ke role terkait.
+
+**Backend (Fase D)**
+- Data model additive (Mongo):
+  - `supplier_contracts` (prefix `sct_`) minimal untuk makloon: basis tarif, rate, formula, toleransi, shrinkage per process_type, valid dates, makloon_id.
+  - Update `makloon_orders` & `steps[]`:
+    - `contract_id`, `tariff_basis`, `tariff_original{qty,uom,rate}`, `tariff_base_equivalent{qty,uom,amount}`, `tolerance_pct`, `variance{qty,value,pct}`, `claim{status,action,amount,approved_by,notes}`.
+- Services:
+  - `contract_service.py` (create/get/list; resolve active contract per (makloon_id, process_type, product/stage)).
+  - Extend `makloon_order_service.py`:
+    - hitung forecast berbasis GSM+lebar+susut dari kontrak; simpan breakdown.
+    - mesin tarif configurable: basis bebas + optional formula safe-eval (reuse AST evaluator) + support biaya screen/repeat.
+    - simpan jejak konversi unit doc→base untuk issue/receive (reuse uom_service + uom_rules_service).
+    - variance & claim workflow + integrasi `approval_service`.
+  - Router baru/extend: `routers/supplier_contracts.py` + endpoint claim actions/approvals.
+- Invariants baru di `scripts/verify_data_integrity.py`:
+  - `INV-MKO-01` chain steps nyambung (output step N = input step N+1).
+  - `INV-MKO-02` semua receipt output roll punya `lot_id` & parent_lot_ids.
+  - `INV-MKO-03` tarif memiliki jejak konversi (doc/base) bila basis bukan base unit.
+  - `INV-MKO-04` costing konsisten: WIP clear = persediaan output+sisa.
+  - `INV-MKO-05` claim status/approval valid & tidak bypass RBAC.
+- Indexes untuk `supplier_contracts` dan query makloon-orders by entity/makloon/status.
+- Migrasi idempoten bila ada field lama: `backend/scripts/migrate_fase_d_contracts.py` (2× changed=0).
+
+**Frontend (Fase D)**
+- Wizard baru (replace modal 1-step): `MakloonOrderWizard` multi-step editor.
+- Panel detail: timeline per step, WIP qty, forecast breakdown, costing, variance, claim status.
+- Form issue/receive memakai komponen **Input & Konversi** universal (Fase B) untuk qty & tariff basis.
+- Approval UI: daftar klaim pending + detail dampak + approve/reject (manager/admin).
+- Nav/route: pastikan check_nav_map PASS; rebuild FE.
+
+**Evidence**
+```bash
+cd /app
+python backend/test_fase_d_makloon_poc.py
+python scripts/verify_data_integrity.py
+bash scripts/gate.sh
+bash scripts/rebuild_frontend.sh
+python scripts/check_nav_map.py
+```
+
+---
+
+### Phase 3 — Fase D E2E + bugfix + docs   ✅ **SELESAI** (sesi 2026-07-26)
+**User stories (quality)**
+1. As user, saya bisa menyelesaikan skenario 3-step 2-mitra tanpa manual DB.
+2. As manager, saya yakin variance & klaim konsisten karena invarian hijau.
+3. As finance, dampak GL dari potong bon / klaim / write-off terbukti.
+4. As sales, traceability lot dari output makloon bisa ditelusuri.
+5. As ops, alert eskalasi terkirim sesuai aturan.
+
+**Hasil**
+| Item | Bukti |
+|---|---|
+| `testing_agent_v3` backend (iter_165) | **98%** (POC 69/69 + 29/31 uji independen) · **0 bug kritikal** |
+| `testing_agent_v3` frontend (iter_166) | **100%** · 0 bug UI · 0 layar putih · 0 console error |
+| `verify_data_integrity` | **171 PASS / 0 FAIL / 0 WARN** (`INV-MKO-01…06` hijau) |
+| `gate.sh` | **SEMUA GATE HIJAU** → `memory/GATE_RECEIPT.md` |
+| `validate_compliance` | **124 PASS / 0 FAIL / 19 WARN** (tech-debt lama) |
+| `check_nav_map` | **PASS** |
+
+**Fix yang dilakukan**
+1. **RBAC sales (temuan LOW → fixed).** User story 6 mensyaratkan *"sales hanya view"*, tapi
+   sales 403 di `/api/makloon-orders`. Ditambahkan `makloon: ["view"]` + `makloon_order: ["view"]`
+   ke role `sales` (`backend/permissions_config.py`, di-merge otomatis oleh
+   `sync_permission_modules`) + nav `makloon-orders` mencakup `sales`.
+   `supplier_contract` **tetap tertutup** untuk sales (data komersial).
+   Terverifikasi: sales GET 200 · POST issue/receive/claim/approve/cancel **403**.
+2. **Seed demo Fase D (temuan: kontrak & klaim kosong → alur tak bisa didemokan).**
+   `seed_realistic.py` + `seed_makloon_contracts()` (3 kontrak: tenun basis **kg** dari qty
+   input, celup basis **yard** + aux screen/repeat, finishing **lumpsum**) dan
+   `_seed_makloon_chain_with_claim()` → `MKO-00003` rantai 2 langkah berbasis kontrak,
+   langkah 1 diterima **7% di bawah estimasi** (lewat toleransi 4%) → klaim otomatis terbuka
+   lalu **diajukan `potong_bon`** (`pending_approval`) sehingga layar persetujuan klaim &
+   Skor Mitra punya data nyata. Invarian tetap **0 FAIL**.
+3. **Registrasi koleksi.** `supplier_contracts` ditambahkan ke `ENTITY_REGISTRY.md`,
+   allowlist `scripts/validate_compliance.py` (2 titik) & `scripts/verify_contract.py`
+   `CANONICAL_COLLECTIONS`; field Fase D pada `makloon_orders.steps[]` didokumentasikan.
+
+**Dokumentasi**
+- `docs/KN_24_PLAN_FASE_D_MAKLOON.md` (**BARU** — model data, alur, API, RBAC, invarian, bukti uji)
+- `ENTITY_REGISTRY.md` (entri `supplier_contracts` + field Fase D `makloon_orders`)
+- `plan.md`, `memory/SESSION_LOG.md`, `memory/HANDOFF.md`, `memory/test_credentials.md`
+
+---
+
+### Phase 4 — POC + V1 Fase E (Sourcing kontrak + supplier items + PR routing)   ✅ **SELESAI**
+> Bukti: `python backend/test_fase_e_contracts_poc.py` → **PASS 69 / FAIL 0** · `bash scripts/gate.sh`
+> → **SEMUA GATE HIJAU** (13 gate) · `verify_data_integrity` **0 FAIL** (`INV-SRC-01..05` hijau) ·
+> `testing_agent_v3` iter_167 (BE US-E1..E9 + FE US-E10) & **iter_169 (FE US-E11..E16 = 6/6 PASS, 0 bug)**.
+> **Keputusan pemilik (sesi 2026-07-26):**
+> * `supplier_items` — **FULL: dukung impor massal** (CSV/Excel) + CRUD manual + pencarian by SKU supplier.
+> * PR baris ber-mode `makloon` → **1 klik dari PR membuka Wizard Makloon ter-prefill** (default terbaik UX).
+
+**User stories**
+1. As purchasing, saya bisa membuat **kontrak pembelian** (contract_type=`purchase`) per supplier×produk dengan basis unit & validitas.
+2. As purchasing, saya punya **supplier_items** (nama/SKU versi supplier + konversi unit) dan bisa cari barang pakai SKU supplier.
+3. As purchasing, saya bisa **impor massal supplier_items** dari CSV/Excel (pratinjau → validasi baris → commit; idempotent upsert by (supplier_id, supplier_sku)).
+4. As requester, saya bisa membuat PR yang setiap barisnya memilih fulfillment `purchase|makloon`.
+5. As purchasing, saya bisa realisasikan PR menjadi PO atau Makloon Order (baris makloon → **Wizard Makloon ter-prefill**); status PR dihitung dari realisasi.
+6. As warehouse, saat penerimaan PO, saya melihat nama supplier + nama KN berdampingan.
+
+**Deliverables**
+- `backend/test_fase_e_contracts_poc.py` (single script, self-cleanup):
+  - kebijakan/CRUD `supplier_contracts` **contract_type=purchase** (basis unit, harga, validitas, MOQ)
+  - CRUD `supplier_items` + **impor massal CSV** (pratinjau, baris invalid ditolak dengan alasan,
+    commit idempotent → jalan 2× `created=0 updated=N`) + **pencarian by SKU supplier**
+  - PR **mixed lines** (`fulfillment_mode` purchase & makloon) + validasi
+  - realisasi baris `purchase` → **PO** (menyimpan `contract_id`, `supplier_item_id`,
+    `supplier_sku`, `expected_grade`, harga dari kontrak) ; realisasi baris `makloon` →
+    **payload prefill Wizard Makloon** + Makloon Order tertaut PR
+  - status PR dihitung dari realisasi (`open|partially_realized|realized`) & idempotent
+  - budget enforcement (R6.3) tetap konsisten · RBAC (warehouse request, purchasing realisasi, sales ditolak)
+- Backend: koleksi `supplier_items` (`sit_`), extend `supplier_contracts` contract_type purchase,
+  `purchase_requisitions.items[].fulfillment_mode` + realisasi, PO menyimpan referensi kontrak/supplier item.
+- Frontend: PR line fulfillment selector, tombol realisasi (PO / Wizard Makloon prefill),
+  view **Barang Supplier** (CRUD + impor CSV/Excel + cari SKU supplier), PO create contract picker,
+  receiving menampilkan nama supplier + nama KN berdampingan.
+- Invariants: `INV-SRC-01..05` (contract ref, supplier_item linkage, PR realization correctness,
+  fulfillment_mode valid, PO↔kontrak konsisten).
+
+**Evidence**
+```bash
+cd /app
+python backend/test_fase_e_contracts_poc.py
+python scripts/verify_data_integrity.py
+bash scripts/gate.sh
+bash scripts/rebuild_frontend.sh
+```
+
+---
+
+### Phase 5 — Fase E E2E + docs   ✅ **SELESAI** (sesi 2026-07-26)
+
+**Hasil uji**
+| Item | Bukti |
+|---|---|
+| `test_fase_e_contracts_poc.py` | **69 PASS / 0 FAIL** (dijalankan ulang di environment baru) |
+| `testing_agent_v3` iter_167 | Backend US-E1..E9 + FE US-E10 — 0 bug kritikal |
+| `testing_agent_v3` iter_169 | **FE US-E11..E16 = 6/6 PASS** · regresi backend 12/12 endpoint · **0 bug** |
+| `gate.sh` | **SEMUA GATE HIJAU** (13 gate, termasuk `guard:modal_dismiss` baru) |
+| `verify_data_integrity` | **0 FAIL** (`INV-SRC-01..05` hijau) |
+| Regresi UI manual | 20 halaman/tab render bersih · **0 console error** |
+
+**4 bug NYATA ditemukan & diperbaiki** (detail: `memory/BUG_REGISTRY.md` §Fase E)
+1. **KN-FASEE-UI-MODAL-CLOSE (P1)** — memilih opsi dropdown **menutup modal** → *Impor Massal*
+   praktis tak bisa dipakai. Akar: isi dropdown Radix di **React portal** tetap merembet ke
+   backdrop lewat pohon React + opsi yang menjorok memang berada di atas backdrop.
+   Perbaikan: helper `frontend/src/utils/overlayDismiss.js` (tutup hanya bila `pointerdown`
+   DAN `click` tepat di backdrop) pada **21 backdrop** + `stopPropagation()` pada
+   `components/ui/select.jsx` & `ui/popover.jsx`.
+2. **KN-FASEE-UI-SELECT-BLANK (P2)** — `KNSelect` jalur Radix tampil **kotak kosong tanpa
+   petunjuk** (mis. "Gudang Tujuan *"). Perbaikan: item sentinel berlabel placeholder (hanya
+   selama nilai kosong) + gaya redup `[data-kn-empty]` + `data-testid` per opsi.
+3. **KN-FASEE-PREFILL-OUTPUT-NAME (P2)** — Wizard Makloon ter-prefill menampilkan "pilih output"
+   & ringkasan "?" walau data benar. Perbaikan: prefill kini mengirim `output_name/unit`
+   (+ input & byproduct); wizard memetakannya.
+4. **KN-FASEE-UI-GRID-GAP (P2)** — kolom panel realisasi berhimpitan ("SISAJEJAK REALISASI").
+   Perbaikan: `gap-x-3`.
+
+**Gate baru (aturan emas: bug lolos gate ⇒ gate kurang)**
+- `scripts/guardrails/verify_modal_dismiss.py` → **INV-UI-01**: backdrop modal hanya menutup
+  lewat gestur utuh; isi dropdown ber-portal wajib `stopPropagation()`.
+  **Self-test:** MERAH pada backdrop mentah (berkas sintetis), HIJAU 26/26 setelah perbaikan.
+  Sudah dipasang di `scripts/gate.sh` (blok STATIK).
+
+**Dokumentasi**
+- `docs/KN_25_PLAN_FASE_E_SOURCING_CONTRACTS.md` (**BARU** — masalah, keputusan E-01..E-05,
+  model data, prioritas harga, API, RBAC, layar FE, invarian, bukti uji, cara demo)
+- `memory/INVARIANTS.md` (INV-UI-01) · `memory/BUG_REGISTRY.md` (4 entri Fase E)
+- `plan.md`, `memory/SESSION_LOG.md`, `memory/HANDOFF.md`, `memory/test_credentials.md`
+
+### Phase 6 — POC + V1 Fase F-1 (Penerimaan berbasis SATUAN SUPPLIER)   ✅ **SELESAI & TERUJI**
+> Bukti: `python backend/test_fase_f1_receiving_uom_poc.py` → **PASS 47 / FAIL 0** (self-cleanup) ·
+> `verify_data_integrity` **179 PASS / 0 FAIL / 0 WARN** (`INV-RCV-01..03` hijau) ·
+> `validate_compliance` **124 PASS / 0 FAIL / 19 WARN** (**tanpa warning baru**) ·
+> `check_nav_map` **PASS** · `bash scripts/gate.sh` **SEMUA GATE HIJAU** ·
+> `testing_agent_v3` **iter_170 = overall 99%**, 0 bug kritikal, FE 6/6, **0 console error**.
+> Dokumen: `docs/KN_26_PLAN_FASE_F1_RECEIVING_UOM.md`.
+> Induk: `KN_18` PS-03/PS-04 (satuan & konversi), `KN_22_PLAN_FASE_B_UOM.md` (registry konversi +
+> jejak `uom_trail` + toleransi), `KN_25_PLAN_FASE_E_SOURCING_CONTRACTS.md` (`supplier_items`
+> `supplier_uom`/`conv_factor`). Aturan emas: **kode menang atas dokumen**.
+
+**Masalah yang diselesaikan**
+Setelah Fase E, petugas gudang **melihat** nama & kode barang versi supplier saat penerimaan,
+tetapi **input qty masih WAJIB dalam satuan KN**. Supplier menulis surat jalan dalam satuannya
+sendiri (`cone`, `roll`, `lembar`, `bal`) → operator mengalikan sendiri di kepala/kalkulator
+(mis. 25 cone × 1,89 kg = 47,25 kg). Akibat: salah ketik tak terdeteksi, tidak ada jejak dari
+mana angka stok berasal, dan selisih kiriman tidak bisa dipertanggungjawabkan ke supplier.
+
+**Keputusan desain (F1-01…F1-08)**
+| # | Keputusan | Implementasi |
+|---|---|---|
+| F1-01 | Titik input satuan supplier | `scan-receive` menerima **`doc_uom` + `doc_qty`** (opsional). Diisi ⇒ server konversi ke satuan task & `actual_qty` diabaikan. Kosong ⇒ **perilaku lama 100% backward-compatible** |
+| F1-02 | Prioritas resolusi faktor | 1) **`supplier_item`** (`doc_uom == supplier_uom` ⇒ `conv_factor`) → 2) **registry global** (`uom_rules_service`) → 3) gagal ⇒ **400 actionable** (arahkan ke *Barang Supplier* / *Konversi Satuan*). `source` selalu dicatat |
+| F1-03 | Jejak wajib (D-07) | `wms_tasks.scan_log[].uom_trail` + `wms_tasks.receive_uom_trails[]` (akumulasi). Invarian `INV-RCV-01..03` |
+| F1-04 | Endpoint bantu FE | `GET /api/inbound/tasks/{id}/uom-options` → satuan task/base + barang supplier + opsi satuan berikut faktor & hint + **sisa PO dalam satuan supplier** |
+| F1-05 | Pratinjau sebelum simpan | `POST /api/inbound/tasks/{id}/preview-uom` → trail + sisa + level toleransi, **tanpa menulis** |
+| F1-06 | Pesan toleransi 2 satuan | Bila melebihi sisa/toleransi, pesan menyebut **kedua satuan** ("47,25 kg = 25 cone; sisa 20 kg ≈ 10,58 cone") |
+| F1-07 | Roll fisik tetap fisik | `GRRollLine` (panjang/berat) TIDAK diubah — roll diukur fisik; Σroll ≈ qty diterima tetap divalidasi |
+| F1-08 | Kebijakan tanpa deploy | `system_settings` scope **`receiving`**: `supplier_uom_input_mode` (`off\|optional\|prefer`) · `require_supplier_item_for_supplier_uom` · `block_over_remaining` |
+
+**User stories**
+1. **US-F1** As warehouse, saat menerima barang saya bisa memilih **satuan supplier** (mis. `cone`) dan mengetik qty **apa adanya dari surat jalan** — sistem yang mengonversi ke satuan KN.
+2. **US-F2** As warehouse, saya melihat **pratinjau konversi live** ("25 cone = 47,25 kg · faktor 1,89 · sumber: barang supplier") **sebelum** menekan submit.
+3. **US-F3** As warehouse, saya melihat **sisa PO dalam kedua satuan** sehingga tahu berapa cone lagi yang kurang.
+4. **US-F4** As warehouse, bila satuan supplier belum punya faktor, saya mendapat **pesan yang memberi tahu apa yang harus dilakukan** (bukan error teknis).
+5. **US-F5** As auditor/manager, setiap penerimaan menyimpan **jejak konversi** (satuan & qty dokumen, faktor, sumber, siapa, kapan) yang bisa saya lihat di riwayat scan.
+6. **US-F6** As admin, saya bisa **mengatur kebijakan** input satuan supplier (off/optional/prefer) tanpa deploy.
+7. **US-F7** As purchasing, penerimaan dalam satuan supplier **tidak boleh melebihi** sisa PO + toleransi kedatangan, dan pesan penolakan menyebut kedua satuan.
+8. **US-F8** As warehouse, penerimaan **cara lama** (langsung satuan KN) tetap jalan tanpa perubahan.
+
+**Deliverables**
+- `backend/services/receiving_uom_service.py` (**BARU**, <380 baris) — resolve opsi satuan,
+  konversi berprioritas, bangun jejak, hitung sisa dalam 2 satuan, kebijakan scope `receiving`.
+- `backend/routers/inbound_receiving_extra.py` — `GET …/uom-options`, `POST …/preview-uom`.
+- `backend/schemas_purchasing.py` — `POReceiveItem.doc_uom/doc_qty` (additive, opsional).
+- `backend/routers/inbound_receiving.py` — `scan-receive` memakai service + simpan jejak.
+- `scripts/verify_data_integrity.py` — `INV-RCV-01..03` (lapis `L4-RCV`).
+- Frontend (**yang benar-benar dibuat**):
+  `hooks/useReceivingUom.js` (**BARU**) · `features/wms/inbound/ReceiveUomPanel.jsx` (**BARU**) ·
+  `features/wms/inbound/ReceiveTrailHistory.jsx` (**BARU**) ·
+  `features/wms/inbound/InboundTaskPanel.jsx` (**BARU** — ekstraksi panel kanan agar
+  `InboundScanInterface.jsx` 446 → **372** baris) · `features/wms/InboundScanForm.jsx` (diubah) ·
+  `features/wms/InboundScanInterface.jsx` (diubah) ·
+  `features/admin/uom/ReceivingUomPolicyCard.jsx` (**BARU** — kartu kebijakan di
+  **Produk & Harga → Konversi Satuan**, bukan menu baru ⇒ `check_nav_map` tetap PASS).
+- Seed demo: `seed_receiving_supplier_uom_demo()` di `seed_realistic.py` — 2 task inbound
+  (benang per `cone` belum diterima · lurik per `roll` sudah 5 roll + jejak).
+- POC: `backend/test_fase_f1_receiving_uom_poc.py` (**single script**, via HTTP, **self-cleanup**).
+- Docs: `docs/KN_26_PLAN_FASE_F1_RECEIVING_UOM.md` · `ENTITY_REGISTRY.md` (field baru `wms_tasks`
+  + `purchase_orders.items[]`) · `memory/INVARIANTS.md` (INV-RCV-01..03) ·
+  `memory/BUG_REGISTRY.md` (2 entri Fase F-1).
+
+**2 bug NYATA ditemukan & diperbaiki** (detail: `memory/BUG_REGISTRY.md` §Fase F-1)
+1. **KN-F1-KGBASE-GR (P1 · PRA-ADA)** — penerimaan produk berbasis **`kg`** (benang, obat celup)
+   **mustahil diselesaikan**: `complete` selalu 400 *"tak bisa menurunkan panjang dari berat"*.
+   Direproduksi lewat jalur LAMA ⇒ bukan regresi F-1. Akar: `kg_per_base_unit()` mengembalikan 0
+   bila gramasi×lebar kosong, padahal untuk base unit **satuan berat** faktornya fisika murni.
+   Perbaikan: tabel `WEIGHT_BASE_KG` diperiksa lebih dulu. Kelas bug ini lolos 13 gate karena
+   **belum pernah ada POC yang menerima barang per-kg** → sekarang dikunci POC TEST 9.
+2. **KN-F1-PREVIEW-422 (P2)** — `preview-uom` menjawab 422 detail Pydantic (tak terbaca operator).
+   Perbaikan: `Field(0, ge=0)` ⇒ qty 0 dijawab **400 berbahasa Indonesia**, negatif tetap ditolak
+   lapis skema sehingga **`INV-NUM-01` tetap HIJAU** (percobaan menghapus bound membuat gate MERAH
+   — bukti gate bekerja).
+
+**Evidence**
+```bash
+cd /app
+python backend/test_fase_f1_receiving_uom_poc.py   # → PASS 47 / FAIL 0
+python scripts/verify_data_integrity.py            # → 179 PASS / 0 FAIL / 0 WARN
+python scripts/validate_compliance.py              # → 124 PASS / 0 FAIL / 19 WARN (tanpa warning baru)
+bash scripts/rebuild_frontend.sh
+python scripts/check_nav_map.py && bash scripts/gate.sh   # → SEMUA GATE HIJAU
+python backend/test_fase_e_contracts_poc.py        # → 69 PASS / 0 FAIL (regresi Fase E nol)
+```
+
+---
+
+## 3) Next Actions
+1. ✅ Phase 1–3 Fase D SELESAI & TERUJI (POC 69/0 · testing agent BE 98% / FE 100% · gate hijau · docs KN_24).
+2. ✅ Phase 4 Fase E SELESAI & TERUJI (POC 69/0 · iter_167 + iter_169 · gate 13/13 hijau).
+3. ✅ Phase 5 Fase E E2E + docs SELESAI (4 bug diperbaiki · gate baru INV-UI-01 · docs KN_25).
+4. ✅ **VERIFIKASI ULANG DI POD BARU (sesi 2026-07-26 lanjutan-2)** — repo di-clone ulang dari
+   GitHub, lingkungan dibangun ulang, dan **seluruh gate dijalankan kembali → SEMUA HIJAU**:
+   POC Fase E **69/0** · `verify_data_integrity` **176 PASS / 0 FAIL / 0 WARN**
+   (`INV-MKO-01…06` + `INV-SRC-01…05`) · `validate_compliance` **125/0/19 WARN** ·
+   `check_nav_map` **PASS** · `gate.sh` **SEMUA HIJAU** · `yarn build` sukses ·
+   UI diverifikasi (Barang Supplier 7 item · PR-00005 campur beli/makloon · 0 console error).
+   `memory/HANDOFF.md` disinkronkan (sebelumnya stale).
+5. ✅ **Phase 6 Fase F-1 SELESAI & TERUJI** (POC **47/0** · `verify_data_integrity` **179/0/0** ·
+   `gate.sh` SEMUA HIJAU · `testing_agent_v3` iter_170 **99%**, 0 bug kritikal · docs **KN_26**).
+   **2 bug diperbaiki**: `KN-F1-KGBASE-GR` (P1, **pra-ada** — penerimaan produk per-kg mustahil
+   diselesaikan) & `KN-F1-PREVIEW-422` (P2).
+6. 🟡 **MENUNGGU KEPUTUSAN PEMILIK — kandidat fase berikutnya:**
+   - **F-2 Kepatuhan harga PO vs kontrak**: mode `off|warn|block` bila harga PO diubah manual
+     menyimpang dari kontrak aktif + approval selisih harga.
+   - **F-3 Impor massal untuk kontrak pembelian** (pola sama seperti `supplier_items`) +
+     kedaluwarsa kontrak (notifikasi H-30) yang saat ini hanya tampil sebagai KPI.
+   - **F-4 Skor & perbandingan supplier** dari jejak sourcing (harga realisasi, ketepatan
+     kirim, selisih grade) untuk mendukung negosiasi kontrak berikutnya.
+   - **F-5 (BARU · turunan F-1) Pengiriman & tagihan dalam satuan supplier**: samakan perlakuan
+     satuan supplier pada **retur beli** (nota debit dalam satuan supplier) dan **pencocokan
+     vendor bill** (harga per `supplier_uom` vs per satuan KN) — sekarang baru penerimaan.
+   - **F-6 (BARU · turunan F-1) Rapikan tech-debt satuan berat**: audit produk berbasis
+     `gram/ton/lbs` (kini didukung `WEIGHT_BASE_KG`) + tambah aturan registry eksplisit bila
+     perusahaan mulai membeli dalam satuan tersebut.
+
+### Kandidat lama yang SUDAH dikerjakan
+- ✅ **F-1 Penerimaan berbasis satuan supplier** → Phase 6 (dokumen `KN_26`).
+
+## 4) Success Criteria
+- Fase D:
+  - `python backend/test_fase_d_makloon_poc.py` PASS.
+  - Invarian baru `INV-MKO-*` hijau; `python scripts/verify_data_integrity.py` tetap **0 FAIL**.
+  - Migrasi idempoten (run 2× changed=0 bila ada migrasi).
+  - `bash scripts/gate.sh` HIJAU.
+  - UI wizard makloon multi-step berjalan end-to-end + klaim bisa diproses via approval.
+- Fase E: **✅ SEMUA TERPENUHI**
+  - `python backend/test_fase_e_contracts_poc.py` → **PASS 69 / FAIL 0**. ✅
+  - PR mixed fulfillment direalisasi bertahap (PO **KSC/PO-000xx** + Order Makloon **MKO-00004**);
+    PO menyimpan `contract_id`/`supplier_item_id`/`supplier_sku`/`expected_grade`/`price_source`;
+    Inbound menampilkan "Di surat jalan supplier: SLW-YARN-30S — …". ✅
+  - Gate & invarian hijau (13 gate · `INV-SRC-01..05` · `INV-UI-01` baru) + docs `KN_25` terbarui. ✅
+- Fase F-1: **✅ SEMUA TERPENUHI**
+  - `python backend/test_fase_f1_receiving_uom_poc.py` → **PASS 47 / FAIL 0** (self-cleanup). ✅
+  - Petugas gudang bisa mengetik **25** + satuan **cone** → tersimpan **47,25 kg**; pratinjau,
+    hint faktor, dan sisa PO tampil dalam **dua satuan**. ✅
+  - Jejak konversi WAJIB tersimpan & terlihat di UI (`scan_log[].uom_trail` +
+    `receive_uom_trails[]`) serta tercatat di audit log. ✅
+  - Kebijakan `receiving` bisa diubah **tanpa deploy** (`off|optional|prefer`) dan UI mengikuti. ✅
+  - Regresi cara lama (satuan KN) **nol**; POC Fase E tetap **69/0**. ✅
+  - Gate & invarian hijau (`INV-RCV-01..03` baru · `INV-NUM-01` tetap hijau) + docs `KN_26`. ✅
+  - Bug **P1 pra-ada** `KN-F1-KGBASE-GR` diperbaiki: penerimaan produk per-**kg** (benang, obat
+    celup) kini bisa diselesaikan sampai roll terbentuk. ✅
+
+---
+
+# FASE G — FINANCE: FLEKSIBILITAS PENUH DENGAN KENDALI (permintaan pemilik, 2026-07-26)
+
+> Sumber: 9 permintaan pemilik. Prinsip yang dinyatakan pemilik:
+> **“yang terpenting adalah flexibilitas penuh namun security tetap terjaga.”**
+> Status: 🟡 **RENCANA — belum dieksekusi.** Butuh keputusan pemilik di §G-0.4.
+
+## G-0. Analisis & Desain Induk
+
+### G-0.1 Temuan audit kode (aturan emas: kode menang atas dokumen)
+| # | SUDAH ada | KOSONG (yang harus dibangun) |
+|---|---|---|
+| 1 | `price_approvals`, `po_amendment_service` (diff + re-approval), `approval_service` berjenjang | **taksonomi alasan perubahan**, amandemen **Sales Order** (kini hanya PO), propagasi sumber → invoice terbit, nota koreksi otomatis |
+| 2 | `document_relations_service.build_relations()` **hanya** `sales_order` & `purchase_order`, dihitung on-the-fly | `refs[]` **tersimpan** di dokumen, nomor referensi tercetak di PDF, rantai penuh SO→PR→PO→GR→SJ→Invoice→Retur, tanda tangan jelas |
+| 3 | `payment_terms` template **kaku** (`dp_percent` + `installment_count` + `net_days`) | **skedul cicilan bebas per-order**; `denda` kini **hanya estimasi tampilan** di AR aging (tanpa dokumen/JE/pembatalan) |
+| 4 | `ar_receipt_service` (deposit customer), `store_credit_service` | toleransi pembulatan, keputusan berlabel (outstanding / re-skedul / write-off), alokasi ke skedul cicilan |
+| 5 | `closing_service.reopen_period()` + `reclose_period()` | **izin khusus** (kini cukup `accounting:manage`), alasan wajib, dual-control, posting mundur terkendali |
+| 6 | `gl_service.post_intercompany_transfer()` **at-cost**, `intercompany_pair_id` | harga khusus + **margin**, dokumen PO/SO/Invoice internal, **saldo & deposit antar entitas**, eliminasi *unrealized profit* |
+| 7 | `vendor_bill_service` (per-PO), `potong_bon` makloon | **kontrabon batch** banyak GR/PO, jadwal tukar faktur, 3-way match, potongan terstruktur |
+| 8 | `bank_recon_service.import_lines()` + `auto_match()` (skor = ref-hit + tanggal terdekat) | skor berbobot, many-to-one, parser multi-bank, rule engine pembelajaran, holding account |
+| 9 | — | **belum ada sama sekali** |
+
+### G-0.2 Pola inti: **“AMANDEMEN BERALASAN” (Reasoned Amendment)**
+Ini jawaban desain untuk permintaan #1 dan menjadi fondasi #3–#9.
+
+1. **Tidak ada edit senyap.** Setiap perubahan finansial = **dokumen amandemen ber-nomor**
+   (`doc_amendments`, prefix `amd_`, nomor `<ENT>/AMD-#####`) berisi: `reason_code`, diff
+   sebelum→sesudah per field, **dampak finansial terhitung**, rantai approval, lampiran bukti.
+2. **Edit di SUMBER, bukan di nominal invoice** (permintaan eksplisit pemilik). Nominal invoice
+   AR/AP = **turunan** dari baris sumber (SO/PO + adjustments). Alur:
+   - Invoice **belum terbit** → sumber diubah → invoice di-*re-derive* penuh.
+   - Invoice **sudah terbit / sudah dibayar sebagian** → **JANGAN** ubah angka historis
+     (append-only, aturan repo #7) → terbitkan **Nota Kredit/Debit** (`credit_notes`) yang
+     otomatis ter-`refs` ke invoice asal.
+3. **Approval berbasis DAMPAK**, bukan berbasis layar: `reason_code` × Δnominal × Δ% →
+   menentukan role penyetuju (reuse `approval_service` + `approval_rules`).
+4. **Label perubahan adalah kelas satu** — lihat taksonomi §G-0.3. Setiap laporan, PDF, dan
+   timeline menampilkan **label alasan**, bukan sekadar “diubah oleh X”.
+
+### G-0.3 TAKSONOMI ALASAN PERUBAHAN (`reason_code`) — jantung permintaan #1
+Master `amendment_reasons` (seedable, dapat ditambah user tanpa deploy):
+
+| `reason_code` | Label UI | Ubah master produk? | Dampak | Penyetuju default |
+|---|---|---|---|---|
+| `disc_special_order` | **Diskon Khusus (order ini saja)** | **TIDAK** | diskon baris/order; harga normal **tetap** | manager |
+| `disc_product_promo` | Diskon Produk / Promo | TIDAK | diskon dari kampanye | manager |
+| `disc_volume` | Diskon Volume / Tier | TIDAK | otomatis dari tier | otomatis |
+| `disc_loyalty` | Diskon Loyalitas (CRM) | TIDAK | otomatis dari tier CRM | otomatis |
+| `price_correction_master` | **Koreksi Harga Master (salah input harga produk)** | **YA** | ubah master + opsi retro ke dokumen **terbuka** saja | admin |
+| `price_correction_typo` | Koreksi Salah Ketik di Dokumen | TIDAK | perbaiki baris dokumen ini saja | manager |
+| `price_renegotiation` | Renegosiasi Harga | opsional | harga kesepakatan baru; opsi **jadikan kontrak** | manager |
+| `qty_correction` | Koreksi Qty (salah hitung/timbang) | TIDAK | ubah qty + jejak UoM | manager |
+| `spec_change` | Perubahan Spesifikasi (grade/warna/lot) | TIDAK | ubah item | manager |
+| `goods_return` | Retur Barang | TIDAK | Nota Kredit + stok kembali | manager |
+| `damage_allowance` | Potongan Barang Rusak (tanpa retur fisik) | TIDAK | Nota Kredit tanpa mutasi stok | manager |
+| `freight_adjust` | Penyesuaian Ongkos Kirim | TIDAK | tambah/kurang biaya | manager |
+| `tax_correction` | Koreksi Pajak / Faktur | TIDAK | ubah PPN + faktur pengganti | admin |
+| `penalty_waiver` | **Pembatalan Denda** | TIDAK | denda dibatalkan | manager |
+| `penalty_adjust` | Penyesuaian Nominal Denda | TIDAK | nominal denda diubah | manager |
+| `rounding_writeoff` | Pembulatan / Selisih Kecil | TIDAK | write-off ≤ ambang | **otomatis** |
+| `bad_debt_writeoff` | Hapus Buku Piutang | TIDAK | write-off besar | admin (dual-control) |
+| `bank_charge` | Selisih Biaya Bank | TIDAK | beban admin bank | otomatis ≤ ambang |
+
+Field per baris master: `reason_code`, `label`, `scope (sales|purchase|both)`,
+`affects_master (bool)`, `creates_note (none|credit|debit)`, `gl_account_code`,
+`approval_role`, `threshold_amount`, `threshold_pct`, `requires_evidence (bool)`, `status`.
+
+**Kenapa ini best practice:** laporan margin & audit bisa memisahkan *“harga memang turun karena
+promo”* dari *“ada salah input harga”* dari *“diskon nego satu kali”* — tiga hal yang di sistem
+lama tercampur menjadi “harga berubah”. Ini juga membuat KPI sales adil (diskon promo bukan
+kesalahan sales) dan memungkinkan gate mendeteksi penyalahgunaan diskon.
+
+### G-0.4 ⚠️ KEPUTUSAN PEMILIK YANG DIBUTUHKAN (sebelum eksekusi)
+1. **Ambang & penyetuju**: nominal/persen berapa yang wajib approval manager vs admin? (usul awal: Δ ≤ 2% & ≤ Rp 500rb → otomatis; ≤ 10% & ≤ Rp 5jt → manager; di atas itu → admin)
+2. **`price_correction_master` retroaktif?** Apakah koreksi harga master ikut memperbaiki dokumen **terbuka** (belum terbit invoice) secara otomatis, atau selalu manual per dokumen?
+3. **Denda**: default `off` / `auto-draft` / `auto-issue`? Basis = outstanding total atau per cicilan? Rate & grace default? Ada batas maksimum (cap)?
+4. **Toleransi pembulatan** pembayaran: nominal (mis. Rp 1.000) atau persen (0,1%) — atau mana yang lebih kecil?
+5. **Unlock periode**: siapa yang berwenang (admin saja / role `finance_controller` baru)? Perlu **dua orang** (dual-control)? Batas waktu (mis. maks 7 hari setelah tutup)?
+6. **Margin antar entitas**: `at_cost` / `cost + margin %` / `harga khusus per produk`? Berapa default? Perlu eliminasi konsolidasi?
+7. **Kontrabon**: siklus tukar faktur per supplier (mis. tiap Selasa)? Toleransi 3-way match berapa %?
+
+---
+
+## G-1. Fondasi Amandemen & Kendali *(WAJIB PERTAMA — dependensi semua sub-fase)*
+**User stories**
+1. As sales/purchasing, saya bisa mengubah harga/qty/diskon dari **layar dokumen sumber** dengan **memilih label alasan** yang jelas, dan sistem menampilkan **dampaknya (Rp & %)** sebelum saya kirim.
+2. As manager, saya melihat **diff sebelum→sesudah** yang mudah dibaca + label alasan + dampak, lalu approve/reject dengan catatan.
+3. As finance, invoice yang sudah terbit **tidak pernah** berubah angkanya — koreksi selalu lewat **Nota Kredit/Debit** yang tertaut.
+4. As admin, saya bisa menambah/menonaktifkan **label alasan** dan mengatur ambang approval **tanpa deploy**.
+5. As auditor, saya bisa melihat semua amandemen per periode + siapa mengusulkan/menyetujui + bukti lampiran.
+
+**Deliverables**
+- Koleksi baru: `amendment_reasons` (`amr_`), `doc_amendments` (`amd_`), `credit_notes` (`cnt_`, nomor `<ENT>/CN-#####` & `<ENT>/DN-#####`).
+- `services/amendment_service.py` — usul → validasi (`reason_code` × scope × ambang) → hitung dampak → approval → terapkan (re-derive **atau** nota koreksi) → refs + audit.
+- Perluas `po_amendment_service` menjadi generik; **tambah amandemen Sales Order** (kini belum ada).
+- RBAC baru: `finance_amendment: [propose, approve, admin]`.
+- FE: `AmendmentDrawer` (pilih alasan → isi nilai baru → pratinjau dampak → kirim),
+  `AmendmentDiffPanel`, `AmendmentInbox` (antrian approval), badge label alasan di baris dokumen.
+- Invarian `INV-AMD-01..04`: tiap perubahan finansial punya amandemen ber-alasan · nominal invoice terbit == invoice + Σ nota · approval sesuai ambang & role · master hanya berubah bila `affects_master`.
+
+## G-2. Rencana Pembayaran Fleksibel + Denda sebagai Dokumen *(permintaan #3)*
+**Terobosan desain:** ganti template kaku → **Payment Plan Builder**. Template lama tetap ada
+sebagai *starting point*, lalu bisa diubah bebas per order (drag/ubah baris).
+
+- Koleksi `payment_plans` (`pyp_`): `doc_type/doc_id`, `mode (dp_installment|milestone|net|custom)`,
+  `lines[]{seq, kind (dp|installment|retention|milestone), label, basis (percent|amount),
+  percent, amount, due_date, due_rule (net_days|monthly|weekly|fixed_date), status, paid_amount}`,
+  `penalty{mode (off|draft|auto), grace_days, rate_pct_per_month, base (outstanding|installment), cap_pct}`.
+  **Invarian:** Σ lines == total (toleransi Rp 1) → `INV-PAY-01`.
+  Contoh yang harus bisa dibuat: **DP 15% + 6× cicilan bulanan**; **DP 30% + pelunasan 45 hari**;
+  **milestone** (30% PO, 40% kirim, 30% terima).
+- Koleksi `penalties` (`pnl_`, nomor `<ENT>/DN-DENDA-#####`): siklus
+  `draft` (**tanpa JE**) → `issued` (Dr Piutang Denda / Cr Pendapatan Denda) →
+  `waived` (batal, wajib alasan `penalty_waiver` + approval) | `adjusted` (nominal diubah,
+  `penalty_adjust`) | `paid`. **Kunci fleksibilitas:** denda lahir sebagai `draft` sehingga bisa
+  dinegosiasikan/dibatalkan **tanpa** pernah mengotori GL.
+- Scheduler job `penalty_accrual` harian (reuse `scheduler_service`) + notifikasi H-x.
+- FE: `PaymentPlanBuilder` (visual timeline cicilan + validasi Σ 100% live), `PenaltyPanel`
+  (tombol **Batalkan Denda** / **Ubah Nominal** dengan alasan), kolom denda di AR aging jadi *link* ke dokumen.
+- Invarian `INV-PEN-01..03`: denda `draft` tak punya JE · `waived/adjusted` wajib alasan+penyetuju · Σ denda terbit == saldo akun denda.
+
+## G-3. Selisih Pembayaran: Lebih & Kurang Bayar *(permintaan #4)*
+**Terobosan desain: “Kebijakan Selisih Pembayaran”** — sistem **tidak menuntut exact**, tapi
+setiap selisih **harus punya label keputusan**.
+
+Saat receipt masuk, hitung `delta = dibayar − alokasi jatuh tempo`:
+| Kondisi | Perlakuan |
+|---|---|
+| `abs(delta) ≤ toleransi` | **otomatis** `rounding_writeoff` → tandai lunas, tanpa approval |
+| `delta < 0` (kurang) | UI 3 pilihan **eksplisit**: (a) sisa tetap **outstanding** *(default)* · (b) **ubah skedul** (sisa jadi cicilan baru / geser tempo) · (c) **write-off** + alasan + approval |
+| `delta > 0` (lebih) | UI 3 pilihan: (a) **deposit/saldo customer** *(default — sudah ada)* · (b) **alokasi ke invoice lain terbuka** · (c) **refund** (kas keluar) |
+
+- Koleksi `payment_variance_decisions` (`pvd_`) menyimpan pilihan + alasan + penyetuju.
+- Perluas `ar_receipt_service` (alokasi ke `payment_plans.lines[]`, bukan hanya order) + jalur AP serupa.
+- FE: `PaymentVarianceDialog` — bahasa manusia: *“Dibayar Rp 9.950.000, seharusnya Rp 10.000.000. Kurang Rp 50.000 — mau bagaimana?”* dengan 3 kartu pilihan + dampak masing-masing.
+- Invarian `INV-VAR-01..02`: setiap selisih di luar toleransi punya keputusan berlabel · Σ alokasi + deposit + write-off == Σ kas masuk.
+
+## G-4. Relasi Dokumen, Nomor Referensi, Preview & Tanda Tangan *(permintaan #2)*
+**Masalah nyata pemilik:** *SO customer pending → KN harus PO ke supplier* → banyak surat lahir
+tapi **saling tidak mereferensikan** → tracking & penelusuran retur susah.
+
+- Tambah field **tersimpan** `refs[]` di **semua** dokumen:
+  `[{rel (parent|child|reverses|settles|amends|fulfills), doc_type, doc_id, doc_number, note}]`.
+  **Dua arah** (parent & child) agar bisa ditelusuri dari mana saja.
+- Perluas `document_relations_service` dari 2 → **semua** tipe: SO · PR · PO · GR · Surat Jalan ·
+  Invoice AR · Vendor Bill/Kontrabon · AR Receipt · Payment · Retur Jual · Retur Beli ·
+  Makloon Order · Transaksi Antar-Entitas · Nota Kredit/Debit · Denda · Kasus Keuangan.
+- **Blok “Referensi Dokumen” WAJIB di header setiap PDF**: *“Merujuk: SO-0012 · PR-00021 · PO-00034”* + **QR code** ke halaman Jejak Dokumen.
+- Layar baru **Jejak Dokumen** (timeline + graf klik-tembus) — satu tempat melihat seluruh rantai.
+- **Editor & preview dokumen lebih advanced**: perluas `document_templates` (kini 2 template) —
+  blok header/footer/ttd yang bisa disusun, logo & kop per entitas, preview **WYSIWYG** side-by-side, ukuran kertas & margin, watermark (DRAFT/LUNAS/VOID).
+- **Tanda tangan jelas**: perluas `esign_service` — blok ttd bernama (jabatan + nama + waktu + hash),
+  QR verifikasi, dan status ttd terlihat di daftar dokumen (belum ttd / sudah ttd / ditolak).
+- Invarian `INV-REF-01..03`: dokumen turunan wajib punya ≥1 `refs` parent yang hidup · relasi dua arah konsisten · dokumen tercetak menampilkan nomor referensi.
+
+## G-5. Periode Tertutup: Unlock Berotoritas & Posting Mundur *(permintaan #5)*
+- Permission baru **`period: [unlock, backdate]`** (dipisah dari `accounting:manage`).
+- `reopen_period` diperkuat: **alasan wajib**, **dual-control** (pengusul ≠ penyetuju),
+  batas waktu configurable (mis. maks N hari setelah tutup), notifikasi otomatis ke admin+manager.
+- Koleksi `period_unlock_requests` (`plu_`): usul → approve → **jendela unlock berbatas waktu**
+  (mis. 24 jam) → auto-reclose bila lewat. Semua JE yang dibuat dalam jendela ditandai
+  `backdated_in_unlock: <plu_id>` agar bisa direview.
+- FE: banner merah **“Periode 2026-06 sedang DIBUKA sampai 15:00 oleh Dewi (alasan: koreksi faktur)”** di semua layar finance.
+- Invarian `INV-CLS-01..02`: tidak ada JE di periode `closed` tanpa `backdated_in_unlock` · setiap unlock punya alasan + 2 orang berbeda.
+
+## G-6. Transaksi Antar Entitas (bukan lagi “transfer”) *(permintaan #6)*
+Pemilik menegaskan: **antar entitas = jual-beli dengan harga khusus & margin**, diperlakukan seperti supplier.
+- **Rename domain**: “Transfer Antar-Entitas” → **“Transaksi Antar-Entitas”** (istilah lama tetap didukung untuk data lama).
+- Entitas pembeli menerbitkan **PO internal**; entitas penjual menerbitkan **SO + Surat Jalan + Invoice internal**. Semuanya `refs` satu sama lain (G-4).
+- **Harga khusus internal**: `supplier_contracts` diperluas `partner_kind="entity"` +
+  `ic_pricing_mode (at_cost | cost_plus_pct | fixed_price)`. Margin → laba entitas penjual, HPP naik di pembeli.
+- **Saldo & deposit antar entitas**: koleksi `intercompany_accounts` (`ica_`) — saldo IC-AR/IC-AP per pasangan entitas, **setoran/deposit**, dan **netting/settlement** berkala (satu dokumen menutup banyak transaksi).
+- **Konsolidasi**: eliminasi **unrealized profit** untuk stok antar-entitas yang belum terjual eksternal (perluas `consolidation_service`).
+- Invarian `INV-IC-01..04`: tiap transaksi IC punya pasangan JE seimbang di 2 buku · IC-AR entitas A == IC-AP entitas B · margin ter-eliminasi di konsolidasi · saldo IC == Σ transaksi − Σ settlement.
+
+## G-7. Kontrabon Advanced *(permintaan #7)*
+- Koleksi `contra_bons` (`cbn_`, nomor `<ENT>/CB-#####`): **menggabungkan banyak GR/PO/vendor bill** dari satu supplier dalam satu siklus tukar faktur.
+- **Jadwal tukar faktur per supplier** (mis. setiap Selasa) → sistem otomatis mengumpulkan GR yang belum ditagih + mengingatkan.
+- **3-way match** PO ↔ GR ↔ Faktur Supplier dengan toleransi configurable; selisih → **keputusan berlabel** (G-1), bukan diterima diam-diam.
+- **Potongan terstruktur** (`deductions[]`): retur beli · **klaim makloon `potong_bon` (sudah ada)** · denda keterlambatan supplier · uang muka · selisih 3-way.
+- Siklus: `draft → submitted → verified → approved → scheduled_payment → paid` (+ `disputed`).
+- Cetak **Tanda Terima Kontrabon** untuk supplier berisi seluruh referensi GR/PO (G-4).
+- Invarian `INV-CB-01..03`: satu GR tak boleh masuk 2 kontrabon aktif · Σ kontrabon == Σ vendor bill − potongan · 3-way match di luar toleransi wajib keputusan berlabel.
+
+## G-8. Rekonsiliasi Bank Otomatis *(permintaan #8)*
+- **Parser multi-bank**: template mapping yang bisa dibuat user (`bank_statement_formats`, `bsf_`) untuk CSV/XLSX **BCA · Mandiri · BNI · BRI · Permata**, plus OFX/MT940.
+- **Skor berbobot** (menggantikan skor 2-faktor sekarang): nominal tepat **40** + tanggal ±N hari **20** + kecocokan nomor referensi/berita transfer **25** + fuzzy nama pengirim **15**; ambang auto-match configurable (mis. ≥80 auto, 60–79 usulan, <60 manual).
+- **Many-to-one & one-to-many**: 1 transfer melunasi beberapa invoice; beberapa transfer melunasi 1 invoice (split match).
+- **Rule engine pembelajaran**: bila user manual-match pola yang sama 3× → sistem menawarkan membuat aturan otomatis (`bank_match_rules`, `bmr_`).
+- **Holding account “Titipan Dana Belum Teridentifikasi”**: dana masuk yang belum ketemu pemiliknya masuk akun titipan (bukan menggantung tanpa jurnal) → jadi antrean di G-9.
+- Invarian `INV-BNK-01..03`: setiap baris mutasi berstatus (matched|ignored|holding) · Σ matched == Σ transaksi tertaut · saldo holding == Σ baris belum teridentifikasi.
+
+## G-9. Pusat Kasus Keuangan (Finance Exception Desk) *(permintaan #9)*
+Koleksi `finance_cases` (`fcs_`, nomor `<ENT>/CASE-#####`) + **playbook** per jenis kasus.
+Semua kasus **selalu** melahirkan dokumen turunan (JE/receipt/refund) — tidak ada edit senyap.
+
+| Jenis kasus | Playbook penyelesaian |
+|---|---|
+| **Customer salah transfer rekening** (masuk ke rekening KN yang lain) | pindah-buku antar rekening internal + JE, `refs` ke receipt asal |
+| Customer transfer ke **rekening pribadi karyawan** | catat titipan karyawan → setor ke KN → JE 2 langkah + jejak tanggung jawab |
+| **Dana masuk tak dikenal** | akun titipan (G-8) → investigasi → alokasi ke customer / refund |
+| **Bayar dua kali (duplikat)** | deteksi duplikat otomatis → refund atau deposit |
+| Transfer dari **nama pihak ketiga** | tautkan ke customer dengan bukti + approval |
+| **Bayar invoice yang salah** | re-alokasi antar invoice (bukan void) |
+| Nominal beda karena **biaya bank** | selisih ke beban admin bank (otomatis ≤ ambang, `bank_charge`) |
+| **Cek/giro ditolak** | reversal receipt + denda opsional + notifikasi |
+| **Refund ke customer** | dari deposit/store credit → kas keluar berjenjang approval |
+| **Salah entitas** (bayar ke PT lain) | settlement antar entitas (G-6) |
+| **Kelebihan bayar supplier** | saldo di supplier / minta refund / potong kontrabon berikutnya |
+
+- Siklus: `open → in_progress → resolved | rejected`; wajib alasan + **lampiran bukti**; approval sesuai dampak nominal; SLA + eskalasi (reuse `escalation_service`).
+- FE: **Inbox Kasus Keuangan** (antrean + filter jenis + umur kasus) & wizard playbook per jenis.
+- Invarian `INV-CASE-01..02`: kasus `resolved` wajib punya dokumen turunan + penyetuju · tidak ada dana di akun titipan > N hari tanpa kasus terbuka.
+
+---
+
+## G-10. Model Keamanan (jawaban “fleksibilitas penuh, security terjaga”)
+Lima lapis, berlaku untuk **seluruh** sub-fase G:
+1. **Tidak ada edit senyap** — semua perubahan = dokumen amandemen ber-nomor + `reason_code`.
+2. **Append-only ledger** — dokumen finansial tak diubah; koreksi via nota/reversal (aturan repo #7).
+3. **Approval berbasis dampak** — ambang nominal × `reason_code` × role; **dual-control** untuk aksi paling sensitif (unlock periode, write-off besar, refund besar).
+4. **Jejak & jejak-balik** — audit log + `refs[]` dua arah + `explain[]` pada setiap perhitungan (pola yang sudah terbukti di Fase D/E/F-1).
+5. **Gate otomatis** — invarian baru `INV-AMD` · `INV-PAY` · `INV-PEN` · `INV-VAR` · `INV-REF` · `INV-CLS` · `INV-IC` · `INV-CB` · `INV-BNK` · `INV-CASE`, semuanya masuk `scripts/gate.sh`.
+
+RBAC baru yang diusulkan: `finance_amendment:{propose,approve,admin}` · `period:{unlock,backdate}` ·
+`penalty:{waive,adjust}` · `payment_variance:{writeoff}` · `finance_case:{resolve}` ·
+`intercompany:{trade,settle}` · `contra_bon:{create,verify,approve}`.
+
+## G-11. Urutan eksekusi yang disarankan (berbasis dependensi)
+| Urutan | Sub-fase | Alasan |
+|---|---|---|
+| 1 | **G-1 Fondasi Amandemen** | dependensi semua sub-fase lain |
+| 2 | **G-4 Relasi Dokumen & Referensi** | dibutuhkan G-6/G-7/G-9; nilai terasa cepat |
+| 3 | **G-2 Rencana Pembayaran + Denda** | permintaan operasional paling mendesak |
+| 4 | **G-3 Selisih Pembayaran** | butuh G-2 (skedul cicilan) |
+| 5 | **G-8 Rekonsiliasi Bank** | menyuplai antrean G-9 |
+| 6 | **G-9 Pusat Kasus Keuangan** | butuh G-1 + G-8 |
+| 7 | **G-7 Kontrabon Advanced** | butuh G-1 + G-4 |
+| 8 | **G-6 Transaksi Antar Entitas** | paling berdampak ke akuntansi & konsolidasi |
+| 9 | **G-5 Unlock Periode** | kecil, bisa diselipkan kapan saja |
+
+Setiap sub-fase mengikuti pola repo yang sudah terbukti: **POC-first (`test_*_poc.py` single
+script, self-cleanup, HIJAU 100%) → backend → invarian → frontend → `testing_agent_v3` BE+FE →
+gate → dokumen `KN_27+` → BERHENTI minta approval.**
+
+## G-12. Utang teknis yang harus ikut dituntaskan (hasil audit 2026-07-26)
+| # | Celah | Rencana |
+|---|---|---|
+| 1 | **`PO create contract picker` TIDAK ADA** — `POCreateForm.jsx` 0 referensi kontrak; masih pakai `/supplier-price-list/resolve` (price-list lama), bukan `supplier_contracts` Fase E | masuk **F-2** |
+| 2 | **Harga kontrak tidak berlaku pada PO manual** — `_create_po_core` tak memanggil `contract_service.resolve_active`; kontrak hanya mengikat di jalur PR→PO | masuk **F-2** |
+| 3 | **Jejak sourcing tak ditampilkan** di `PODetailPanel.jsx` (`contract_number`/`supplier_sku`/`price_source`/`sourcing_explain[]` tersimpan tapi tak terlihat) | masuk **F-2** |
+| 4 | **`block_over_remaining` separuh jalan (defect F1-08)** — pratinjau `level="warn"` (Submit aktif) tapi server tetap **400** ⇒ tidak konsisten | **perbaiki segera** |
+| 5 | *Fase D:* form issue/receive makloon tak memakai `UomInputConvert` & **tanpa pratinjau konversi live** — UX lebih lemah dari F-1 | tech-debt, digabung ke fase UX |
+| 6 | 19 WARN `validate_compliance` (4 koleksi belum di ENTITY_REGISTRY, 2 NAMING, 5 JSX ≥90% batas, 3 IMPORTS false-positive) | fase bersih-bersih |

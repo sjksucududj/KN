@@ -1,0 +1,43 @@
+{
+  "summary": "F2 Multi-bucket Stock (Hold/Pending SO & WIP) — 18/20 backend tests PASSED, 2 FAILED due to STALE permission_settings in DB (warehouse & manager missing 'update' on 'inventory' module). Backend logic itself is correct: papan bucket (GET /api/stock/buckets) returns produk + warehouses[] breakdown with totals (available/hold/wip/on_hand/atp), filter product_id works. Hold flow validated: POST /api/stock/hold ↓available, ↑hold_qty, on_hand TETAP, atp ↓ (semua tepat). Hold exceeds avail → 409. GET /api/stock/holds enriched (product_name, warehouse_name, owner_entity_name, ref_doc_id=ref_id SO). Release hold restores balance. WIP start+complete restore. Partial-roll SPLIT works (qty 7.5 → available turun TEPAT 7.5, bukan seluruh roll). Sales 403 on hold/wip operations (RBAC OK). Sales cross-entity owner_entity ent_kanda → 403. Regresi: /api/inventory/balances, /api/inventory/status-board, /api/sales-orders, /api/products semua 200. on_hand stabil saat hold+wip aktif (= jumlah fisik termasuk hold+wip). Teardown OK: db.inventory_rolls hold=0 wip=0; balances jkt=95, sby=140 (baseline). Frontend smoke INCOMPLETE — browser crash di runner saat ekspansi grup sidebar 'GUDANG' setelah login berhasil (main agent perlu validasi UI manual atau retry).",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/stock/hold (warehouse role) & /api/stock/wip/start (manager role)", "issue": "Returns 403 'Permission ditolak: inventory.update' karena db.permission_settings.default.matrix masih SNAPSHOT lama (warehouse.inventory=['view','cycle_count'], manager.inventory=['view','cycle_count','approve_count']). permissions_config.py SUDAH benar (warehouse=['view','cycle_count','update'], manager=['view','cycle_count','approve_count','update']) tapi DB tidak ter-update. Fix: jalankan migrasi/seed yang menyamakan permission_settings dengan DEFAULT_PERMISSIONS (atau hapus dokumen agar fallback ke DEFAULT_PERMISSIONS).", "priority": "HIGH"}
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [
+      {"flow": "Sidebar navigation Gudang → Stok Multi-Bucket", "issue": "Tidak ada data-testid pada grup sidebar 'GUDANG' atau item 'Stok Multi-Bucket' → Playwright kesulitan mengekspansi grup. Tambahkan data-testid='sidebar-group-gudang' & 'sidebar-link-stock-buckets' untuk reliabilitas E2E.", "affected_selectors": ["text=GUDANG", "text=Stok Multi-Bucket"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_f2_stock_buckets.py",
+    "/app/test_reports/pytest/f2_results.xml"
+  ],
+  "action_items": [
+    "[CRITICAL] Hapus dokumen db.permission_settings.id='default' ATAU update matrix.warehouse.inventory & matrix.manager.inventory untuk menambahkan 'update' (sinkron dengan permissions_config.DEFAULT_PERMISSIONS). Setelah fix, jalankan ulang TestRBAC::test_warehouse_can_hold dan test_manager_can_wip — keduanya akan PASS.",
+    "[ENH] Tambah migrasi auto-merge: saat startup, merge missing actions dari DEFAULT_PERMISSIONS ke permission_settings agar konfigurasi tidak stale.",
+    "[FE] Tambah data-testid pada sidebar group & link untuk Gudang/Stok Multi-Bucket.",
+    "[ENH] Endpoint POST /api/stock/hold tidak validasi quantity>0 secara eksplisit (saat ini dilempar dari service: 400 'Qty harus lebih dari 0'). Cukup, tapi pertimbangkan Pydantic Field(gt=0) di StockHoldIn/StockWipIn."
+  ],
+  "critical_code_review_comments": [
+    "stock_bucket_service.move_rolls_by_qty: kondisi total + 0.01 < qty dan rlen <= remaining + 0.01 sudah baik untuk floating-point tolerance. Tetapi saat split, length_initial roll induk DIKURANGI juga (line 65). Ini menghilangkan jejak panjang awal asli — pertimbangkan menyimpan 'original_length' atau gunakan length_initial sebagai immutable historic value (idiom umum). Saat ini boleh untuk SSOT bucket, tapi laporan QC/produktivitas dapat kehilangan referensi.",
+    "move_rolls_by_ref: tidak ada idempotency check — call ulang release_hold(hold_id) setelah release pertama akan return 404. OK untuk single-use, tetapi jika dipanggil ulang via UI, user lihat error. Pertimbangkan return 200 dengan released=0 bila tidak ada roll dengan ref tersebut & status sudah available.",
+    "list_rolls_in_bucket: filter status=='hold'/'wip' OK. Tapi tidak ada batas waktu (created_at) atau pagination → pada volume tinggi akan lambat. Tambahkan index db.inventory_rolls{status:1, owner_entity_id:1}.",
+    "stock_buckets.py router: tidak ada validasi quantity>0 pada level pydantic schema — service yang menolak. Lebih baik di schema (StockHoldIn.quantity: float = Field(gt=0)) untuk dokumentasi OpenAPI yang jelas.",
+    "bucket_board: rebuild_balance sudah otomatis di move_rolls_by_qty. Bagus. Tapi totals dihitung di Python (sum atas balances). Untuk multi-warehouse besar (10k+ rows), pertimbangkan $group aggregation."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_f2_stock_buckets.py (BARU)"
+  ],
+  "success_rate": {"backend": "90% (18/20)", "frontend": "smoke partial — login OK, sidebar nav blocked karena browser crash + missing testids"},
+  "test_credentials": "admin@kainnusantara.id / demo12345 (full), warehouse@kainnusantara.id (BLOCKED by stale DB perms), manager@kainnusantara.id (BLOCKED by stale DB perms), sales@kainnusantara.id (RBAC denial verified)",
+  "seed_data_creation": "Test membuat & merilis: 5 hold (TEST_hold_basic, TEST_split_partial, TEST_warehouse_rbac, TEST_inv, dan 1 split tambahan) + 2 WIP (TEST_wip_basic, TEST_manager_rbac, TEST_inv). Teardown otomatis release semua hold + complete semua wip. Verified DB final: inventory_rolls{status:'hold'}=0, {status:'wip'}=0; ulos avail jkt=95, sby=140 (baseline restored). NOTE: hold dari test_warehouse_can_hold & wip dari test_manager_can_wip TIDAK ter-create (gagal RBAC 403), sehingga teardown tidak memerlukannya.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "F2 backend 18/20 PASS. 2 failure adalah konfigurasi DB stale (permission_settings.default), bukan bug kode. Setelah main agent men-sync permission_settings dengan DEFAULT_PERMISSIONS (atau menghapus dokumen agar fallback), re-run: pytest backend/tests/test_f2_stock_buckets.py -v. Test file dapat dipakai kembali untuk regresi. Untuk frontend, browser runner sempat crash; ulangi via fresh session. Untuk uji UI lengkap (tabs Ringkasan/Hold/WIP, data-testid sb-*), gunakan /features/inventory/StockBucketsView.jsx setelah ekspansi grup Gudang.",
+  "rca of the issue": "FAIL test_warehouse_can_hold & test_manager_can_wip — RCA: dependencies.permission_matrix() membaca dari db.permission_settings.find_one({'id':'default'}) bila record ADA. Record snapshot lama (dibuat sebelum perubahan permissions_config) berisi: warehouse.inventory=['view','cycle_count'], manager.inventory=['view','cycle_count','approve_count']. Karena DB hit, fallback DEFAULT_PERMISSIONS (yang sudah ter-update dengan 'update') TIDAK dipakai → 403. Reproduksi: GET /api/permissions atau db.permission_settings.findOne({id:'default'}). Mitigasi cepat: db.permission_settings.deleteOne({id:'default'}) (akan fallback ke DEFAULT_PERMISSIONS) ATAU db.permission_settings.updateOne({id:'default'},{$addToSet:{'matrix.warehouse.inventory':'update','matrix.manager.inventory':'update'}}). Mitigasi jangka panjang: tambahkan migrasi startup yang auto-merge missing keys dari DEFAULT_PERMISSIONS."
+}

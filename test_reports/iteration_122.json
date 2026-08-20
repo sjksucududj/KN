@@ -1,0 +1,45 @@
+{
+  "summary": "Completed comprehensive testing of R1-05 and R1-06 P0 bug fixes. All backend API tests passed (8/8). Frontend UI verification confirmed R1-05 implementation with 'On-Request' column and transparency fields present.",
+  "backend_issues": {
+    "critical_bugs": [],
+    "flaky_endpoints": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "R1-06-1: Over-return blocked (qty=9999 > available 24) - Returns 400 with 'Retur melebihi batas' and 'maksimum' message",
+    "R1-06-2: Within-limit return allowed (qty=10, cumulative 16 ≤ 30) - Returns 200, creates return successfully",
+    "R1-06-3: Cumulative overflow blocked (16+20=36 > 30) - Returns 400 with 'Retur melebihi batas' message",
+    "R1-05-1: Reorder suggestions API returns 'on_request' and 'existing_prs' fields for all items",
+    "R1-05-2: Create open PR for prod_benang_katun (qty=100) - Returns 200, PR-00005 created",
+    "R1-05-3: Reorder suggestions correctly show on_request=100 and existing_prs=['PR-00005'] for prod_benang_katun",
+    "R1-05-4: Create second PR for prod_benang_katun (qty=200) - Returns 200, PR-00006 created",
+    "R1-05-5: Product prod_benang_katun removed from suggestions when fully covered (projected 390 > rop 250)",
+    "R1-05 Frontend: 'On-Request' column header present in reorder suggestions table",
+    "R1-05 Frontend: on_request data cells displayed with testid pattern 'reorder-onrequest-*' (4 cells found)",
+    "R1-05 Frontend: Table structure correct with 4 product rows using testid pattern 'reorder-row-*'",
+    "R1-05 Frontend: View loaded with correct title 'Saran Reorder · Replenishment'"
+  ],
+  "test_report_links": [
+    "/app/backend/backend_test_r1_05_06.py"
+  ],
+  "success_percentage": {
+    "backend": "100% (8/8 tests passed)",
+    "frontend": "100% (UI elements verified, PR badge not visible as expected due to product removal)"
+  },
+  "action_item_for_main_agent": "",
+  "updated_files": [
+    "/app/backend/backend_test_r1_05_06.py"
+  ],
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_test_itself": false,
+  "notes": {
+    "r1_06_validation": "Sales return over-return validation working correctly. Backend enforces cumulative quantity cap based on shipped/sold quantity. Error messages are clear and informative.",
+    "r1_05_transparency": "Reorder suggestions anti-duplicate PR logic working correctly. The 'on_request' field tracks open PR quantities, and 'existing_prs' array shows PR numbers. Products are correctly removed from suggestions when projected stock (available + on_order + on_request) exceeds reorder point.",
+    "pr_badge_absence": "PR badges with testid 'reorder-pr-badge-*' were not found in the UI during testing. This is EXPECTED behavior because the test product (prod_benang_katun) was removed from the reorder suggestions list after creating PRs that fully covered its reorder point (projected 390 > rop 250). The badge would only appear for products that remain in the suggestions list AND have open PRs.",
+    "data_integrity": "Main agent reported verify_data_integrity gate PASS 125/0 including new L4-RET invariant for return quantity validation."
+  }
+}
